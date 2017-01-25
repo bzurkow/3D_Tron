@@ -1,0 +1,36 @@
+{
+  "name": "whs",
+  "homepage": "https://github.com/WhitestormJS/whitestorm.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WhitestormJS/whitestorm.js"
+  },
+  "authors": [
+    "sasha240100 <siteprogcom@gmail.com>"
+  ],
+  "description": "Framework for developing 3D web apps with physics.",
+  "main": "index.html",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "src",
+    "examples",
+    "media"
+  ],
+  "version": "1.1.5",
+  "_release": "1.1.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.5",
+    "commit": "76adfcedd0e17b0a4bda87da15305a3213219d0b"
+  },
+  "_source": "https://github.com/WhitestormJS/whitestorm.js.git",
+  "_target": "^1.1.5",
+  "_originalSource": "whitestormjs",
+  "_direct": true
+}

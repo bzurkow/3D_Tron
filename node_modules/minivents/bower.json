@@ -1,0 +1,27 @@
+{
+  "name": "minivents",
+  "version": "2.0.1",
+  "homepage": "https://github.com/allouis/minivents",
+  "authors": [
+    "Fabien O'Carroll - allouis"
+  ],
+  "description": "Tiny eventing for javascript",
+  "main": "dist/minivents.amd.min.js",
+  "moduleType": "amd",
+  "keywords": [
+    "events",
+    "minivents",
+    "tiny",
+    "event",
+    "emitter",
+    "eventemitter"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
