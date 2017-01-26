@@ -12,7 +12,7 @@ const world = new WHS.World({
   },
 
   camera: {
-    position: [50, 50, 50]
+    position: [0, 10, 0]
   },
 
   rendering: {
@@ -30,7 +30,7 @@ const world = new WHS.World({
 
 const sphere = new WHS.Sphere({ // Create sphere comonent.
   geometry: {
-    radius: 25,
+    radius: 5,
     widthSegments: 32,
     heightSegments: 32
   },
