@@ -4,7 +4,17 @@ const world = new WHS.World({
   autoresize: {
     delay: 1
   },
+  helpers: {
+    grid: {
+      size: 100,
+      step: 100,
+      color1: 0xff0000
+    },
 
+    axis: {
+      size: 100
+    }
+  },
   gravity: { // Physic gravity.
       x: 0,
       y: 0,
@@ -12,7 +22,7 @@ const world = new WHS.World({
   },
 
   camera: {
-    position: [0, 10, 0]
+    position: [-10, 5, 0],
   },
 
   rendering: {
@@ -101,7 +111,6 @@ new WHS.AmbientLight({
 
 
 
-
 plane1.addTo(world);
 plane2.addTo(world);
 plane3.addTo(world);
@@ -110,10 +119,16 @@ plane5.addTo(world);
 plane6.addTo(world);
 
 sphere.addTo(world);
-sphere.setLinearVelocity({x: 0, y: -100, z: 0 })
+sphere.setLinearVelocity({x: 10, y: 0, z: 0 })
 
 sphere.native.addEventListener('collision', (event) => {
   world.scene.remove(sphere.native)
+})
+
+document.addEventListener('click', () => {
+  sphere.setLinearVelocity({x: 0, y: 0, z: 10})
+  console.log("up", world.camera.native.up)
+  console.log(world.camera.native)
 })
 
 world.start(); // Start animations and physics simulation.
