@@ -1,3 +1,4 @@
+
 const world = new WHS.World({
   stats: "fps", // fps, ms, mb or false if not need.
   autoresize: {
@@ -6,15 +7,12 @@ const world = new WHS.World({
 
   gravity: { // Physic gravity.
       x: 0,
-      y: -100,
+      y: 0,
       z: 0
   },
 
   camera: {
-    position: {
-      y: 10,
-      z: 30
-    }
+    position: [50, 50, 50]
   },
 
   rendering: {
@@ -32,7 +30,7 @@ const world = new WHS.World({
 
 const sphere = new WHS.Sphere({ // Create sphere comonent.
   geometry: {
-    radius: 3,
+    radius: 25,
     widthSegments: 32,
     heightSegments: 32
   },
@@ -43,167 +41,80 @@ const sphere = new WHS.Sphere({ // Create sphere comonent.
     color: 0xF2F2F2,
     kind: 'lambert'
   },
-
   position: {
     x: 0,
-    y: 100,
+    y: 0,
     z: 0
   }
 });
 
-
-const plane = new WHS.Box({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
+const plane1 = new WHS.Box({
+  geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    x: - Math.PI / 2
-  },
-
-  position:[0,0,0]
-});
-
-const movingPlane = new WHS.Plane({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
-  mass: 0,
-
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    x: - Math.PI / 2
-  }
-});
-
-
+  material: {kind: 'basic', color: 0x00ff00, wireframe: false},
+  position: [0,-500,0],
+  rotation: [Math.PI/2,0,0],
+})
 const plane2 = new WHS.Box({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
+  geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    y: - Math.PI / 2
-  },
-
-  position: [100,100,0]
-});
-
+  material: {kind: 'basic', color: 0x00FFFF, wireframe: false},
+  position: [0,500,0],
+  rotation: [Math.PI/2,0,0],
+})
 const plane3 = new WHS.Box({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
+  geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    z: -Math.PI / 2
-  },
-
-  position: [0,100,100]
-});
-
+  material: {kind: 'basic', color: 0xFF1493, wireframe: false},
+  position: [0,0,-500],
+  rotation: [0,0,0],
+})
 const plane4 = new WHS.Box({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
+  geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    x: -Math.PI / 2
-  },
-
-  position: [0, 200, 0]
-});
-
+  material: {kind: 'basic', color: 0xFF0000, wireframe: false},
+  position: [0,0,500],
+  rotation: [0,0,0],
+})
 const plane5 = new WHS.Box({
-  geometry: {
-    width: 200,
-    height: 200
-  },
-
+  geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
+  material: {kind: 'basic', color: 0xFFF000, wireframe: false},
+  position: [-500,0,0],
+  rotation: [0,Math.PI/2,0],
+})
+const plane6 = new WHS.Box({
+  geometry: {width: 1000, height: 1000, depth: 0},
+  mass: 0,
+  material: {kind: 'basic', color: 0xC0C0C0, wireframe: false},
+  position: [500,0,0],
+  rotation: [0,Math.PI/2,0],
+})
 
-  material: {
-    color: 0x447F8B,
-    kind: 'phong'
-  },
-
-  rotation: {
-    y: - Math.PI / 2
-  },
-
-  position: [-100,100,0]
-});
-
-new WHS.PointLight({
-  light: {
-    intensity: 0.5
-  },
-
-  shadowmap: {
-    fov: 90
-  },
-
-  position: {
-    z: 10,
-    y: 10
-  }
-}).addTo(world);
+sphere.add(world.camera)
 
 new WHS.AmbientLight({
   light: {
-    intensity: 0.5
+    intensity: 3
   }
 }).addTo(world);
 
-sphere.addTo(world);
-plane.addTo(world);
-movingPlane.addTo(world);
+
+
+
+plane1.addTo(world);
 plane2.addTo(world);
 plane3.addTo(world);
 plane4.addTo(world);
 plane5.addTo(world);
+plane6.addTo(world);
 
+sphere.addTo(world);
+sphere.setLinearVelocity({x: 0, y: -100, z: 0 })
+
+sphere.native.addEventListener('collision', (event) => {
+  world.scene.remove(sphere.native)
+})
 
 world.start(); // Start animations and physics simulation.
-world.setControls(new WHS.FirstPersonControls(sphere, {
-  block: document.getElementById('blocker'),
-  speed: 20,
-  ypos: -10
-}));
+world.setControls(new WHS.OrbitControls());
