@@ -1,3 +1,4 @@
+let math = require('mathjs')
 
 const world = new WHS.World({
   stats: "fps", // fps, ms, mb or false if not need.
@@ -126,10 +127,20 @@ sphere.native.addEventListener('collision', (event) => {
 })
 
 document.addEventListener('click', () => {
-  sphere.setLinearVelocity({x: 0, y: 0, z: 10})
+  //cross product takes us left, neg cross right
+
+  //this set up is left so far
+
+  let v = sphere.native._physijs.linearVelocity
+  let up = world.camera.native.up
+  let vArr = [v.x,v.y,v.z]
+  let upArr = [up.x,up.y,up.z] 
+  let cross = math.cross(upArr,vArr)
   console.log("up", world.camera.native.up)
-  console.log(world.camera.native)
+  sphere.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
+  world.camera.native.position.set(0,5,10)
 })
+
 
 world.start(); // Start animations and physics simulation.
 world.setControls(new WHS.OrbitControls());
