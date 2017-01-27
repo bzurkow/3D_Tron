@@ -126,6 +126,7 @@ sphere.native.addEventListener('collision', (event) => {
   world.scene.remove(sphere.native)
 })
 
+
 document.addEventListener('keydown', (event) => {
   //cross product takes us left, neg cross right
     let v, up, vArr, upArr, camx, camy, camz, cross, vx, vy, vz, newUpx, newUpy, newUpz
