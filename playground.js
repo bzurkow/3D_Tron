@@ -126,19 +126,83 @@ sphere.native.addEventListener('collision', (event) => {
   world.scene.remove(sphere.native)
 })
 
-document.addEventListener('click', () => {
+document.addEventListener('keydown', (event) => {
   //cross product takes us left, neg cross right
+    let v, up, vArr, upArr, camx, camy, camz, cross, vx, vy, vz, newUpx, newUpy, newUpz
+   //left
+  if(event.keyCode===37){
+    v = sphere.native._physijs.linearVelocity
+    up = world.camera.native.up
+    vArr = [v.x,v.y,v.z]
+    upArr = [up.x,up.y,up.z] 
+    cross = math.cross(upArr,vArr)
+    sphere.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
+    if(cross[0]*cross[0]===100) camx = -cross[0]
+    if(cross[1]*cross[1]===100) camy = -cross[1]
+    if(cross[2]*cross[2]===100) camz = -cross[2]
+    if(up.x*up.x === 1) camx=5*up.x
+    if(up.y*up.y === 1) camy=5*up.y
+    if(up.z*up.z === 1) camz=5*up.z
+    world.camera.native.position.set(camx||0,camy||0,camz||0)
+  }
+  //right
+  if(event.keyCode===39){
+    v = sphere.native._physijs.linearVelocity
+    up = world.camera.native.up
+    vArr = [v.x,v.y,v.z]
+    upArr = [up.x,up.y,up.z] 
+    cross = math.cross(upArr,vArr)
+    sphere.setLinearVelocity({x: -cross[0], y: -cross[1], z: -cross[2]})
+    if(cross[0]*cross[0]===100) camx = cross[0]
+    if(cross[1]*cross[1]===100) camy = cross[1]
+    if(cross[2]*cross[2]===100) camz = cross[2]
+    if(up.x*up.x === 1) camx=5*up.x
+    if(up.y*up.y === 1) camy=5*up.y
+    if(up.z*up.z === 1) camz=5*up.z
+    world.camera.native.position.set(camx||0,camy||0,camz||0)
+  }
+  //up just once
+  if(event.keyCode===38){
+    v = sphere.native._physijs.linearVelocity
+    up = world.camera.native.up
+    vx = 10*up.x
+    vy = 10*up.y
+    vz = 10*up.z
+    newUpx = -v.x/10
+    newUpy = -v.y/10
+    newUpz = -v.z/10
+    sphere.setLinearVelocity({x: vx, y: vy, z: vz})
+    if(vx*vx===100) camx = -vx
+    if(vy*vy===100) camy = -vy
+    if(vz*vz===100) camz = -vz
+    if(newUpx*newUpx === 1) camx = 5*newUpx
+    if(newUpy*newUpy === 1) camy = 5*newUpy
+    if(newUpz*newUpz === 1) camz = 5*newUpz
+    world.camera.native.position.set(camx||0,camy||0,camz||0)
+    world.camera.native.up.set(newUpx,newUpy,newUpz)
+  }
 
-  //this set up is left so far
 
-  let v = sphere.native._physijs.linearVelocity
-  let up = world.camera.native.up
-  let vArr = [v.x,v.y,v.z]
-  let upArr = [up.x,up.y,up.z] 
-  let cross = math.cross(upArr,vArr)
-  console.log("up", world.camera.native.up)
-  sphere.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
-  world.camera.native.position.set(0,5,10)
+  //down 
+  if(event.keyCode===40){
+    v = sphere.native._physijs.linearVelocity
+    up = world.camera.native.up
+    vx = -10*up.x
+    vy = -10*up.y
+    vz = -10*up.z
+    newUpx = v.x/10
+    newUpy = v.y/10
+    newUpz = v.z/10
+    sphere.setLinearVelocity({x: vx, y: vy, z: vz})
+    if(vx*vx===100) camx = -vx
+    if(vy*vy===100) camy = -vy
+    if(vz*vz===100) camz = -vz
+    if(newUpx*newUpx === 1) camx = 5*newUpx
+    if(newUpy*newUpy === 1) camy = 5*newUpy
+    if(newUpz*newUpz === 1) camz = 5*newUpz
+    world.camera.native.position.set(camx||0,camy||0,camz||0)
+    world.camera.native.up.set(newUpx,newUpy,newUpz)
+  }
 })
 
 
