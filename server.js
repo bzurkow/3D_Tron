@@ -25,6 +25,7 @@ module.exports = app
   // .get('/*', (_, res) => res.sendFile(resolve(__dirname, 'public', 'index.html')))
   // .use(require('./error.middleware'));
   .use(express.static(resolve(__dirname, 'public')))
+  .get('/*', (_, res) => res.sendFile(resolve(__dirname, 'public', 'index.html')))
   // .get('/', (req, res, next) => {	
   // 	res.sendFile(resolve(__dirname, 'build/index.html'))
   // })

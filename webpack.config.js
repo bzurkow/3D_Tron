@@ -5,7 +5,7 @@ module.exports = {
   entry: './playground.js',
   output: {
     path: __dirname,
-    filename: './playground.bundle.js'
+    filename: './public/playground.bundle.js'
   },
   context: __dirname,
   devtool: 'source-map',

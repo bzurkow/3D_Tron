@@ -2,102 +2,68 @@ let math = require('mathjs')
 
 const world = new WHS.World({
   stats: "fps", // fps, ms, mb or false if not need.
-  autoresize: {
-    delay: 1
+  autoresize: { delay: 1 },
+  camera: { position: [0, 5, -10] },
+  rendering: { 
+    background: { color: 0x162129 },
+    renderer: { antialias: true }
   },
-  helpers: {
-    grid: {
-      size: 100,
-      step: 100,
-      color1: 0xff0000
-    },
-
-    axis: {
-      size: 100
-    }
-  },
-  gravity: { // Physic gravity.
-      x: 0,
-      y: 0,
-      z: 0
-  },
-
-  camera: {
-    position: [-10, 5, 0],
-  },
-
-  rendering: {
-    background: {
-      color: 0x162129
-    },
-
-    renderer: {
-      antialias: true
-    }
-  },
-
   container: document.body
 });
 
 const sphere = new WHS.Sphere({ // Create sphere comonent.
   geometry: {
-    radius: 5,
+    radius: 3,
     widthSegments: 32,
     heightSegments: 32
   },
-
   mass: 10, // Mass of physics object.
-
   material: {
     color: 0xF2F2F2,
     kind: 'lambert'
   },
-  position: {
-    x: 0,
-    y: 0,
-    z: 0
-  }
+  position: { x: 0, y: 0, z: 0 }
 });
 
 const plane1 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0x00ff00, wireframe: false},
+  material: {kind: 'phong', color: 0x00ff00, wireframe: false},
   position: [0,-500,0],
   rotation: [Math.PI/2,0,0],
 })
 const plane2 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0x00FFFF, wireframe: false},
+  material: {kind: 'phong', color: 0x00FFFF, wireframe: false},
   position: [0,500,0],
   rotation: [Math.PI/2,0,0],
 })
 const plane3 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0xFF1493, wireframe: false},
+  material: {kind: 'phong', color: 0xFF1493, wireframe: false},
   position: [0,0,-500],
   rotation: [0,0,0],
 })
 const plane4 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0xFF0000, wireframe: false},
+  material: {kind: 'phong', color: 0xFF0000, wireframe: false},
   position: [0,0,500],
   rotation: [0,0,0],
 })
 const plane5 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0xFFF000, wireframe: false},
+  material: {kind: 'phong', color: 0xFFF000, wireframe: false},
   position: [-500,0,0],
   rotation: [0,Math.PI/2,0],
 })
 const plane6 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,
-  material: {kind: 'basic', color: 0xC0C0C0, wireframe: false},
+  material: {kind: 'phong', color: 0xC0C0C0, wireframe: false},
   position: [500,0,0],
   rotation: [0,Math.PI/2,0],
 })
@@ -106,11 +72,9 @@ sphere.add(world.camera)
 
 new WHS.AmbientLight({
   light: {
-    intensity: 3
+    intensity: .9
   }
 }).addTo(world);
-
-
 
 plane1.addTo(world);
 plane2.addTo(world);
@@ -119,12 +83,194 @@ plane4.addTo(world);
 plane5.addTo(world);
 plane6.addTo(world);
 
-sphere.addTo(world);
-sphere.setLinearVelocity({x: 10, y: 0, z: 0 })
+sphere.addTo(world)
+sphere.setLinearVelocity({x: 0, y: 0, z: 10 })
 
 sphere.native.addEventListener('collision', (event) => {
   world.scene.remove(sphere.native)
 })
+
+let box, previousPosition;
+
+function timerCall() {
+
+    if (!previousPosition) {
+        box = new WHS.Box({
+                    geometry: {
+                        height: 6,
+                        width: 1,
+                        depth: 1
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: 0,
+                        y: 5,
+                        z: -4
+                    }
+                })
+          box.addTo(world);
+
+    } else {
+      if(sphere._native._physijs.linearVelocity.z > 0){
+       box = new WHS.Box({
+                    geometry: {
+                        height: 6,
+                        width: 1,
+                        depth: 1
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x,
+                        y: sphere._native.position._y,
+                        z: sphere._native.position._z - 4
+                    }
+                })
+          box.addTo(world);
+        }
+        if(sphere._native._physijs.linearVelocity.z < 0){
+           box = new WHS.Box({
+                    geometry: {
+                        height: 6,
+                        width: 1,
+                        depth: 1
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x,
+                        y: sphere._native.position._y,
+                        z: sphere._native.position._z + 4
+                    }
+                })
+          box.addTo(world);
+        }
+        if(sphere._native._physijs.linearVelocity.x > 0) {
+          box = new WHS.Box({
+                    geometry: {
+                        height: 6,
+                        width: 1,
+                        depth: 1
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x - 4,
+                        y: sphere._native.position._y,
+                        z: sphere._native.position._z
+                    }
+                })
+          box.addTo(world);
+        }
+        if(sphere._native._physijs.linearVelocity.x < 0) {
+          box = new WHS.Box({
+                    geometry: {
+                        height: 6,
+                        width: 1,
+                        depth: 1
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x + 4,
+                        y: sphere._native.position._y,
+                        z: sphere._native.position._z
+                    }
+                })
+          box.addTo(world);
+        }
+        if(sphere._native._physijs.linearVelocity.y > 0) {
+          box = new WHS.Box({
+                    geometry: {
+                        height: 1,
+                        width: 1,
+                        depth: 6
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x,
+                        y: sphere._native.position._y - 4,
+                        z: sphere._native.position._z
+                    }
+                })
+          box.addTo(world);
+        }
+        if(sphere._native._physijs.linearVelocity.y < 0) {
+          box = new WHS.Box({
+                    geometry: {
+                        height: 1,
+                        width: 1,
+                        depth: 6
+                    },
+
+                    mass: 0,
+
+                    material: {
+                        color: 0xFFDADA,
+                        kind: 'phong',
+                        rest: 0
+                    },
+
+                    position: {
+                        x: sphere._native.position._x,
+                        y: sphere._native.position._y + 4,
+                        z: sphere._native.position._z
+                    }
+                })
+          box.addTo(world);
+        }
+
+
+    }
+
+    previousPosition = [sphere._native.position._x, sphere._native.position._y, sphere._native.position._z]
+}
+setInterval(timerCall, 50)
+
 
 
 document.addEventListener('keydown', (event) => {
@@ -205,6 +351,7 @@ document.addEventListener('keydown', (event) => {
     world.camera.native.up.set(newUpx,newUpy,newUpz)
   }
 })
+
 
 
 world.start(); // Start animations and physics simulation.
