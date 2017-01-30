@@ -22,4 +22,9 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+  new webpack.NormalModuleReplacementPlugin(
+    /inline\-worker/,
+    'webworkify-webpack'
+  )]
 };

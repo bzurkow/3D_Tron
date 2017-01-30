@@ -24,9 +24,9 @@ module.exports = app
   // // Send index.html for anything else.
   // .get('/*', (_, res) => res.sendFile(resolve(__dirname, 'public', 'index.html')))
   // .use(require('./error.middleware'));
-  .use(express.static(resolve(__dirname, 'public')))
-  .get('/*', (_, res) => res.sendFile(resolve(__dirname, 'public', 'index.html')))
-  // .get('/', (req, res, next) => {	
+  .use(express.static(resolve(__dirname, '..', 'oldPublic')))
+  .get('/*', (_, res) => res.sendFile(resolve(__dirname, '..', 'oldPublic', 'index.html')));
+  // .get('/', (req, res, next) => {
   // 	res.sendFile(resolve(__dirname, 'build/index.html'))
   // })
 
