@@ -1,5 +1,5 @@
 node_modules
 yarn.lock
-public/playground.bundle.js
-public/playground.bundle.js.map
+public/bundle.js
+public/bundle.js.map
 */.DS_Store
