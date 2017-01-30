@@ -1,1 +1,4 @@
 node_modules
+public/playground.bundle.js
+public/playground.bundle.js.map
+*/.DS_Store
