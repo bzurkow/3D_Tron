@@ -1,4 +1,4 @@
-echo 'Hello, I am the profile!'
+echo 'Hello, I am the .profile!'
 
-npm install 
+npm install
 npm run build
