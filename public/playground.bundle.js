@@ -47,6 +47,11 @@
 	'use strict';
 	
 	var math = __webpack_require__(1);
+	var socket = io(window.location.origin);
+	
+	socket.on('connect', function () {
+	    console.log("i have made connection to the server");
+	});
 	
 	var world = new WHS.World({
 	    stats: "fps", // fps, ms, mb or false if not need.
@@ -386,7 +391,7 @@
 	        world.camera.native.up.set(newUpx, newUpy, newUpz);
 	    }
 	
-	    //down 
+	    //down
 	    if (event.keyCode === 40) {
 	        v = sphere.native._physijs.linearVelocity;
 	        up = world.camera.native.up;

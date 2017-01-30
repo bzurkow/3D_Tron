@@ -1,10 +1,15 @@
 let math = require('mathjs')
+var socket = io(window.location.origin);
+
+socket.on('connect', function(){
+  console.log("i have made connection to the server");
+});
 
 const world = new WHS.World({
   stats: "fps", // fps, ms, mb or false if not need.
   autoresize: { delay: 1 },
   camera: { position: [0, 5, -10] },
-  rendering: { 
+  rendering: {
     background: { color: 0x162129 },
     renderer: { antialias: true }
   },
@@ -281,7 +286,7 @@ document.addEventListener('keydown', (event) => {
     v = sphere.native._physijs.linearVelocity
     up = world.camera.native.up
     vArr = [v.x,v.y,v.z]
-    upArr = [up.x,up.y,up.z] 
+    upArr = [up.x,up.y,up.z]
     cross = math.cross(upArr,vArr)
     sphere.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
     if(cross[0]*cross[0]===100) camx = -cross[0]
@@ -297,7 +302,7 @@ document.addEventListener('keydown', (event) => {
     v = sphere.native._physijs.linearVelocity
     up = world.camera.native.up
     vArr = [v.x,v.y,v.z]
-    upArr = [up.x,up.y,up.z] 
+    upArr = [up.x,up.y,up.z]
     cross = math.cross(upArr,vArr)
     sphere.setLinearVelocity({x: -cross[0], y: -cross[1], z: -cross[2]})
     if(cross[0]*cross[0]===100) camx = cross[0]
@@ -330,7 +335,7 @@ document.addEventListener('keydown', (event) => {
   }
 
 
-  //down 
+  //down
   if(event.keyCode===40){
     v = sphere.native._physijs.linearVelocity
     up = world.camera.native.up

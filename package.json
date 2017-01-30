@@ -28,6 +28,7 @@
     "nodemon": "^1.11.0",
     "physijs": "0.0.4",
     "react": "^15.4.2",
+    "socket.io": "^1.7.2",
     "three.js": "^0.77.1",
     "volleyball": "^1.4.1",
     "webpack": "^1.14.0",
