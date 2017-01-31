@@ -9,9 +9,9 @@ import messages from './messages';
 // import casualty from './casualty';
 
 export default combineReducers({
-  auth,
-  controlPanel,
-  players,
-  gameState,
-  messages
+  // auth,
+  // controlPanel,
+  // players,
+  // gameState,
+  // messages
 });
