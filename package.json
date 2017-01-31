@@ -8,8 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w & nodemon oldStuff/server.js",
+    "start": "webpack -w & nodemon server/index.js",
     "build": "webpack",
+    "build-watch": "webpack -w",
     "seed": "node server/db/seed.js"
   },
   "keywords": [],

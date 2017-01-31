@@ -2,10 +2,10 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './playground.js',
+  entry: './browser/main.js',
   output: {
     path: __dirname,
-    filename: './oldPublic/playground.bundle.js'
+    filename: './public/bundle.js'
   },
   context: __dirname,
   devtool: 'source-map',

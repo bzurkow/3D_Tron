@@ -34,4 +34,5 @@ const plane6 = new WHS.Box({
   material: {kind: 'phong', color: 0xC0C0C0, wireframe: true},
   position: [500,0,0],
   rotation: [0,Math.PI/2,0],})
-export const field = [plane1, plane2, plane3, plane4, plane5, plane6];
+
+export const field = [plane1, plane2, plane3, plane4, plane5, plane6]

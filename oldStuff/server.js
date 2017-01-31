@@ -4,6 +4,7 @@ var http = require('http');
 var server = http.createServer();
 
 const express = require('express');
+const volleyball = require('volleyball');
 //const session = require('express-session');
 const bodyParser = require('body-parser');
 //const db = require('./db.json');
@@ -15,10 +16,11 @@ var socketio = require('socket.io');
 server.on('request', app);
 var io = socketio(server);
 
-io.on('connection', function(socket) {
+io.on('connect', function(socket) {
     /* This function receives the newly connected socket.
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!', socket.id);
+    socket.join('some room');
     // history.forEach(function(payload) {
     //     socket.emit('drawing', payload);
     // });
@@ -32,7 +34,7 @@ io.on('connection', function(socket) {
 server.listen(3000, function() {
     console.log('The server is listening on port 3000!');
 });
-
+app.use(volleyball);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../oldPublic')));
 
