@@ -17,18 +17,18 @@ router.get('/:id', function (req, res, next) {
     .catch(next);
 });
 
-// router.post('/anonymous', (req, res, next) => {
-//   console.log(req.cookie, res.cookie);
-//   console.log(req.session, res.session);
-//   User.create({
-//     displayName: req.body.displayName,
-//     anonymous: true
-//   })
-//   .then(user => {
-//     res.json({
-//       id: user.id,
-//       name: user.displayName
-//     });
-//   })
-//   .catch(next);
-// });
+router.post('/anonymous', (req, res, next) => {
+  console.log(req.cookie, res.cookie);
+  console.log(req.session, res.session);
+  User.create({
+    displayName: req.body.displayName,
+    anonymous: true
+  })
+  .then(user => {
+    res.json({
+      id: user.id,
+      name: user.displayName
+    });
+  })
+  .catch(next);
+});
