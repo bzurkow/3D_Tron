@@ -17,7 +17,7 @@ const sphereBase = new WHS.Sphere({
     }
   })
 
-export default function PlayerConstructor(){
+export default function PlayerConstructor(n){
   let that = this
   let t=0
   that.ball = sphereBase.clone();
@@ -29,6 +29,7 @@ export default function PlayerConstructor(){
     P = [pos.x, pos.y, pos.z]
     if(t>100){
       new WHS.Box({
+        // mask: n,
         geometry: [1.5, 1.5, 1.5],
         mass: 0,
         material: { color: 0xFFDADA, kind: 'phong'},
@@ -38,6 +39,7 @@ export default function PlayerConstructor(){
     t++
   };
   that.ball.native.addEventListener('collision', (event) => {
+    //console.log(world.scene)
     world.scene.remove(that.ball.native)
     that.ball.remove(world.camera)
   }, true)
