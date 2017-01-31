@@ -8,7 +8,7 @@ import {  lose, fell, ateSomeone } from '../reducers/gameState';
 import { receiveMessage } from '../reducers/messages';
 import {  casualtyReport } from '../reducers/casualty';
 
-import { init, animate, scene, world } from '../game/main';
+import { init, animate, scene, world } from './main';
 import { Player } from '../game/player';
 import { Food } from '../game/food';
 
