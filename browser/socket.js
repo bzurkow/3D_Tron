@@ -1,8 +1,15 @@
 import listeners from './game/listeners';
 const socket = io('/');
+const player1 = require('./game/player')
+console.log("PLAYER", player1);
 
 export const initializeSocket = () => {
-  socket.on('connect', () => { listeners(socket); });
+  console.log("INIT");
+  // socket.on('connect', () => { listeners(socket); });
+  socket.emit('room', 'ROOM');
+  socket.on('message', function(data) {
+    console.log('Incoming message:', data);
+  });
 };
 
 export default socket;
