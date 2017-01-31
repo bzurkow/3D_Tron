@@ -24,5 +24,6 @@ new WHS.AmbientLight({
   }
 }).addTo(world);
 
+
 export default world
 export { q }
