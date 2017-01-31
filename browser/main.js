@@ -6,8 +6,8 @@ import { render } from 'react-dom';
 //import store from './store';
 import App from './components/App';
 
-// import { initializeSocket } from './socket';
-// initializeSocket();
+import { initializeSocket } from './socket';
+initializeSocket();
 
 // require('./stylesheets/style.scss');
 
