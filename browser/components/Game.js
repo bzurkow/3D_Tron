@@ -19,8 +19,23 @@ export default class Game extends Component {
 		  container: document.body
 		});
 
+		field.forEach(plane => plane.addTo(world))
+
+		world.start()
+		world.setControls(new WHS.OrbitControls())
+
+		new WHS.AmbientLight({
+		  light: {
+		    intensity: .9
+		  }
+		}).addTo(world);
+
 		return(
-			<h1>Hitting our Game through App through Main through Bundle through the wisdom of our fearless leader, Sir Edward McTillerson de Hill</h1>
+			<div>
+
+
+
+			</div>
 			)
 
 	}
