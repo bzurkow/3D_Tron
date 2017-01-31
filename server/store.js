@@ -1,8 +1,16 @@
-const { createStore, applyMiddleware } =  require('redux');
+const { createStore, applyMiddleware, combineReducers } = require('redux');
 const thunkMiddleware = require('redux-thunk').default;
-const { composeWithDevTools } = require('redux-devtools-extension');
-const createLogger = require('redux-thunk').default; // NOT SURE IF NEEDS DEFAULT
 
-const rootReducer = require('./reducers');
+const { userReducer } = require('./reducers/users');
 
-module.exports = createStore(rootReducer, composeWithDevTools(applyMiddleware(createLogger(), thunkMiddleware)));
+const rootReducer = combineReducers({
+  users: userReducer
+});
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware)
+);
+
+module.exports = store;
+
