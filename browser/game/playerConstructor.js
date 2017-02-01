@@ -6,7 +6,7 @@
 
 // }
 
-import world, { q } from './world'
+import world, { speed } from './world'
 
 const sphereBase = new WHS.Sphere({
     geometry: [ 3, 32, 32],
@@ -17,7 +17,7 @@ const sphereBase = new WHS.Sphere({
     }
   })
 
-export default function PlayerConstructor(n){
+export default function PlayerConstructor(){
   let that = this
   let t=0
   that.ball = sphereBase.clone();
@@ -27,20 +27,26 @@ export default function PlayerConstructor(n){
     pos = that.ball._native.position
     V = [vel.x, vel.y, vel.z]
     P = [pos.x, pos.y, pos.z]
-    if(t>100){
-      new WHS.Box({
-        // mask: n,
+    let box
+    if(t>10){
+      box = new WHS.Box({
         geometry: [1.5, 1.5, 1.5],
         mass: 0,
         material: { color: 0xFFDADA, kind: 'phong'},
-        position: [pos.x-4*(vel.x/q), pos.y-4*(vel.y/q), pos.z-4*(vel.z/q)]
-      }).addTo(world)
+        position: [pos.x-4*(vel.x/speed), pos.y-4*(vel.y/speed), pos.z-4*(vel.z/speed)]
+      })
+      box.addTo(world)
+      that.boxes.push(box)
     }
+
     t++
   };
+  that.boxes = []
+  that.walls = []
   that.ball.native.addEventListener('collision', (event) => {
-    //console.log(world.scene)
     world.scene.remove(that.ball.native)
     that.ball.remove(world.camera)
+    that.boxes.forEach(box => world.scene.remove(box._native))
+
   }, true)
 }
