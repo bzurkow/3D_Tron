@@ -8,10 +8,32 @@ export default class Game extends Component {
 	render(){
 		player
 
+// adding controls for left, right, up and down. Using the cross product (math.cross) to determine orthoganal directions for the players motion to change in
+		
 		document.addEventListener('keydown', (event) => {
 		  //cross product takes us left, neg cross right
-		    let v, up, vArr, upArr, camx, camy, camz, cross, vx, vy, vz, newUpx, newUpy, newUpz
+		  var v, up, vArr, upArr, camx, camy, camz, cross, vx, vy, vz, newUpx, newUpy, newUpz, firstBoxPos, lastBoxPos, lastBoxIndex, newWallPos, newWallGeo, nWGx, nWGy, nWGz, newWall
 		   //left
+		 
+		  // lastBoxIndex=player.boxes.length-1
+		  // firstBoxPos=player.boxes[0].params.position
+		  // lastBoxPos=player.boxes[lastBoxIndex].params.position
+		  // newWallPos=[(firstBoxPos.x+lastBoxPos.x)/2,(firstBoxPos.y+lastBoxPos.y)/2,(firstBoxPos.z+lastBoxPos.z)/2]
+		  // nWGx=nWGy=nWGz=1.5
+		  // if(firstBoxPos.x - lastBoxPos.x !== 0) nWGx = Math.abs(firstBoxPos.x-lastBoxPos.x)
+		  // if(firstBoxPos.y - lastBoxPos.y !== 0) nWGy = Math.abs(firstBoxPos.y-lastBoxPos.y)
+		  // if(firstBoxPos.z - lastBoxPos.z !== 0) nWGz = Math.abs(firstBoxPos.z-lastBoxPos.z)
+		  // newWallGeo=[nWGx,nWGy,nWGz]
+		  // newWall = new WHS.Box({
+		  // 	geometry: newWallGeo,
+		  // 	position: newWallPos,
+		  // 	mass: 0, 
+		  // 	material:  { color: 0xFFDADA, kind: 'phong'}
+		  // })
+		  // player.boxes.forEach(box => world.scene.remove(box._native))
+		  // newWall.addTo(world)
+		  // player.walls.push(newWall)
+
 		  if(event.keyCode===37){
 		    v = player.ball.native._physijs.linearVelocity
 		    up = world.camera.native.up
@@ -85,7 +107,24 @@ export default class Game extends Component {
 		  }
 		})
 
+//Below we are setting the camera for each player based on starting position. Need to set both the position of the camera (which is relative to the player and pointing towards the player) and the 'up' vector which determines where the "sky" is and enables are controls to work.
+
+		world.camera.native.position.set(
+			(player.ball.position.x/495)*100 + player.ball.native.up.x*5,
+			(player.ball.position.y/495)*100 + player.ball.native.up.y*5,
+			(player.ball.position.z/495)*100 + player.ball.native.up.z*5
+		)
+
+		world.camera.native.up.set(
+			player.ball.native.up.x,
+			player.ball.native.up.y,
+			player.ball.native.up.z
+		)
+//setting the camera to the ball
+
 		player.ball.add(world.camera)
+
+//starting the world
 
 		world.start()
 		world.setControls(new WHS.OrbitControls())
