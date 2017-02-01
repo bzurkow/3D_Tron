@@ -11,7 +11,7 @@ import messages from './messages';
 export default combineReducers({
   // auth,
   // controlPanel,
-  // players,
-  // gameState,
+  players,
+  gameState
   // messages
 });

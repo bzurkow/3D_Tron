@@ -2,8 +2,18 @@ import React, { Component } from 'react';
 import math from 'mathjs';
 import world, { q } from '../game/world';
 import { player } from '../game/player';
+
+import store from '../store';
 import socket from '../socket';
-console.log("SOCKET ID", socket);
+
+console.log("SOCKET ID", localStorage.getItem('mySocketId'));
+
+const myPlayer = store.getState().players.filter(player => {
+	console.log("PLAYER", typeof player.id, typeof localStorage.getItem('mySocketId'));
+	return player.id == localStorage.getItem('mySocketId');
+});
+console.log("MY PLAYER", myPlayer);
+
 export default class Game extends Component {
 
 	render(){

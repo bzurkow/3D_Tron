@@ -1,11 +1,12 @@
-
+import allPlayers from '../game/players';
 
 /*----------  INITIAL STATE  ----------*/
-const initialState = {};
+const initialState = allPlayers;
 
 /*----------  ACTION TYPES  ----------*/
 const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
+const SET_PLAYER_ID = 'SET_PLAYER_ID';
 
 
 /*----------  ACTION CREATORS  ----------*/
@@ -13,6 +14,13 @@ export const receivePlayers = (players) => ({
   type: RECEIVE_PLAYERS,
   players
 });
+
+export const setPlayerId = (player, index) => ({
+  type: SET_PLAYER_ID,
+  player,
+  index
+});
+// state[action.index] = action.player
 
 export const removeAllPlayers = () => ({
   type: REMOVE_ALL_PLAYERS

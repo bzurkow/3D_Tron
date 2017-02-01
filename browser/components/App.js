@@ -13,12 +13,16 @@ import Game from './Game';
 
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     //let { isPlaying } = this.props.gameState;
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
-      	<Game />
+        { this.props.startGame ? <Game /> : null }
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}

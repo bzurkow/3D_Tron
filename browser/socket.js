@@ -1,10 +1,12 @@
 import listeners from './game/listeners';
 const socket = io('/');
 
-import players from './game/players';
+import store from './store';
+const allPlayers = store.getState().players;
 
 export const initializeSocket = () => {
   console.log("INIT");
+  console.log("INITIAL STATE", store.getState().players);
   // socket.on('connect', () => { listeners(socket); });
   // socket.emit('room', 'ROOM');
   // socket.on('message', function(data) {
@@ -12,6 +14,7 @@ export const initializeSocket = () => {
   // });
   socket.on('connect', () => {
     console.log('You\'ve made a persistent two-way connection to the server!');
+    localStorage.setItem('mySocketId', socket.id)
   });
 
   socket.on('hello', (x) => console.log("I GOT THE MESSAGE", x));
@@ -19,16 +22,17 @@ export const initializeSocket = () => {
   socket.on('setId', userId => {
     console.log("SET ID");
     let playerWithId;
-    console.log("ALL PLAYERS", players);
-    for (let i = 0; i < players.length; i++) {
-      console.log("PLAYER", players[i]);
-      if (!players[i].id) {
-        players[i].id = userId;
-        playerWithId = players[i];
+    console.log("ALL PLAYERS", allPlayers);
+    for (let i = 0; i < allPlayers.length; i++) {
+      console.log("PLAYER", allPlayers[i]);
+      if (!allPlayers[i].id) {
+        allPlayers[i].id = userId;
+        playerWithId = allPlayers[i];
         break;
       }
     }
     console.log("NEW PLAYER", playerWithId);
+
     socket.emit('playerWithId', {
       velocity:
       playerWithId.ball.native._physijs.linearVelocity,
