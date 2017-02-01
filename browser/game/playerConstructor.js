@@ -6,7 +6,7 @@
 
 // }
 
-import world, { q } from './world'
+import world, { speed } from './world'
 
 const sphereBase = new WHS.Sphere({
     geometry: [ 3, 32, 32],
@@ -33,7 +33,7 @@ export default function PlayerConstructor(){
         geometry: [1.5, 1.5, 1.5],
         mass: 0,
         material: { color: 0xFFDADA, kind: 'phong'},
-        position: [pos.x-4*(vel.x/q), pos.y-4*(vel.y/q), pos.z-4*(vel.z/q)]
+        position: [pos.x-4*(vel.x/speed), pos.y-4*(vel.y/speed), pos.z-4*(vel.z/speed)]
       })
       box.addTo(world)
       that.boxes.push(box)
