@@ -17,7 +17,7 @@ const sphereBase = new WHS.Sphere({
     }
   })
 
-export default function PlayerConstructor(n){
+export default function PlayerConstructor(){
   let that = this
   let t=0
   that.ball = sphereBase.clone();

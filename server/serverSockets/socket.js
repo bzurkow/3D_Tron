@@ -12,6 +12,9 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
 
+
+    socket.broadcast.emit('hello', socket.id);
+    console.log("STORE", store.getState());
     // This will send all of the current users to the user that just connected
     socket.on('getOthers', () => {
       const allUsers = store.getState().users;

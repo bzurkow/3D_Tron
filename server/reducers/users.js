@@ -38,13 +38,22 @@ const removeUser = userId => {
 /* --------------- THUNK ACTION CREATORS --------------- */
 
 const createAndEmitUser = socket => {
+  console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
-    const user = Map(createUser(userId));
-    dispatch(addUser(user));
-    socket.on('sceneLoad', () => {
-      socket.emit('createUser', user);
+    // const user = Map(createUser(userId));
+    socket.emit('setId', userId);
+    socket.on('playerWithId', (player) => {
+      console.log("playerWithId", player);
+      dispatch(addUser(Map(player)));
+      // callback(player);
     });
+
+    // function callback(player) {
+    //   socket.on('worldLoad', () => {
+    //     socket.emit('addToWorld', player);
+    //   });
+    // }
   };
 };
 
@@ -145,5 +154,3 @@ module.exports = {
 //     default: return state;
 //   }
 // };
-
-

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import math from 'mathjs';
-import world, { q } from '../game/world'
-import { player } from '../game/player'
-
+import world, { q } from '../game/world';
+import { player } from '../game/player';
+import socket from '../socket';
+console.log("SOCKET ID", socket);
 export default class Game extends Component {
 
 	render(){
@@ -83,25 +84,16 @@ export default class Game extends Component {
 		    world.camera.native.position.set(camx||0,camy||0,camz||0)
 		    world.camera.native.up.set(newUpx,newUpy,newUpz)
 		  }
-		})
+		});
 
-		player.ball.add(world.camera)
+		// socket.emit('worldLoad');
+		world.start();
+		world.setControls(new WHS.OrbitControls());
 
-		world.start()
-		world.setControls(new WHS.OrbitControls())
-
-
-
-		return(
+		return (
 			<div>
 
-
-
 			</div>
-			)
-
+		)
 	}
-
-
-
 }

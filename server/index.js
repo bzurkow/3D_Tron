@@ -54,35 +54,37 @@ const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 //const db = require('./db.json');
 const app = express();
-
 var socketio = require('socket.io');
 
+const ioInit = require('./serverSockets');
+
 server.on('request', app);
-var io = socketio(server);
-io.on('connect', function(socket) {
-    /* This function receives the newly connected socket.
-       This function will be called for EACH browser that connects to our server. */
-    console.log('A new client has connected!', socket.id);
-    // once a client has connected, we expect to get a ping from them saying what room they want to join
-
-    // socket.on('hello', function(id, msg){
-    //   console.log("ID", id, "MSG", msg);
-    //   socket.to(id).emit('my message', msg);
-    // });
-    // socket.emit('message', 'what is going on, party people?');
-    socket.on('room', function(room) {
-      console.log("ROOM", room);
-      socket.join(room);
-    });
-
-    io.sockets.in("ROOM").emit('message', 'what is going on, party people?');
-
-    console.log(io.engine.clientsCount);
-    // console.log("HELLO", io.sockets.adapter.rooms);
-    socket.on('disconnect', function(socketId) {
-        console.log('Client disconnected #', socketId);
-    });
-});
+ioInit(server);
+// var io = socketio(server);
+// io.on('connect', function(socket) {
+//     /* This function receives the newly connected socket.
+//        This function will be called for EACH browser that connects to our server. */
+//     console.log('A new client has connected!', socket.id);
+//     // once a client has connected, we expect to get a ping from them saying what room they want to join
+//
+//     // socket.on('hello', function(id, msg){
+//     //   console.log("ID", id, "MSG", msg);
+//     //   socket.to(id).emit('my message', msg);
+//     // });
+//     // socket.emit('message', 'what is going on, party people?');
+//     socket.on('room', function(room) {
+//       console.log("ROOM", room);
+//       socket.join(room);
+//     });
+//
+//     io.sockets.in("ROOM").emit('message', 'what is going on, party people?');
+//
+//     console.log(io.engine.clientsCount);
+//     // console.log("HELLO", io.sockets.adapter.rooms);
+//     socket.on('disconnect', function(socketId) {
+//         console.log('Client disconnected #', socketId);
+//     });
+// });
 
 app.use(volleyball);
 app.use(bodyParser.urlencoded({ extended: true }));

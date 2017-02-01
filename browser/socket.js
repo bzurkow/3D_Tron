@@ -1,18 +1,50 @@
 import listeners from './game/listeners';
 const socket = io('/');
-const player1 = require('./game/player')
-console.log("PLAYER", player1);
+
+import players from './game/players';
 
 export const initializeSocket = () => {
   console.log("INIT");
   // socket.on('connect', () => { listeners(socket); });
-  socket.emit('room', 'ROOM');
-  socket.on('message', function(data) {
-    console.log('Incoming message:', data);
+  // socket.emit('room', 'ROOM');
+  // socket.on('message', function(data) {
+  //   console.log('Incoming message:', data);
+  // });
+  socket.on('connect', () => {
+    console.log('You\'ve made a persistent two-way connection to the server!');
   });
+
+  socket.on('hello', (x) => console.log("I GOT THE MESSAGE", x));
+
+  socket.on('setId', userId => {
+    console.log("SET ID");
+    let playerWithId;
+    console.log("ALL PLAYERS", players);
+    for (let i = 0; i < players.length; i++) {
+      console.log("PLAYER", players[i]);
+      if (!players[i].id) {
+        players[i].id = userId;
+        playerWithId = players[i];
+        break;
+      }
+    }
+    console.log("NEW PLAYER", playerWithId);
+    socket.emit('playerWithId', {
+      velocity:
+      playerWithId.ball.native._physijs.linearVelocity,
+      id: playerWithId.id
+    });
+  });
+
+  socket.emit('getOthers')
+
+  // socket.on('addToWorld', (player) => {
+  //
+  // });
 };
 
 export default socket;
+
 
 
 // import createPlayer from './game/player';
@@ -30,7 +62,7 @@ export default socket;
 
 // socket.on('createUser', user => {
 //   const sphere = createPlayer();
-
+//
 //   socket.emit('getOthers');
 // });
 
