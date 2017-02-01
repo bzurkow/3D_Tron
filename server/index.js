@@ -64,27 +64,34 @@ io.on('connect', function(socket) {
        This function will be called for EACH browser that connects to our server. */
     console.log('A new client has connected!', socket.id);
     // once a client has connected, we expect to get a ping from them saying what room they want to join
+
+    // socket.on('hello', function(id, msg){
+    //   console.log("ID", id, "MSG", msg);
+    //   socket.to(id).emit('my message', msg);
+    // });
+    // socket.emit('message', 'what is going on, party people?');
     socket.on('room', function(room) {
+      console.log("ROOM", room);
       socket.join(room);
     });
 
     io.sockets.in("ROOM").emit('message', 'what is going on, party people?');
-    // socket.join('some room');
-    // history.forEach(function(payload) {
-    //     socket.emit('drawing', payload);
-    // });
 
+    console.log(io.engine.clientsCount);
+    // console.log("HELLO", io.sockets.adapter.rooms);
     socket.on('disconnect', function(socketId) {
         console.log('Client disconnected #', socketId);
     });
 });
 
-server.listen(3000, function() {
-    console.log('The server is listening on port 3000!');
-});
 app.use(volleyball);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
+
+server.listen(3000, function() {
+    console.log('The server is listening on port 3000!');
+});
+
 
 // app.get('/', function(req, res) {
 //     res.sendFile(path.join(__dirname, 'public'));

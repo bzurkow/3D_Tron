@@ -6,7 +6,7 @@ import { player } from '../game/player'
 export default class Game extends Component {
 
 	render(){
-		player
+		// player
 
 		document.addEventListener('keydown', (event) => {
 		  //cross product takes us left, neg cross right
@@ -16,7 +16,7 @@ export default class Game extends Component {
 		    v = player.ball.native._physijs.linearVelocity
 		    up = world.camera.native.up
 		    vArr = [v.x,v.y,v.z]
-		    upArr = [up.x,up.y,up.z] 
+		    upArr = [up.x,up.y,up.z]
 		    cross = math.cross(upArr,vArr)
 		    player.ball.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
 		    if(cross[0]*cross[0]===q*q) camx = -cross[0]
@@ -32,7 +32,7 @@ export default class Game extends Component {
 		    v = player.ball.native._physijs.linearVelocity
 		    up = world.camera.native.up
 		    vArr = [v.x,v.y,v.z]
-		    upArr = [up.x,up.y,up.z] 
+		    upArr = [up.x,up.y,up.z]
 		    cross = math.cross(upArr,vArr)
 		    player.ball.setLinearVelocity({x: -cross[0], y: -cross[1], z: -cross[2]})
 		    if(cross[0]*cross[0]===q*q) camx = cross[0]
@@ -63,7 +63,7 @@ export default class Game extends Component {
 		    world.camera.native.position.set(camx||0,camy||0,camz||0)
 		    world.camera.native.up.set(newUpx,newUpy,newUpz)
 		  }
-		  //down 
+		  //down
 		  if(event.keyCode===40){
 		    v = player.ball.native._physijs.linearVelocity
 		    up = world.camera.native.up
