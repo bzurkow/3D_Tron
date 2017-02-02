@@ -13,4 +13,3 @@ const store = createStore(
 );
 
 module.exports = store;
-

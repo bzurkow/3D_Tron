@@ -15,9 +15,9 @@ export const receivePlayers = (players) => ({
   players
 });
 
-export const setPlayerId = (player, index) => ({
+export const setPlayerId = (playerId, index) => ({
   type: SET_PLAYER_ID,
-  player,
+  playerId,
   index
 });
 // state[action.index] = action.player
@@ -36,6 +36,13 @@ export default (state = initialState, action) => {
       return action.players;
     case REMOVE_ALL_PLAYERS:
       return initialState;
+    case SET_PLAYER_ID:
+      return state.map((bike, index) => {
+        if (index === action.index) {
+          bike.id = action.playerId;
+        }
+        return bike;
+      });
     default: return state;
   }
 };

@@ -2,11 +2,13 @@ import listeners from './game/listeners';
 const socket = io('/');
 
 import store from './store';
-const allPlayers = store.getState().players;
+import { setPlayerId } from './reducers/players';
+import { startGame } from './reducers/gameState';
+
+const allBikes = store.getState().players;
 
 export const initializeSocket = () => {
-  console.log("INIT");
-  console.log("INITIAL STATE", store.getState().players);
+  console.log("INITIAL STATE (IN INITIALIZE SOCKET)", store.getState().players);
   // socket.on('connect', () => { listeners(socket); });
   // socket.emit('room', 'ROOM');
   // socket.on('message', function(data) {
@@ -19,28 +21,59 @@ export const initializeSocket = () => {
 
   socket.on('hello', (x) => console.log("I GOT THE MESSAGE", x));
 
-  socket.on('setId', userId => {
-    console.log("SET ID");
-    let playerWithId;
-    console.log("ALL PLAYERS", allPlayers);
-    for (let i = 0; i < allPlayers.length; i++) {
-      console.log("PLAYER", allPlayers[i]);
-      if (!allPlayers[i].id) {
-        allPlayers[i].id = userId;
-        playerWithId = allPlayers[i];
-        break;
-      }
-    }
-    console.log("NEW PLAYER", playerWithId);
+  // socket.on('sendNewUserToFront', userId => {
+  //   console.log("SET ID");
+  //   let playerWithId;
+  //   console.log("ALL PLAYERS", allPlayers);
+  //   for (let i = 0; i < allPlayers.length; i++) {
+  //     console.log("PLAYER", allPlayers[i]);
+  //     if (!allPlayers[i].id) {
+  //       allPlayers[i].id = userId;
+  //       playerWithId = allPlayers[i];
+  //       break;
+  //     }
+  //   }
+  //   console.log("NEW PLAYER", playerWithId);
+  //
+  //   socket.emit('playerWithId', {
+  //     velocity:
+  //     playerWithId.ball.native._physijs.linearVelocity,
+  //     id: playerWithId.id
+  //   });
+  // });
 
-    socket.emit('playerWithId', {
-      velocity:
-      playerWithId.ball.native._physijs.linearVelocity,
-      id: playerWithId.id
-    });
-  });
+  socket.emit('getOthers');
+  socket.on('getOthersCallback', users => {
+  console.log('Checking to see if anyone is here', users);
+  // For each existing user that the backend sends us, put on the DOM
 
-  socket.emit('getOthers')
+
+  // first: find my place in users array using localStorage
+  // second: identify which front end player I am by checking index
+  // third: set my player to equal corresponding player identified in the second step
+  // fourth: assign socket ids to all players on the frontend
+
+  // console.log("ALL PLAYERS", allBikes);
+  for (let i = 0; i < users.length; i++) {
+    store.dispatch(setPlayerId(users[i], i));
+  }
+
+  store.dispatch(startGame());
+  //   socket.emit('playerWithId', {
+  //     velocity:
+  //     playerWithId.ball.native._physijs.linearVelocity,
+  //     id: playerWithId.id
+  //   });
+  // });
+
+  // This goes to the server, and then goes to `publish-location` to tell the `tick` to start
+  socket.emit('haveGottenOthers');
+  // This goes to the server, and then back to the function with the setInterval
+  // Needed an intermediary for between when the other components are put on the DOM
+  // and the start of the interval loop
+  socket.emit('readyToReceiveUpdates');
+});
+
 
   // socket.on('addToWorld', (player) => {
   //

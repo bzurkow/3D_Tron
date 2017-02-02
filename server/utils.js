@@ -20,7 +20,8 @@ function createUser(socketId) {
 // When a user connects, send them a list of all of the existing users (minus themselves)
 function getOtherUsers (users, id) {
   console.log("USERS", users);
-  return users.filterNot(userData => userData.get('id') === id);
+  // return users.filterNot(userData => userData.get('id') === id);
+  return users.filter(userId => userId !== id);
 }
 
 module.exports = {

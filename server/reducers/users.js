@@ -1,10 +1,8 @@
 const { Map } = require('immutable');
 
 const { createUser } = require('../utils.js');
-
-/* --------------- INITIAL STATE --------------- */
-
-const initialState = Map({});
+// const store = require('../store');
+// console.log(store.getState());
 
 /* --------------- ACTIONS --------------- */
 
@@ -41,13 +39,22 @@ const createAndEmitUser = socket => {
   console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
+    dispatch(addUser(userId))
+
+    // this needs to be called after we add the socket id to users on the backend.
+    // socket.emit('sendNewUserToFront');
+
     // const user = Map(createUser(userId));
-    socket.emit('setId', userId);
-    socket.on('playerWithId', (player) => {
-      console.log("playerWithId", player);
-      dispatch(addUser(Map(player)));
+
+
+    //we need to dispatch adding new player as soon as we join the server instance...
+
+    // socket.on('playerWithId', (player) => {
+    //   console.log("playerWithId", player);
+    //   dispatch(addUser(Map(player)));
+
       // callback(player);
-    });
+    // });
 
     // function callback(player) {
     //   socket.on('worldLoad', () => {
@@ -67,18 +74,20 @@ const removeUserAndEmit = socket => {
 
 /* --------------- REDUCER --------------- */
 
-function userReducer (state = initialState, action) {
+function userReducer (state = [], action) {
   switch (action.type) {
 
     case ADD_USER:
-      return state.set(action.user.get('id'), action.user);
+     return [...state, action.user];
+      // return state.set(action.user.get('id'), action.user);
 
-    case UPDATE_USER_DATA:
-      return state.mergeIn([action.userData.get('id')], action.userData);
-
-    case REMOVE_USER:
-      return state.delete(action.userId);
-
+    // case UPDATE_USER_DATA:
+    //   // return state.mergeIn([action.userData.get('id')], action.userData);
+    //   break;
+    //
+    // case REMOVE_USER:
+    //   // return state.delete(action.userId);
+    //   break;
     default:
       return state;
   }

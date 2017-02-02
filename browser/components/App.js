@@ -12,7 +12,7 @@ import Game from './Game';
 // import Splash from './Splash';
 
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
   }
@@ -22,7 +22,7 @@ export default class App extends Component {
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
-        { this.props.startGame ? <Game /> : null }
+        { this.props.gameState.isPlaying ? <Game /> : null }
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}
@@ -31,12 +31,12 @@ export default class App extends Component {
       );
   }
 }
-
+// players={ this.props.players }
 //things we probably need...
-// const mapStateToProps = ({ gameState, controlPanel }) => ({ gameState, controlPanel });
-// const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = ({ gameState }) => ({ gameState });
+const mapDispatchToProps = dispatch => ({});
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
