@@ -22,7 +22,8 @@ class App extends Component {
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
-        { this.props.gameState.isPlaying ? <Game /> : null }
+        <Game players={ this.props.players } />
+{ /*this.props.gameState.isPlaying ? <Game players={ this.props.players }/> : null */}
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}
@@ -33,7 +34,7 @@ class App extends Component {
 }
 // players={ this.props.players }
 //things we probably need...
-const mapStateToProps = ({ gameState }) => ({ gameState });
+const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({});
 
 export default connect(

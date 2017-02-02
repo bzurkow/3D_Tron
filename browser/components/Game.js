@@ -9,15 +9,27 @@ import socket from '../socket';
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 console.log("PLAYERS FRONT END", store.getState().players);
 
-// const myPlayer = store.getState().players.filter(player => {
-// 	console.log("PLAYER", typeof player.id, typeof localStorage.getItem('mySocketId'));
-// 	return player.id == localStorage.getItem('mySocketId');
-// });
-// console.log("MY PLAYER", myPlayer);
+
+// const Game = ({ gameState }) => {
+//
+// }
+
 
 export default class Game extends Component {
+	constructor(props) {
+		super(props);
+	}
+
 
 	render(){
+		const myPlayer = this.props.players.filter(player => {
+			return player.id === localStorage.getItem('mySocketId');
+		});
+		console.log("MY PLAYER", myPlayer);
+		let player = myPlayer[0];
+		if (player) player.ball.add(world.camera);
+    // if (player) player.ball.addTo(world);
+		console.log("IN THE GAME", this.props.players[0].id);
 
 		document.addEventListener('keydown', (event) => {
 		  //cross product takes us left, neg cross right
