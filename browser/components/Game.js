@@ -67,12 +67,14 @@ export default class Game extends Component {
 		    world.camera.native.position.set(camx||0,camy||0,camz||0)
 		  }
 		  //up just once
+			console.log(event)
 		  if(event.keyCode===38){
 		    v = player.ball.native._physijs.linearVelocity
 		    up = world.camera.native.up
-		    vx = q*up.x
+				vx = q*up.x
 		    vy = q*up.y
 		    vz = q*up.z
+				console.log('hit', Date())
 		    newUpx = -v.x/q
 		    newUpy = -v.y/q
 		    newUpz = -v.z/q
@@ -106,14 +108,15 @@ export default class Game extends Component {
 		    world.camera.native.position.set(camx||0,camy||0,camz||0)
 		    world.camera.native.up.set(newUpx,newUpy,newUpz)
 		  }
-		});
+		})
 
+		player ? player.ball.add(world.camera) : null
 		// socket.emit('worldLoad');
 		world.start();
 		world.setControls(new WHS.OrbitControls());
 
 		return (
-			<div>
+			<div onClick={(event) => console.log('eh')}>
 
 			</div>
 		)

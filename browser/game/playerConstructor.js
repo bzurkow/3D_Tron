@@ -9,7 +9,7 @@
 import world, { q } from './world'
 
 const sphereBase = new WHS.Sphere({
-    geometry: [ 3, 32, 32],
+    geometry: [ 1, 32, 32],
     mass: 10, // Mass of physics object.
     material: {
       color: 0xF2F2F2,
