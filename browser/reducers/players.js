@@ -7,7 +7,7 @@ const initialState = allPlayers;
 const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
-
+const UPDATE_PLAYER = 'UPDATE_PLAYER';
 
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
@@ -26,6 +26,11 @@ export const removeAllPlayers = () => ({
   type: REMOVE_ALL_PLAYERS
 });
 
+export const updatePlayer = (linearVelocity, player) => ({
+  type: UPDATE_PLAYER,
+  linearVelocity,
+  player
+});
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -42,6 +47,13 @@ export default (state = initialState, action) => {
           bike.id = action.playerId;
         }
         return bike;
+      });
+    case UPDATE_PLAYER:
+      return state.map((player, index) => {
+        if (player.id === action.player.id) {
+          player.ball.setLinearVelocity(action.linearVelocity);
+        }
+        return player;
       });
     default: return state;
   }

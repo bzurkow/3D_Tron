@@ -27,7 +27,7 @@ export default function PlayerConstructor(){
     pos = that.ball._native.position
     V = [vel.x, vel.y, vel.z]
     P = [pos.x, pos.y, pos.z]
-    if(t>100){
+    if(t>100&&t%15===0){
       new WHS.Box({
         // mask: n,
         geometry: [1.5, 1.5, 1.5],
