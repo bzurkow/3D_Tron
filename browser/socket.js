@@ -2,7 +2,7 @@ import listeners from './game/listeners';
 const socket = io('/');
 
 import store from './store';
-import { setPlayerId } from './reducers/players';
+import { setPlayerId, updatePlayer } from './reducers/players';
 import { startGame } from './reducers/gameState';
 
 const allBikes = store.getState().players;
@@ -44,7 +44,25 @@ export const initializeSocket = () => {
 
   socket.emit('getOthers');
   socket.on('getOthersCallback', users => {
-  console.log('Checking to see if anyone is here', users);
+    console.log('Checking to see if anyone is here', users);
+    for (let i = 0; i < users.length; i++) {
+      store.dispatch(setPlayerId(users[i].id, i));
+    }
+    // store.dispatch(startGame());
+  });
+
+  socket.on('sendTurn', playerData => {
+    console.log('Player data going to front end', playerData);
+    const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
+    store.dispatch(updatePlayer(playerData.velocity, targetPlayer));
+  });
+
+};
+
+
+
+export default socket;
+
   // For each existing user that the backend sends us, put on the DOM
 
 
@@ -54,11 +72,9 @@ export const initializeSocket = () => {
   // fourth: assign socket ids to all players on the frontend
 
   // console.log("ALL PLAYERS", allBikes);
-  for (let i = 0; i < users.length; i++) {
-    store.dispatch(setPlayerId(users[i], i));
-  }
 
-  store.dispatch(startGame());
+
+
   //   socket.emit('playerWithId', {
   //     velocity:
   //     playerWithId.ball.native._physijs.linearVelocity,
@@ -67,20 +83,17 @@ export const initializeSocket = () => {
   // });
 
   // This goes to the server, and then goes to `publish-location` to tell the `tick` to start
-  socket.emit('haveGottenOthers');
+  // socket.emit('haveGottenOthers');
   // This goes to the server, and then back to the function with the setInterval
   // Needed an intermediary for between when the other components are put on the DOM
   // and the start of the interval loop
-  socket.emit('readyToReceiveUpdates');
-});
+  // socket.emit('readyToReceiveUpdates');
+
 
 
   // socket.on('addToWorld', (player) => {
   //
   // });
-};
-
-export default socket;
 
 
 

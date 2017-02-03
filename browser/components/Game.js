@@ -45,7 +45,7 @@ class Game extends Component {
 		    vArr = [v.x,v.y,v.z]
 		    upArr = [up.x,up.y,up.z]
 		    cross = math.cross(upArr,vArr)
-		    //player.ball.setLinearVelocity({x: cross[0], y: cross[1], z: cross[2]})
+				socket.emit('directionChange', {id: player.id, velocity: {x: cross[0], y: cross[1], z: cross[2]}});
 		    store.dispatch(updatePlayer({x: cross[0], y: cross[1], z: cross[2]}, player));
 		    if(cross[0]*cross[0]===q*q) camx = -cross[0]
 		    if(cross[1]*cross[1]===q*q) camy = -cross[1]

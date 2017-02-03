@@ -39,7 +39,7 @@ const createAndEmitUser = socket => {
   console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
-    dispatch(addUser(userId))
+    dispatch(addUser({id: userId}));
 
     // this needs to be called after we add the socket id to users on the backend.
     // socket.emit('sendNewUserToFront');
@@ -81,9 +81,14 @@ function userReducer (state = [], action) {
      return [...state, action.user];
       // return state.set(action.user.get('id'), action.user);
 
-    // case UPDATE_USER_DATA:
-    //   // return state.mergeIn([action.userData.get('id')], action.userData);
-    //   break;
+    case UPDATE_USER_DATA:
+    return state.map((user, index) => {
+      console.log("IN UPDATE_USER_DATA");
+      if (user.id === action.userData.id) {
+        user.velocity = action.userData.velocity;
+      }
+      return user;
+    });
     //
     // case REMOVE_USER:
     //   // return state.delete(action.userId);

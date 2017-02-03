@@ -1,4 +1,5 @@
 import allPlayers from '../game/players';
+// import socket from '../socket';
 
 /*----------  INITIAL STATE  ----------*/
 const initialState = allPlayers;
