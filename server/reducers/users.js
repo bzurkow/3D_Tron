@@ -1,8 +1,6 @@
 const { Map } = require('immutable');
 
 const { createUser } = require('../utils.js');
-// const store = require('../store');
-// console.log(store.getState());
 
 /* --------------- ACTIONS --------------- */
 
@@ -34,12 +32,14 @@ const removeUser = userId => {
 };
 
 /* --------------- THUNK ACTION CREATORS --------------- */
-
 const createAndEmitUser = socket => {
   console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
-    dispatch(addUser({id: userId}));
+    dispatch(addUser({
+      id: userId,
+      velocity: {}
+    }));
   };
 };
 

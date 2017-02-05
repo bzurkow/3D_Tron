@@ -9,38 +9,16 @@ const allBikes = store.getState().players;
 
 export const initializeSocket = () => {
   console.log("INITIAL STATE (IN INITIALIZE SOCKET)", store.getState().players);
-  // socket.on('connect', () => { listeners(socket); });
-  // socket.emit('room', 'ROOM');
-  // socket.on('message', function(data) {
-  //   console.log('Incoming message:', data);
-  // });
+
   socket.on('connect', () => {
     console.log('You\'ve made a persistent two-way connection to the server!');
     localStorage.setItem('mySocketId', socket.id);
   });
 
-  socket.on('hello', (x) => console.log("I GOT THE MESSAGE", x));
-
-  // socket.on('sendNewUserToFront', userId => {
-  //   console.log("SET ID");
-  //   let playerWithId;
-  //   console.log("ALL PLAYERS", allPlayers);
-  //   for (let i = 0; i < allPlayers.length; i++) {
-  //     console.log("PLAYER", allPlayers[i]);
-  //     if (!allPlayers[i].id) {
-  //       allPlayers[i].id = userId;
-  //       playerWithId = allPlayers[i];
-  //       break;
-  //     }
-  //   }
-  //   console.log("NEW PLAYER", playerWithId);
-  //
-  //   socket.emit('playerWithId', {
-  //     velocity:
-  //     playerWithId.ball.native._physijs.linearVelocity,
-  //     id: playerWithId.id
-  //   });
-  // });
+  socket.on('addUser', (newUser, newUserIndex) => {
+    console.log("NEW USER", newUser);
+      store.dispatch(setPlayerId(newUser.id, newUserIndex));
+  });
 
   socket.emit('getOthers');
   socket.on('getOthersCallback', users => {
@@ -48,7 +26,6 @@ export const initializeSocket = () => {
     for (let i = 0; i < users.length; i++) {
       store.dispatch(setPlayerId(users[i].id, i));
     }
-    // store.dispatch(startGame());
   });
 
   socket.on('sendTurn', playerData => {
@@ -59,8 +36,6 @@ export const initializeSocket = () => {
   });
 
 };
-
-
 
 export default socket;
 

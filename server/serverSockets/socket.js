@@ -11,9 +11,10 @@ module.exports = io => {
 
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
-
-    socket.broadcast.emit('hello', socket.id);
-    console.log("STORE", store.getState());
+    const getUsersStore = store.getState().users;
+    const newUser = getUsersStore.find(user => user.id === socket.id);
+    const newUserIndex = getUsersStore.indexOf(newUser);
+    socket.broadcast.emit('addUser', newUser, newUserIndex);
 
     // This will send all of the current users to the user that just connected
     socket.on('getOthers', () => {
@@ -23,7 +24,7 @@ module.exports = io => {
     });
 
     socket.on('directionChange', (playerData) => {
-      console.log('the data we send to the back' , playerData)
+      console.log('the data we send to the back', playerData);
       store.dispatch(updateUserData(playerData));
       console.log('get the state', store.getState().users);
       socket.broadcast.emit('sendTurn', playerData);
