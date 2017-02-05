@@ -18,6 +18,9 @@ export const initializeSocket = () => {
   socket.on('addUser', (newUser, newUserIndex) => {
     console.log("NEW USER", newUser);
       store.dispatch(setPlayerId(newUser.id, newUserIndex));
+      if (store.getState().players.filter(player => player.id).length === 3) {
+        store.dispatch(startGame());
+      }
   });
 
   socket.emit('getOthers');
@@ -25,6 +28,9 @@ export const initializeSocket = () => {
     console.log('Checking to see if anyone is here', users);
     for (let i = 0; i < users.length; i++) {
       store.dispatch(setPlayerId(users[i].id, i));
+    }
+    if (store.getState().players.filter(player => player.id).length === 3) {
+      store.dispatch(startGame());
     }
   });
 

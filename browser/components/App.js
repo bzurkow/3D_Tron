@@ -23,8 +23,7 @@ class App extends Component {
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
-        <Game players={ this.props.players } />
-{ /*this.props.gameState.isPlaying ? <Game players={ this.props.players }/> : null */}
+{ this.props.gameState.isPlaying ? <Game players={ this.props.players } /> : null }
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}

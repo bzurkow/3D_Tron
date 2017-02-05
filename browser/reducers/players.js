@@ -1,4 +1,5 @@
 import allPlayers from '../game/players';
+import world from '../game/world';
 // import socket from '../socket';
 
 /*----------  INITIAL STATE  ----------*/
@@ -21,7 +22,6 @@ export const setPlayerId = (playerId, index) => ({
   playerId,
   index
 });
-// state[action.index] = action.player
 
 export const removeAllPlayers = () => ({
   type: REMOVE_ALL_PLAYERS
