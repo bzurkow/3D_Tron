@@ -90,9 +90,9 @@ function userReducer (state = [], action) {
       return user;
     });
     //
-    // case REMOVE_USER:
-    //   // return state.delete(action.userId);
-    //   break;
+    case REMOVE_USER:
+      return state.filter(user => user.id !== action.userId);
+      // return state.delete(action.userId);
     default:
       return state;
   }
