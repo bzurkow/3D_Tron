@@ -1,7 +1,7 @@
 import { field } from './field'
 
 
-let q = 100;
+let q = 40;
 
 
 

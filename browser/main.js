@@ -9,8 +9,6 @@ import App from './components/App';
 import { initializeSocket } from './socket';
 initializeSocket();
 
-// require('./stylesheets/style.scss');
-
 render(
   <Provider store={store}>
     <App />

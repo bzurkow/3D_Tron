@@ -50,6 +50,7 @@ export default (state = initialState, action) => {
         return bike;
       });
     case UPDATE_PLAYER:
+      console.log("ACTION", action);
       return state.map((player, index) => {
         if (player.id === action.player.id) {
           player.ball.setLinearVelocity(action.linearVelocity);

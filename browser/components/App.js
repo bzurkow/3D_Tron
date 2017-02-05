@@ -18,6 +18,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("THIS>PROPS", this.props.players);
     //let { isPlaying } = this.props.gameState;
     // let { bugReportOpen } = this.props.controlPanel;
     return (

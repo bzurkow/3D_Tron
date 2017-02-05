@@ -40,27 +40,6 @@ const createAndEmitUser = socket => {
   return dispatch => {
     const userId = socket.id;
     dispatch(addUser({id: userId}));
-
-    // this needs to be called after we add the socket id to users on the backend.
-    // socket.emit('sendNewUserToFront');
-
-    // const user = Map(createUser(userId));
-
-
-    //we need to dispatch adding new player as soon as we join the server instance...
-
-    // socket.on('playerWithId', (player) => {
-    //   console.log("playerWithId", player);
-    //   dispatch(addUser(Map(player)));
-
-      // callback(player);
-    // });
-
-    // function callback(player) {
-    //   socket.on('worldLoad', () => {
-    //     socket.emit('addToWorld', player);
-    //   });
-    // }
   };
 };
 

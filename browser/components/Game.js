@@ -26,10 +26,8 @@ class Game extends Component {
 		});
 		console.log("MY PLAYER", myPlayer);
 		let player = myPlayer[0];
-		if (player){player.ball.add(world.camera);
-    // if (player) player.ball.addTo(world);
-		console.log("IN THE GAME", this.props.players[0].id);
-		console.log(myPlayer)
+		if (player){
+			player.ball.add(world.camera);
 		document.addEventListener('keydown', (event) => {
 		  if(this.state.timer>1){
 		  	console.log(this.state.timer)
@@ -63,7 +61,8 @@ class Game extends Component {
 		    upArr = [up.x,up.y,up.z]
 		    cross = math.cross(upArr,vArr)
 		    // player.ball.setLinearVelocity({x: -cross[0], y: -cross[1], z: -cross[2]})
-				store.dispatch(updatePlayer({x: cross[0], y: cross[1], z: cross[2]}, player));
+				socket.emit('directionChange', {id: player.id, velocity: {x: -cross[0], y: -cross[1], z: -cross[2]}});
+				store.dispatch(updatePlayer({x: -cross[0], y: -cross[1], z: -cross[2]}, player));
 		    if(cross[0]*cross[0]===q*q) camx = cross[0]
 		    if(cross[1]*cross[1]===q*q) camy = cross[1]
 		    if(cross[2]*cross[2]===q*q) camz = cross[2]
@@ -84,6 +83,7 @@ class Game extends Component {
 		    newUpy = -v.y/q
 		    newUpz = -v.z/q
 		    // player.ball.setLinearVelocity({x: vx, y: vy, z: vz})
+				socket.emit('directionChange', {id: player.id, velocity: {x: vx, y: vy, z: vz}});
 				store.dispatch(updatePlayer({x: vx, y: vy, z: vz}, player));
 		    if(vx*vx===q*q) camx = -vx
 		    if(vy*vy===q*q) camy = -vy
@@ -105,6 +105,7 @@ class Game extends Component {
 		    newUpy = v.y/q
 		    newUpz = v.z/q
 				// player.ball.setLinearVelocity({x: vx, y: vy, z: vz})
+				socket.emit('directionChange', {id: player.id, velocity: {x: vx, y: vy, z: vz}});
 				store.dispatch(updatePlayer({x: vx, y: vy, z: vz}, player));
 		    if(vx*vx===q*q) camx = -vx
 		    if(vy*vy===q*q) camy = -vy

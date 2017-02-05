@@ -16,7 +16,7 @@ export const initializeSocket = () => {
   // });
   socket.on('connect', () => {
     console.log('You\'ve made a persistent two-way connection to the server!');
-    localStorage.setItem('mySocketId', socket.id)
+    localStorage.setItem('mySocketId', socket.id);
   });
 
   socket.on('hello', (x) => console.log("I GOT THE MESSAGE", x));
@@ -54,6 +54,7 @@ export const initializeSocket = () => {
   socket.on('sendTurn', playerData => {
     console.log('Player data going to front end', playerData);
     const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
+    console.log("TARGET PLAYER", store.getState().players);
     store.dispatch(updatePlayer(playerData.velocity, targetPlayer));
   });
 
