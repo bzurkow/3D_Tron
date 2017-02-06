@@ -13,7 +13,8 @@ import socket from '../socket';
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 console.log("PLAYERS FRONT END", store.getState().players);
 
-import { updatePlayer } from '../reducers/players';
+// import { updatePlayer } from '../reducers/players';
+import { turnPlayer } from '../reducers/mainPlayer';
 
 class Game extends Component {
 	constructor(props) {
@@ -112,7 +113,8 @@ class Game extends Component {
 					player.ball.native.up.set(newUpx,newUpy,newUpz)
 					rotate(player)
 					socket.emit('directionChange', {id: player.id, velocity: {x: vx, y: vy, z: vz}});
-					store.dispatch(updatePlayer({x: vx, y: vy, z: vz}, player));
+					// store.dispatch(updatePlayer({x: vx, y: vy, z: vz}, player));
+					store.dispatch(turnPlayer(event.keyCode))
 				}
 
 				//down

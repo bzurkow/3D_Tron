@@ -4,6 +4,7 @@ const socket = io('/');
 import store from './store';
 import { setPlayerId, updatePlayer } from './reducers/players';
 import { startGame } from './reducers/gameState';
+import { setMainPlayer } from './reducers/mainPlayer';
 
 const allBikes = store.getState().players;
 
@@ -18,7 +19,7 @@ export const initializeSocket = () => {
   socket.on('addUser', (newUser, newUserIndex) => {
     console.log("NEW USER", newUser);
       store.dispatch(setPlayerId(newUser.id, newUserIndex));
-      if (store.getState().players.filter(player => player.id).length >= 1) {
+      if (store.getState().players.filter(player => player.id).length === 2) {
         store.dispatch(startGame());
       }
   });
@@ -28,8 +29,11 @@ export const initializeSocket = () => {
     console.log('Checking to see if anyone is here', users);
     for (let i = 0; i < users.length; i++) {
       store.dispatch(setPlayerId(users[i].id, i));
+      if (users[i].id === localStorage.getItem('mySocketId')){
+        store.dispatch(setMainPlayer(allBikes[i]));
+      }
     }
-    if (store.getState().players.filter(player => player.id).length >= 1) {
+    if (store.getState().players.filter(player => player.id).length === 2) {
       store.dispatch(startGame());
     }
   });
