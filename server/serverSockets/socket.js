@@ -1,6 +1,4 @@
 const chalk = require('chalk');
-// const { Map } = require('immutable');
-
 const store = require('../store');
 const { createAndEmitUser, updateUserData, removeUserAndEmit } = require('../reducers/users');
 const { getOtherUsers } = require('../utils');
@@ -14,13 +12,12 @@ module.exports = io => {
     const getUsersStore = store.getState().users;
     const newUser = getUsersStore.find(user => user.id === socket.id);
     const newUserIndex = getUsersStore.indexOf(newUser);
-    socket.broadcast.emit('addUser', newUser, newUserIndex);
+    io.sockets.emit('addUser', newUser, newUserIndex);
 
     // This will send all of the current users to the user that just connected
     socket.on('getOthers', () => {
       const allUsers = store.getState().users;
-      // socket.emit('getOthersCallback', allUsers);
-      socket.emit('getOthersCallback', getOtherUsers(allUsers, socket.id));
+      socket.emit('getOthersCallback', allUsers);
     });
 
     socket.on('directionChange', (playerData) => {
@@ -29,29 +26,6 @@ module.exports = io => {
       console.log('get the state', store.getState().users);
       socket.broadcast.emit('sendTurn', playerData);
     });
-
-    // This is a check to ensure that all of the existing users exist on the DOM
-    // before pushing updates to the backend
-    // socket.on('haveGottenOthers', () => {
-    //   socket.emit('startTick');
-    // });
-
-    // readyToReceiveUpdates is a check to make sure existing users have loaded
-    // for the new user
-    // Once they have, then the backend starts pushing updates to the frontend
-    socket.on('readyToReceiveUpdates', () => {
-      store.subscribe(() => {
-        const allUsers = store.getState().users;
-        socket.emit('usersUpdated', getOtherUsers(allUsers, socket.id));
-      });
-    });
-
-    // This will update a user's position when they move, and send it to everyone
-    // except the specific scene's user
-    // socket.on('tick', userData => {
-    //   userData = Map(userData);
-    //   store.dispatch(updateUserData(userData));
-    // });
 
     socket.on('disconnect', () => {
       store.dispatch(removeUserAndEmit(socket));
