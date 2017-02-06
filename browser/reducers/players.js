@@ -1,6 +1,7 @@
 import allPlayers from '../game/players';
 import world from '../game/world';
-import { turnLeft, turnRight, turnUp, turnDown } from '../game/gamePlayFunctions';
+
+import { rotate } from '../game/gamePlayFunctions';
 // import socket from '../socket';
 
 /*----------  INITIAL STATE  ----------*/
@@ -53,7 +54,14 @@ export default (state = initialState, action) => {
     case UPDATE_PLAYER:
       return state.map((player, index) => {
         if (player.id === action.player.id) {
+          console.log("ACTION LINEAR", action.up);
           player.ball.setLinearVelocity(action.linearVelocity);
+          player.ball.native._physijs.linearVelocity.set(action.linearVelocity.x, action.linearVelocity.y, action.linearVelocity.z);
+          player.ball.native.up.set(action.up.x, action.up.y, action.up.z);
+          let wallToAdd = player.wall[0];
+          player.wall = [];
+          player.walls.push(wallToAdd);
+          rotate(player);
         }
         return player;
       });

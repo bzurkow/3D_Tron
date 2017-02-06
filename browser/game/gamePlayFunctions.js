@@ -65,10 +65,10 @@ import world from './world';
 		}
 		if(ups.z === 1){
 			if(vs.x === 100){
-				console.log("Rotation Not Set")
+				user.ball.native.rotation.set(Math.PI,Math.PI/2,-Math.PI/2)
 			}
 			if(vs.x === -100){
-				console.log("Rotation Not Set")
+				user.ball.native.rotation.set(Math.PI/2,-Math.PI/2,0)
 			}
 			if(vs.y === 100){
 				user.ball.native.rotation.set(Math.PI/2,Math.PI,0)
@@ -101,9 +101,9 @@ import world from './world';
 			user.ball.native.up.y*(-3),
 			user.ball.native.up.z*(-3)
 		)
-		world.camera.native.up.set(
-			user.ball.native.up.x,
-			user.ball.native.up.y,
-			user.ball.native.up.z
-		)
-	}
+		// world.camera.native.up.set(
+		// 	user.ball.native.up.x,
+		// 	user.ball.native.up.y,
+		// 	user.ball.native.up.z
+		// )
+	};

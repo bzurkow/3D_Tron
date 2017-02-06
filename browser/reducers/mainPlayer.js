@@ -1,3 +1,4 @@
+import { turnLeft, turnRight, turnUp, turnDown } from '../game/directionsFunctions';
 /*----------  ACTION TYPES  ----------*/
 const SET_MAIN_PLAYER = 'SET_MAIN_PLAYER';
 const TURN_PLAYER_LEFT = 'TURN_PLAYER_LEFT';
@@ -31,13 +32,14 @@ export default (mainPlayer = {}, action) => {
     case SET_MAIN_PLAYER:
       return action.player;
     case TURN_PLAYER_LEFT:
-      return;
+      console.log("NEW PLAYER", newPlayer);
+      return turnLeft(newPlayer);
     case TURN_PLAYER_RIGHT:
-      return;
+      return turnRight(newPlayer);
     case TURN_PLAYER_UP:
-      return;
+      return turnUp(newPlayer);
     case TURN_PLAYER_DOWN:
-      return;
+      return turnDown(newPlayer);
 
     default: return mainPlayer;
   }

@@ -6,9 +6,10 @@ import { setPlayerId, updatePlayer } from './reducers/players';
 import { startGame } from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 
-const allBikes = store.getState().players;
 
 export const initializeSocket = () => {
+  const allBikes = store.getState().players;
+
   console.log("INITIAL STATE (IN INITIALIZE SOCKET)", store.getState().players);
 
   socket.on('connect', () => {
@@ -42,6 +43,7 @@ export const initializeSocket = () => {
     console.log('Player data going to front end', playerData);
     const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
     console.log("TARGET PLAYER", store.getState().players);
+    // NEED TO ADD UP HERE
     store.dispatch(updatePlayer(playerData.velocity, targetPlayer));
   });
 

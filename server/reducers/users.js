@@ -38,7 +38,8 @@ const createAndEmitUser = socket => {
     const userId = socket.id;
     dispatch(addUser({
       id: userId,
-      velocity: {}
+      velocity: {},
+      up: {}
     }));
   };
 };
@@ -65,6 +66,7 @@ function userReducer (state = [], action) {
       console.log("IN UPDATE_USER_DATA");
       if (user.id === action.userData.id) {
         user.velocity = action.userData.velocity;
+        // user.up = action.userData.up;
       }
       return user;
     });
