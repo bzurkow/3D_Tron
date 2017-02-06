@@ -1,9 +1,9 @@
 const chalk = require('chalk');
-const { Map } = require('immutable');
+// const { Map } = require('immutable');
 
 const store = require('../store');
 const { createAndEmitUser, updateUserData, removeUserAndEmit } = require('../reducers/users');
-const { getOtherUsers } = require('../utils');
+// const { getOtherUsers } = require('../utils');
 
 module.exports = io => {
   io.on('connection', socket => {

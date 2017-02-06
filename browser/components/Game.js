@@ -19,7 +19,6 @@ class Game extends Component {
 		this.state = {timer: 0};
 	}
 
-
 	render(){
 
 		setInterval(() => this.state.timer++, 1);
