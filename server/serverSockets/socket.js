@@ -3,7 +3,7 @@ const chalk = require('chalk');
 
 const store = require('../store');
 const { createAndEmitUser, updateUserData, removeUserAndEmit } = require('../reducers/users');
-// const { getOtherUsers } = require('../utils');
+const { getOtherUsers } = require('../utils');
 
 module.exports = io => {
   io.on('connection', socket => {
@@ -19,8 +19,8 @@ module.exports = io => {
     // This will send all of the current users to the user that just connected
     socket.on('getOthers', () => {
       const allUsers = store.getState().users;
-      socket.emit('getOthersCallback', allUsers);
-      // getOtherUsers(allUsers, socket.id));
+      // socket.emit('getOthersCallback', allUsers);
+      socket.emit('getOthersCallback', getOtherUsers(allUsers, socket.id));
     });
 
     socket.on('directionChange', (playerData) => {
@@ -39,12 +39,12 @@ module.exports = io => {
     // readyToReceiveUpdates is a check to make sure existing users have loaded
     // for the new user
     // Once they have, then the backend starts pushing updates to the frontend
-    // socket.on('readyToReceiveUpdates', () => {
-    //   store.subscribe(() => {
-    //     const allUsers = store.getState().users;
-    //     socket.emit('usersUpdated', getOtherUsers(allUsers, socket.id));
-    //   });
-    // });
+    socket.on('readyToReceiveUpdates', () => {
+      store.subscribe(() => {
+        const allUsers = store.getState().users;
+        socket.emit('usersUpdated', getOtherUsers(allUsers, socket.id));
+      });
+    });
 
     // This will update a user's position when they move, and send it to everyone
     // except the specific scene's user

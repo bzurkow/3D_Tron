@@ -18,7 +18,7 @@ export const initializeSocket = () => {
   socket.on('addUser', (newUser, newUserIndex) => {
     console.log("NEW USER", newUser);
       store.dispatch(setPlayerId(newUser.id, newUserIndex));
-      if (store.getState().players.filter(player => player.id).length === 1) {
+      if (store.getState().players.filter(player => player.id).length === 2) {
         store.dispatch(startGame());
       }
   });
@@ -29,7 +29,7 @@ export const initializeSocket = () => {
     for (let i = 0; i < users.length; i++) {
       store.dispatch(setPlayerId(users[i].id, i));
     }
-    if (store.getState().players.filter(player => player.id).length === 1) {
+    if (store.getState().players.filter(player => player.id).length === 2) {
       store.dispatch(startGame());
     }
   });
@@ -54,7 +54,6 @@ export default socket;
   // fourth: assign socket ids to all players on the frontend
 
   // console.log("ALL PLAYERS", allBikes);
-
 
 
   //   socket.emit('playerWithId', {

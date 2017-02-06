@@ -90,12 +90,12 @@ app.use(volleyball);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
-require(path.join(__dirname, 'db')).db.sync()
-  .then(() => {
+// require(path.join(__dirname, 'db')).db.sync()
+//   .then(() => {
     server.listen(3000, function() {
       console.log('The server is listening on port 3000!');
     });
-  });
+  // });
 
 
 // app.get('/', function(req, res) {
