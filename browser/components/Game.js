@@ -5,6 +5,7 @@ import world, { speed } from '../game/world';
 
 /* eslint semi: 0 */
 /* eslint space-infix-ops: 0 */
+/* eslint comma-spacing: 0 */
 import store from '../store';
 import socket from '../socket';
 

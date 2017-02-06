@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const name = (process.env.DATABASE_NAME || '3D TRON');
+const name = (process.env.DATABASE_NAME || '3D_TRON');
 
 const url = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`;
 
