@@ -1,93 +1,93 @@
-import world from './world';
+import world, { speed } from './world';
 
 //rotate function
-	let ups, vs
 	export const rotate = (user) => {
+		let ups, vs
 		ups = user.ball.native.up
 		vs = user.ball.native._physijs.linearVelocity
-		console.log([ups.x, ups.y, ups.z])
-		console.log([vs.x, vs.y, vs.z])
+		// console.log([ups.x, ups.y, ups.z])
+		// console.log([vs.x, vs.y, vs.z])
 		if(ups.x === 1){
-			if(vs.y === 100){
+			if(vs.y === speed){
 				user.ball.native.rotation.set(-Math.PI/2,0,-Math.PI/2)
 			}
-			if(vs.y === -100){
+			if(vs.y === -speed){
 				user.ball.native.rotation.set(Math.PI/2,0,-Math.PI/2)
 			}
-			if(vs.z === 100){
+			if(vs.z === speed){
 				user.ball.native.rotation.set(0,0,-Math.PI/2)
 			}
-			if(vs.z === -100){
+			if(vs.z === -speed){
 				user.ball.native.rotation.set(Math.PI,0,-Math.PI/2)
 			}
 		}
 		if(ups.x === -1){
-			if(vs.y === 100){
+			if(vs.y === speed){
 				user.ball.native.rotation.set(-Math.PI/2,0,Math.PI/2)
 			}
-			if(vs.y === -100){
+			if(vs.y === -speed){
 				user.ball.native.rotation.set(Math.PI/2,0,Math.PI/2)
 			}
-			if(vs.z === 100){
+			if(vs.z === speed){
 				user.ball.native.rotation.set(0,0,Math.PI/2)
 			}
-			if(vs.z === -100){
+			if(vs.z === -speed){
 				user.ball.native.rotation.set(Math.PI,0,Math.PI/2)
 			}
 		}
 		if(ups.y === 1){
-			if(vs.x === 100){
+			if(vs.x === speed){
 				user.ball.native.rotation.set(0,Math.PI/2,0)
 			}
-			if(vs.x === -100){
+			if(vs.x === -speed){
 				user.ball.native.rotation.set(0,-Math.PI/2,0)
 			}
-			if(vs.z === 100){
+			if(vs.z === speed){
 				user.ball.native.rotation.set(0, 0, 0)
 			}
-			if(vs.z === -100){
+			if(vs.z === -speed){
 				user.ball.native.rotation.set(0, Math.PI, 0)
 			}
 		}
 		if(ups.y === -1){
-			if(vs.x === 100){
+			if(vs.x === speed){
 				user.ball.native.rotation.set(-Math.PI/2, Math.PI/2, -Math.PI/2)
 			}
-			if(vs.x === -100){
+			if(vs.x === -speed){
 				user.ball.native.rotation.set(Math.PI/2, -Math.PI/2, -Math.PI/2)
 			}
-			if(vs.z === 100){
+			if(vs.z === speed){
 				user.ball.native.rotation.set(Math.PI,Math.PI,0)
 			}
-			if(vs.z === -100){
+			if(vs.z === -speed){
 				user.ball.native.rotation.set(Math.PI,0,0)
 			}
 		}
 		if(ups.z === 1){
-			if(vs.x === 100){
+			if(vs.x === speed){
 				user.ball.native.rotation.set(Math.PI,Math.PI/2,-Math.PI/2)
 			}
-			if(vs.x === -100){
+			if(vs.x === -speed){
 				user.ball.native.rotation.set(Math.PI/2,-Math.PI/2,0)
 			}
-			if(vs.y === 100){
+			if(vs.y === speed){
 				user.ball.native.rotation.set(Math.PI/2,Math.PI,0)
 			}
-			if(vs.y === -100){
+			if(vs.y === -speed){
 				user.ball.native.rotation.set(Math.PI/2,0,0)
 			}
 		}
 		if(ups.z === -1){
-			if(vs.x === 100){
+			if(vs.x === speed){
 				user.ball.native.rotation.set(-Math.PI/2,Math.PI/2,0)
 			}
-			if(vs.x === -100){
+			if(vs.x === -speed){
 				user.ball.native.rotation.set(-Math.PI/2,-Math.PI/2,0)
 			}
-			if(vs.y === 100){
+			if(vs.y === speed){
 				user.ball.native.rotation.set(-Math.PI/2,0,0)
 			}
-			if(vs.y === -100){
+			if(vs.y === -speed){
 				user.ball.native.rotation.set(-Math.PI/2,Math.PI,0)
 			}
 		}
@@ -106,4 +106,5 @@ import world from './world';
 		// 	user.ball.native.up.y,
 		// 	user.ball.native.up.z
 		// )
+		return user
 	};

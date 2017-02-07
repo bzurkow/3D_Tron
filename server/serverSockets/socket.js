@@ -9,22 +9,22 @@ module.exports = io => {
 
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
-    const getUsersStore = store.getState().users;
-    const newUser = getUsersStore.find(user => user.id === socket.id);
-    const newUserIndex = getUsersStore.indexOf(newUser);
-    io.sockets.emit('addUser', newUser, newUserIndex);
+    const allUsers = store.getState().users;
+    // const newUser = getUsersStore.find(user => user.id === socket.id);
+    // const newUserIndex = getUsersStore.indexOf(newUser);
+    io.sockets.emit('addUser', allUsers);
 
-    // This will send all of the current users to the user that just connected
-    socket.on('getOthers', () => {
-      const allUsers = store.getState().users;
-      socket.emit('getOthersCallback', allUsers);
-    });
+    // // This will send all of the current users to the user that just connected
+    // socket.on('getOthers', () => {
+    //   const allUsers = store.getState().users;
+    //   socket.emit('getOthersCallback', allUsers);
+    // });
 
     socket.on('directionChange', (playerData) => {
       console.log('the data we send to the back', playerData);
-      store.dispatch(updateUserData(playerData));
-      console.log('get the state', store.getState().users);
-      socket.broadcast.emit('sendTurn', playerData);
+      // store.dispatch(updateUserData(playerData));
+      // console.log('get the state', store.getState().users);
+      io.sockets.emit('sendTurn', playerData);
     });
 
     socket.on('disconnect', () => {

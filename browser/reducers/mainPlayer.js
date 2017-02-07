@@ -32,7 +32,6 @@ export default (mainPlayer = {}, action) => {
     case SET_MAIN_PLAYER:
       return action.player;
     case TURN_PLAYER_LEFT:
-      console.log("NEW PLAYER", newPlayer);
       return turnLeft(newPlayer);
     case TURN_PLAYER_RIGHT:
       return turnRight(newPlayer);

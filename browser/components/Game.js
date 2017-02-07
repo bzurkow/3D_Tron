@@ -22,25 +22,60 @@ class Game extends Component {
 	render(){
 
 		setInterval(() => this.state.timer++, 1);
-		// const myPlayer = this.props.players.filter(player => {
-		// 	return player.id === localStorage.getItem('mySocketId');
-		// });
+		const myPlayer = this.props.players.filter(player => {
+			return player.id === localStorage.getItem('mySocketId');
+		});
 		console.log("MY PLAYER", this.props.mainPlayer);
-		let player = this.props.mainPlayer;
+		let player = myPlayer[0];
 		if (player) {
+			console.log("PLAYER DSJHKLSF KLSDHF", player);
 			player.ball.add(world.camera);
 
-			const validKeys = [37, 39, 38, 40];
 			document.addEventListener('keydown', (event) => {
-
+				// let camx, camy, camz
+				const validKeys = [37, 39, 38, 40];
 				if (validKeys.includes(event.keyCode)) {
-					store.dispatch(turnPlayer(event.keyCode));
+					store.dispatch(turnPlayer(event.keyCode))
+
+						// world.camera.native.up.set(
+						// 	player.ball.native.up.x,
+						// 	player.ball.native.up.y,
+						// 	player.ball.native.up.z
+						// )
+
+					// .then(() => {
+					// 	if(Math.abs(world.camera.native.up.x)===1) {
+					// 		camx = world.camera.native.up.x*5
+					// 	}
+					// 	if(Math.abs(world.camera.native.up.y)===1) {
+					// 		camy = world.camera.native.up.y*5
+					// 	}
+					// 	if(Math.abs(world.camera.native.up.z)===1) {
+					// 		camz = world.camera.native.up.z*5
+					// 	}
+					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
+					// 	.x)===speed){
+					// 		camx = -player.ball.native._physijs.linearVelocity.x
+					// 	}
+					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
+					// 	.y)===speed){
+					// 		camy = -player.ball.native._physijs.linearVelocity.y
+					// 	}
+					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
+					// 	.z)===speed){
+					// 		camz = -player.ball.native._physijs.linearVelocity.z
+					// 	}
+					// 	console.log("cam vs", camx, camy, camz)
+					// 	world.camera.native.position.set(camx||0,camy||0,camz||0)
+					// 	console.log("final camera pos", world.camera.native.position)
+					// })
 				}
-				world.camera.native.up.set(
-					player.ball.native.up.x,
-					player.ball.native.up.y,
-					player.ball.native.up.z
-				)
+
+				// world.camera.native.up.set(
+				// 	player.ball.native.up.x,
+				// 	player.ball.native.up.y,
+				// 	player.ball.native.up.z
+				// )
 
 			})
 
@@ -75,7 +110,7 @@ class Game extends Component {
 
 	import { connect } from 'react-redux';
 
-	const mapStateToProps = ({ mainPlayer }) => ({ mainPlayer });
+	const mapStateToProps = ({ players }) => ({ players });
 
 	// const mapDispatchToProps = (dispatch) => {
 	// 	return {

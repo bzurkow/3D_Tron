@@ -19,10 +19,9 @@ export const receivePlayers = (players) => ({
   players
 });
 
-export const setPlayerId = (playerId, index) => ({
+export const setPlayerId = (users) => ({
   type: SET_PLAYER_ID,
-  playerId,
-  index
+  users
 });
 
 export const updatePlayer = (linearVelocity, up, player) => ({
@@ -39,21 +38,32 @@ export const removeAllPlayers = () => ({
 /*----------  THUNK CREATORS  ----------*/
 
 /*----------  REDUCER  ----------*/
-export default (state = initialState, action) => {
+export default (players = initialState, action) => {
+
+  // const newPlayers = Object.assign({}, players);
+  const newPlayers = [...players];
+
   switch (action.type) {
     case RECEIVE_PLAYERS:
       return action.players;
     case REMOVE_ALL_PLAYERS:
       return initialState;
     case SET_PLAYER_ID:
-      return state.map((bike, index) => {
-        if (index === action.index) {
-          bike.id = action.playerId;
+      action.users.map((user, index) => {
+        if (user.id) {
+          newPlayers[index].id = user.id;
         }
-        return bike;
-      });
+        return user;
+      })
+      return newPlayers;
+      // return players.map((player, index) => {
+      //   if (index === action.index) {
+      //     player.id = action.playerId;
+      //   }
+      //   return player;
+      // });
     case UPDATE_PLAYER:
-      return state.map((player, index) => {
+      return players.map((player, index) => {
         if (player.id === action.player.id) {
           console.log("ACTION LINEAR", action.up);
           player.ball.setLinearVelocity(action.linearVelocity);
@@ -67,6 +77,6 @@ export default (state = initialState, action) => {
         return player;
       });
 
-    default: return state;
+    default: return players;
   }
 };

@@ -1,7 +1,7 @@
 import { field } from './field'
 
 
-let speed = 20;
+let speed = 100;
 let q = speed;
 
 const world = new WHS.World({
