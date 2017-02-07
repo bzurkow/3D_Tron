@@ -20,13 +20,25 @@ class Game extends Component {
 	}
 
 	componentDidMount() {
+		const players = this.props.players;
 		world.start()
 		world.setControls(new WHS.OrbitControls())
+		players.forEach(player => {
+			player.ball.native.addEventListener('collision', (collidedWith) => {
+		    world.scene.remove(player.ball.native)
+		    player.ball.remove(world.camera)
+		    player.walls.forEach(wall => world.scene.remove(wall.native))
+		    player.walls = []
+		    world.scene.remove(player.wall[0]._native)
+		    clearInterval(player.si)
+		  }, true);
+			player.si = setInterval(player.tail, 10)
+		});
 	}
 
 	render(){
 		console.log("FRONT END GAME", this.props.players);
-		setInterval(() => this.state.timer++, 1);
+		// setInterval(() => this.state.timer++, 1);
 		// const myPlayer = this.props.players.filter(player => {
 		// 	return player.id === localStorage.getItem('mySocketId');
 		// });
@@ -38,44 +50,9 @@ class Game extends Component {
 			player.ball.add(world.camera);
 
 			document.addEventListener('keydown', (event) => {
-				// let camx, camy, camz
 				const validKeys = [37, 39, 38, 40];
 				if (validKeys.includes(event.keyCode)) {
-					store.dispatch(turnPlayer(event.keyCode))
-
-						// world.camera.native.up.set(
-						// 	player.ball.native.up.x,
-						// 	player.ball.native.up.y,
-						// 	player.ball.native.up.z
-						// )
-
-					// .then(() => {
-					// 	if(Math.abs(world.camera.native.up.x)===1) {
-					// 		camx = world.camera.native.up.x*5
-					// 	}
-					// 	if(Math.abs(world.camera.native.up.y)===1) {
-					// 		camy = world.camera.native.up.y*5
-					// 	}
-					// 	if(Math.abs(world.camera.native.up.z)===1) {
-					// 		camz = world.camera.native.up.z*5
-					// 	}
-					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
-
-					// 	.x)===speed){
-					// 		camx = -player.ball.native._physijs.linearVelocity.x
-					// 	}
-					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
-					// 	.y)===speed){
-					// 		camy = -player.ball.native._physijs.linearVelocity.y
-					// 	}
-					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
-					// 	.z)===speed){
-					// 		camz = -player.ball.native._physijs.linearVelocity.z
-					// 	}
-					// 	console.log("cam vs", camx, camy, camz)
-					// 	world.camera.native.position.set(camx||0,camy||0,camz||0)
-					// 	console.log("final camera pos", world.camera.native.position)
-					// })
+					store.dispatch(turnPlayer(event.keyCode));
 				}
 
 				// world.camera.native.up.set(
@@ -99,21 +76,12 @@ class Game extends Component {
 				player.ball.native.up.y,
 				player.ball.native.up.z
 			)
-
-			//setting the camera to the ball
-			// player.ball.add(world.camera)
-
-			//starting the world
-
-
-
 		}
 		return null;
 	}
 }
 
 	////////////////// CONNECTOR ////////////////////
-
 	import { connect } from 'react-redux';
 
 	const mapStateToProps = ({ mainPlayer, players }) => ({ mainPlayer, players });
