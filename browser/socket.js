@@ -6,7 +6,7 @@ import { setPlayerId, updatePlayer } from './reducers/players';
 import { startGame } from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
-import world, { speed } from './game/world'
+import world, { speed } from './game/world';
 
 export const initializeSocket = () => {
   const allBikes = store.getState().players;
@@ -21,24 +21,18 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     console.log("ALL USERS", allUsers);
       store.dispatch(setPlayerId(allUsers));
-      if (store.getState().players.filter(player => player.id).length >= 1) {
-        store.dispatch(startGame());
-      }
+      // if (store.getState().players.filter(player => player.id).length >= 1) {
+      //   store.dispatch(startGame());
+      // }
       const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
       const myBike = allBikes.find(bike => bike.id === myUser.id);
       store.dispatch(setMainPlayer(myBike));
   });
 
-  // socket.emit('getOthers');
-  // socket.on('getOthersCallback', users => {
-  //   console.log('Checking to see if anyone is here', users);
-  //   for (let i = 0; i < users.length; i++) {
-  //     store.dispatch(setPlayerId(users[i].id, i));
-  //   }
-  //   if (store.getState().players.filter(player => player.id).length === 2) {
-  //     store.dispatch(startGame());
-  //   }
-  // });
+  socket.on('startGame', () => {
+    console.log("SHOULD START GAME HERE");
+    store.dispatch(startGame());
+  });
 
   socket.on('sendTurn', playerData => {
     console.log('Player data going to front end', playerData);

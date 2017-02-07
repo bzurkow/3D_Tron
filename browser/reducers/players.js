@@ -12,7 +12,7 @@ const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
-
+const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
   type: RECEIVE_PLAYERS,
@@ -22,6 +22,12 @@ export const receivePlayers = (players) => ({
 export const setPlayerId = (users) => ({
   type: SET_PLAYER_ID,
   users
+});
+
+export const addPlayerName = (playerId, playerName) => ({
+  type: ADD_PLAYER_NAME,
+  playerId,
+  playerName
 });
 
 export const updatePlayer = (linearVelocity, up, player) => ({
@@ -54,7 +60,7 @@ export default (players = initialState, action) => {
           newPlayers[index].id = user.id;
         }
         return user;
-      })
+      });
       return newPlayers;
       // return players.map((player, index) => {
       //   if (index === action.index) {

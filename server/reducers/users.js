@@ -7,6 +7,7 @@ const { createUser } = require('../utils.js');
 const ADD_USER = 'ADD_USER';
 const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
 const REMOVE_USER = 'REMOVE_USER';
+const READY_PLAYER = 'READY_PLAYER';
 
 /* --------------- ACTION CREATORS --------------- */
 
@@ -31,6 +32,11 @@ const removeUser = userId => {
   };
 };
 
+const readyPlayer = (playerId) => ({
+  type: READY_PLAYER,
+  playerId
+});
+
 /* --------------- THUNK ACTION CREATORS --------------- */
 const createAndEmitUser = socket => {
   console.log("Create and emit user");
@@ -45,6 +51,12 @@ const removeUserAndEmit = socket => {
     const userId = socket.id;
     dispatch(removeUser(userId));
     socket.broadcast.emit('removeUser', userId);
+  };
+};
+
+const startReady = (playerId) => {
+  return dispatch => {
+    dispatch(readyPlayer(playerId));
   };
 };
 
@@ -94,7 +106,15 @@ function userReducer (state = initialState, action) {
       }
       return user;
     });
-    //
+
+    case READY_PLAYER:
+    return state.map((user) => {
+      if (user.id === action.playerId) {
+        user.readyToPlay = true;
+      }
+      return user;
+    });
+
     case REMOVE_USER:
       return newUser.map(user => {
         if (user.id === action.userId) {
@@ -115,7 +135,8 @@ module.exports = {
   createAndEmitUser,
   updateUserData,
   removeUserAndEmit,
-  userReducer
+  userReducer,
+  startReady
 };
 
 // /*----------  INITIAL STATE  ----------*/

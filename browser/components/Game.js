@@ -20,14 +20,15 @@ class Game extends Component {
 	}
 
 	render(){
-
+		console.log("FRONT END GAME", this.props.players);
 		setInterval(() => this.state.timer++, 1);
-		const myPlayer = this.props.players.filter(player => {
-			return player.id === localStorage.getItem('mySocketId');
-		});
-		console.log("MY PLAYER", this.props.mainPlayer);
-		let player = myPlayer[0];
-		if (player) {
+		// const myPlayer = this.props.players.filter(player => {
+		// 	return player.id === localStorage.getItem('mySocketId');
+		// });
+		// console.log("MY PLAYER", this.props.mainPlayer);
+		// let player = myPlayer[0];
+		if (this.props.mainPlayer) {
+			const player = this.props.mainPlayer;
 			console.log("PLAYER DSJHKLSF KLSDHF", player);
 			player.ball.add(world.camera);
 
@@ -110,7 +111,7 @@ class Game extends Component {
 
 	import { connect } from 'react-redux';
 
-	const mapStateToProps = ({ players }) => ({ players });
+	const mapStateToProps = ({ mainPlayer, players }) => ({ mainPlayer, players });
 
 	// const mapDispatchToProps = (dispatch) => {
 	// 	return {
