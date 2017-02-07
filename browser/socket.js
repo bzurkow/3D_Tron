@@ -44,7 +44,7 @@ export const initializeSocket = () => {
     const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
     console.log("TARGET PLAYER", store.getState().players);
     // NEED TO ADD UP HERE
-    store.dispatch(updatePlayer(playerData.velocity, targetPlayer));
+    store.dispatch(updatePlayer(playerData.velocity, playerData.up, targetPlayer));
   });
 };
 
