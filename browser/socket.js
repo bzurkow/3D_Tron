@@ -20,9 +20,6 @@ export const initializeSocket = () => {
   socket.on('addUser', (newUser, newUserIndex) => {
     console.log("NEW USER", newUser);
       store.dispatch(setPlayerId(newUser.id, newUserIndex));
-      if (store.getState().players.filter(player => player.id).length === 2) {
-        store.dispatch(startGame());
-      }
       if (newUser.id === localStorage.getItem('mySocketId')){
         store.dispatch(setMainPlayer(allBikes[newUserIndex]));
       }
@@ -34,10 +31,12 @@ export const initializeSocket = () => {
     for (let i = 0; i < users.length; i++) {
       store.dispatch(setPlayerId(users[i].id, i));
     }
-    if (store.getState().players.filter(player => player.id).length === 2) {
-      store.dispatch(startGame());
-    }
   });
+
+  socket.on('startGame', () => {
+    console.log("SHOULD START GAME HERE");
+    store.dispatch(startGame());
+  })
 
   socket.on('sendTurn', playerData => {
     console.log('Player data going to front end', playerData);

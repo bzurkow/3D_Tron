@@ -1,0 +1,69 @@
+body, html {
+    height: 100%;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: "Quicksand", sans-serif;
+    overflow: hidden;
+
+    background: url('./images/bluebike.jpg') no-repeat top center fixed;
+    background-size: cover;
+}
+
+
+#title {
+    color: white;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 7vw;
+  letter-spacing: 0.4em;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#name-box{
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    font-size: 4vh;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    height: 7vh;
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: transparent;
+    text-align: center;
+}
+
+#play-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: white;
+    position: fixed;
+    font-size: 3.5vh;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid;
+    border-radius: 14px;
+    background-color: transparent;
+    text-align: center;
+    padding: 1vh 1vw;
+}
+
+.glyphicon {
+  color: white;
+}
+
+
+
+ul {
+  list-style: none;
+  color: white;
+  background-color: black;
+  text-align: center;
+}

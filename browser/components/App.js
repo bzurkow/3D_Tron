@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
+import Landing from './Landing'
 import Game from './Game';
 
 //not needed yet
@@ -23,7 +23,8 @@ class App extends Component {
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
-{ this.props.gameState.isPlaying ? <Game players={ this.props.players } /> : null }
+ { !this.props.gameState.isPlaying && <Landing /> }
+ { this.props.gameState.isPlaying && <Game players={ this.props.players } /> }
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}

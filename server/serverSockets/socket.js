@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const store = require('../store');
-const { createAndEmitUser, updateUserData, removeUserAndEmit } = require('../reducers/users');
+const { createAndEmitUser, updateUserData, removeUserAndEmit, startReady } = require('../reducers/users');
 const { getOtherUsers } = require('../utils');
 
 module.exports = io => {
@@ -20,6 +20,15 @@ module.exports = io => {
       socket.emit('getOthersCallback', allUsers);
     });
 
+    //Player ready in landing page
+    socket.on('readyPlayer', (playerId) => {
+      store.dispatch(startReady(playerId));
+      const allUsers = store.getState().users;
+      console.log("CHECK IF PLAYER READY IS SENT TO BACKEND", allUsers);
+      if (allUsers.length > 1 && allUsers.length === allUsers.filter(user => user.readyToPlay===true).length) {
+         io.sockets.emit('startGame');
+    }
+
     socket.on('directionChange', (playerData) => {
       console.log('the data we send to the back', playerData);
       store.dispatch(updateUserData(playerData));
@@ -32,4 +41,5 @@ module.exports = io => {
       console.log(chalk.magenta(`${socket.id} has disconnected`));
     });
   });
-};
+});
+}

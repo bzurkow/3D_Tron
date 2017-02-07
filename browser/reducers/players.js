@@ -12,6 +12,8 @@ const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
+const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
+
 
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
@@ -24,6 +26,12 @@ export const setPlayerId = (playerId, index) => ({
   playerId,
   index
 });
+
+export const addPlayerName = (playerId, playerName) => ({
+  type: ADD_PLAYER_NAME,
+  playerId,
+  playerName
+})
 
 export const updatePlayer = (linearVelocity, player) => ({
   type: UPDATE_PLAYER,
@@ -40,10 +48,13 @@ export const removeAllPlayers = () => ({
 /*----------  REDUCER  ----------*/
 export default (state = initialState, action) => {
   switch (action.type) {
+
     case RECEIVE_PLAYERS:
       return action.players;
+
     case REMOVE_ALL_PLAYERS:
       return initialState;
+
     case SET_PLAYER_ID:
       return state.map((bike, index) => {
         if (index === action.index) {
@@ -51,6 +62,15 @@ export default (state = initialState, action) => {
         }
         return bike;
       });
+
+    case ADD_PLAYER_NAME:
+      return state.map((bike) => {
+        if (bike.id === action.playerId) {
+          bike.playerName = action.playerName;
+        }
+        return bike;
+      });
+
     case UPDATE_PLAYER:
       return state.map((player, index) => {
         if (player.id === action.player.id) {

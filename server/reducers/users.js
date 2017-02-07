@@ -1,4 +1,4 @@
-const { Map } = require('immutable');
+//const { Map } = require('immutable');
 
 const { createUser } = require('../utils.js');
 
@@ -7,6 +7,7 @@ const { createUser } = require('../utils.js');
 const ADD_USER = 'ADD_USER';
 const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
 const REMOVE_USER = 'REMOVE_USER';
+const READY_PLAYER = 'READY_PLAYER';
 
 /* --------------- ACTION CREATORS --------------- */
 
@@ -31,6 +32,12 @@ const removeUser = userId => {
   };
 };
 
+const readyPlayer = (playerId) => ({
+  type: READY_PLAYER,
+  playerId
+});
+
+
 /* --------------- THUNK ACTION CREATORS --------------- */
 const createAndEmitUser = socket => {
   console.log("Create and emit user");
@@ -52,6 +59,13 @@ const removeUserAndEmit = socket => {
   };
 };
 
+
+const startReady = (playerId) => {
+    return dispatch => {
+      dispatch(readyPlayer(playerId))
+      }
+};
+
 /* --------------- REDUCER --------------- */
 
 function userReducer (state = [], action) {
@@ -70,7 +84,15 @@ function userReducer (state = [], action) {
       }
       return user;
     });
-    //
+
+    case READY_PLAYER:
+    return state.map((user) => {
+      if (user.id === action.playerId) {
+        user.readyToPlay = true;
+      }
+      return user;
+    });
+
     case REMOVE_USER:
       return state.filter(user => user.id !== action.userId);
       // return state.delete(action.userId);
@@ -86,66 +108,6 @@ module.exports = {
   createAndEmitUser,
   updateUserData,
   removeUserAndEmit,
-  userReducer
+  userReducer,
+  startReady
 };
-
-// /*----------  INITIAL STATE  ----------*/
-// const initialState = {};
-
-
-// /*----------  ACTION TYPES  ----------*/
-
-// const ADD_USER = 'ADD_USER';
-// const ASSIGN_WORLD = 'ASSIGN_WORLD';
-// const UNASSIGN_WORLD = 'UNASSIGN_WORLD';
-// const REMOVE_USER = 'REMOVE_USER';
-
-// /*--------
-// --  ACTION CREATORS  ----------*/
-// module.exports.addUser = id => ({
-//   type: ADD_USER,
-//   id
-// });
-
-// module.exports.assignWorld = (id, world) => ({
-//   type: ASSIGN_WORLD,
-//   id,
-//   world
-// });
-
-// module.exports.unassignWorld = id => ({
-//   type: UNASSIGN_WORLD,
-//   id
-// });
-
-// module.exports.removeUser = id => ({
-//   type: REMOVE_USER,
-//   id
-// });
-
-
-// /*----------  THUNK CREATORS  ----------*/
-
-
-// ----------  REDUCER  ----------
-// module.exports.reducer = (state = initialState, action) => {
-//   let user;
-//   let newState = Object.assign({}, state);
-//   switch (action.type) {
-//     case ADD_USER:
-//       newState[action.id] = {world: null};
-//       return newState;
-//     case ASSIGN_WORLD:
-//       user = Object.assign({}, newState[action.id], {world: action.world});
-//       newState[action.id] = user;
-//       return newState;
-//     case UNASSIGN_WORLD:
-//       user = Object.assign({}, newState[action.id], {world: null});
-//       newState[action.id] = user;
-//       return newState;
-//     case REMOVE_USER:
-//       delete newState[action.id];
-//       return newState;
-//     default: return state;
-//   }
-// };
