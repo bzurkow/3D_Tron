@@ -33,9 +33,10 @@ export const addPlayerName = (playerId, playerName) => ({
   playerName
 })
 
-export const updatePlayer = (linearVelocity, player) => ({
+export const updatePlayer = (linearVelocity, up, player) => ({
   type: UPDATE_PLAYER,
   linearVelocity,
+  up,
   player
 });
 
