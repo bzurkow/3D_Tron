@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+<<<<<<< HEAD
 import Landing from './Landing'
+=======
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 import Game from './Game';
-
-//not needed yet
-// import ControlPanel from './ControlPanel';
-// import BugReportForm from './BugReportForm';
-
-//unnecessary
-// import Splash from './Splash';
-
+import Landing from './Landing';
 
 class App extends Component {
   constructor(props) {
@@ -19,22 +15,23 @@ class App extends Component {
 
   render() {
     console.log("THIS>PROPS", this.props.players);
-    //let { isPlaying } = this.props.gameState;
-    // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div>
+<<<<<<< HEAD
  { !this.props.gameState.isPlaying && <Landing /> }
  { this.props.gameState.isPlaying && <Game players={ this.props.players } /> }
           {/* !isPlaying && <Splash /> */}
           { /* isPlaying && <Game /> */}
           {/* isPlaying && <ControlPanel /> */}
           {/* bugReportOpen && <BugReportForm />  */}
+=======
+        { this.props.gameState.isPlaying ? <Game /> : <Landing /> }
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
       </div>
       );
   }
 }
-// players={ this.props.players }
-//things we probably need...
+
 const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({});
 

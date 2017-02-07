@@ -11,10 +11,10 @@ const READY_PLAYER = 'READY_PLAYER';
 
 /* --------------- ACTION CREATORS --------------- */
 
-const addUser = user => {
+const addUser = userId => {
   return {
     type: ADD_USER,
-    user
+    userId
   };
 };
 
@@ -37,17 +37,16 @@ const readyPlayer = (playerId) => ({
   playerId
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 /* --------------- THUNK ACTION CREATORS --------------- */
 const createAndEmitUser = socket => {
   console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
-    dispatch(addUser({
-      id: userId,
-      velocity: {},
-      up: {}
-    }));
+    dispatch(addUser(userId));
   };
 };
 
@@ -59,21 +58,56 @@ const removeUserAndEmit = socket => {
   };
 };
 
+<<<<<<< HEAD
 
 const startReady = (playerId) => {
     return dispatch => {
       dispatch(readyPlayer(playerId))
       }
+=======
+const startReady = (playerId) => {
+  return dispatch => {
+    dispatch(readyPlayer(playerId));
+  };
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 };
 
 /* --------------- REDUCER --------------- */
+const initialState = [
+  {id: ''},
+  {id: ''},
+  {id: ''},
+  {id: ''},
+  {id: ''},
+  {id: ''}
+];
 
-function userReducer (state = [], action) {
+function userReducer (state = initialState, action) {
+
+  // const newUser = Object.assign({}, state);
+  const newUser = [...state];
+
+
   switch (action.type) {
 
     case ADD_USER:
-     return [...state, action.user];
-      // return state.set(action.user.get('id'), action.user);
+      for (let i = 0; i < state.length; i++) {
+        const user = state[i];
+        if (!user.id) {
+          newUser[i].id = action.userId;
+          break;
+        }
+      }
+      return newUser;
+      // for (let user in state) {
+      //   if (!state[user]) {
+      //     newUser[user] = action.userId
+      //     break;
+      //   }
+      // }
+      // return newUser;
+      // return [...state, action.user];
+
 
     case UPDATE_USER_DATA:
     return state.map((user, index) => {
@@ -94,8 +128,13 @@ function userReducer (state = [], action) {
     });
 
     case REMOVE_USER:
-      return state.filter(user => user.id !== action.userId);
-      // return state.delete(action.userId);
+      return newUser.map(user => {
+        if (user.id === action.userId) {
+          user.id = '';
+        }
+        return user;
+      });
+
     default:
       return state;
   }

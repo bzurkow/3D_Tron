@@ -19,28 +19,47 @@ class Game extends Component {
 		this.state = {timer: 0};
 	}
 
-	render(){
+	componentDidMount() {
+		const players = this.props.players;
+		world.start()
+		world.setControls(new WHS.OrbitControls())
+		players.forEach(player => {
+			player.ball.native.addEventListener('collision', (collidedWith) => {
+		    world.scene.remove(player.ball.native)
+		    player.ball.remove(world.camera)
+		    player.walls.forEach(wall => world.scene.remove(wall.native))
+		    player.walls = []
+		    world.scene.remove(player.wall[0]._native)
+		    clearInterval(player.si)
+		  }, true);
+			player.si = setInterval(player.tail, 10)
+		});
+	}
 
-		setInterval(() => this.state.timer++, 1);
+	render(){
+		console.log("FRONT END GAME", this.props.players);
+		// setInterval(() => this.state.timer++, 1);
 		// const myPlayer = this.props.players.filter(player => {
 		// 	return player.id === localStorage.getItem('mySocketId');
 		// });
-		console.log("MY PLAYER", this.props.mainPlayer);
-		let player = this.props.mainPlayer;
-		if (player) {
+		// console.log("MY PLAYER", this.props.mainPlayer);
+		// let player = myPlayer[0];
+		if (this.props.mainPlayer) {
+			const player = this.props.mainPlayer;
+			console.log("PLAYER DSJHKLSF KLSDHF", player);
 			player.ball.add(world.camera);
 
-			const validKeys = [37, 39, 38, 40];
 			document.addEventListener('keydown', (event) => {
-
+				const validKeys = [37, 39, 38, 40];
 				if (validKeys.includes(event.keyCode)) {
 					store.dispatch(turnPlayer(event.keyCode));
 				}
-				world.camera.native.up.set(
-					player.ball.native.up.x,
-					player.ball.native.up.y,
-					player.ball.native.up.z
-				)
+
+				// world.camera.native.up.set(
+				// 	player.ball.native.up.x,
+				// 	player.ball.native.up.y,
+				// 	player.ball.native.up.z
+				// )
 
 			})
 
@@ -57,25 +76,15 @@ class Game extends Component {
 				player.ball.native.up.y,
 				player.ball.native.up.z
 			)
-
-			//setting the camera to the ball
-			// player.ball.add(world.camera)
-
-			//starting the world
-
-			world.start()
-			world.setControls(new WHS.OrbitControls())
-
 		}
 		return null;
 	}
 }
 
 	////////////////// CONNECTOR ////////////////////
-
 	import { connect } from 'react-redux';
 
-	const mapStateToProps = ({ mainPlayer }) => ({ mainPlayer });
+	const mapStateToProps = ({ mainPlayer, players }) => ({ mainPlayer, players });
 
 	// const mapDispatchToProps = (dispatch) => {
 	// 	return {

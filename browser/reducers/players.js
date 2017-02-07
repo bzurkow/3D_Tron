@@ -13,18 +13,26 @@ const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
   type: RECEIVE_PLAYERS,
   players
 });
 
-export const setPlayerId = (playerId, index) => ({
+export const setPlayerId = (users) => ({
   type: SET_PLAYER_ID,
+  users
+});
+
+export const addPlayerName = (playerId, playerName) => ({
+  type: ADD_PLAYER_NAME,
   playerId,
-  index
+  playerName
 });
 
 export const addPlayerName = (playerId, playerName) => ({
@@ -47,7 +55,11 @@ export const removeAllPlayers = () => ({
 /*----------  THUNK CREATORS  ----------*/
 
 /*----------  REDUCER  ----------*/
-export default (state = initialState, action) => {
+export default (players = initialState, action) => {
+
+  // const newPlayers = Object.assign({}, players);
+  const newPlayers = [...players];
+
   switch (action.type) {
 
     case RECEIVE_PLAYERS:
@@ -57,12 +69,13 @@ export default (state = initialState, action) => {
       return initialState;
 
     case SET_PLAYER_ID:
-      return state.map((bike, index) => {
-        if (index === action.index) {
-          bike.id = action.playerId;
+      action.users.map((user, index) => {
+        if (user.id) {
+          newPlayers[index].id = user.id;
         }
-        return bike;
+        return user;
       });
+<<<<<<< HEAD
 
     case ADD_PLAYER_NAME:
       return state.map((bike) => {
@@ -72,8 +85,17 @@ export default (state = initialState, action) => {
         return bike;
       });
 
+=======
+      return newPlayers;
+      // return players.map((player, index) => {
+      //   if (index === action.index) {
+      //     player.id = action.playerId;
+      //   }
+      //   return player;
+      // });
+>>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
     case UPDATE_PLAYER:
-      return state.map((player, index) => {
+      return players.map((player, index) => {
         if (player.id === action.player.id) {
           console.log("ACTION LINEAR", action.up);
           player.ball.setLinearVelocity(action.linearVelocity);
@@ -87,6 +109,6 @@ export default (state = initialState, action) => {
         return player;
       });
 
-    default: return state;
+    default: return players;
   }
 };
