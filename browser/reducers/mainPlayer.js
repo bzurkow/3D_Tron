@@ -32,13 +32,13 @@ export default (mainPlayer = {}, action) => {
     case SET_MAIN_PLAYER:
       return action.player;
     case TURN_PLAYER_LEFT:
-      return turnLeft(newPlayer);
+      return turnLeft(mainPlayer);
     case TURN_PLAYER_RIGHT:
-      return turnRight(newPlayer);
+      return turnRight(mainPlayer);
     case TURN_PLAYER_UP:
-      return turnUp(newPlayer);
+      return turnUp(mainPlayer);
     case TURN_PLAYER_DOWN:
-      return turnDown(newPlayer);
+      return turnDown(mainPlayer);
 
     default: return mainPlayer;
   }

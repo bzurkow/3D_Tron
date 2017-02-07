@@ -28,7 +28,7 @@ export default function PlayerConstructor(color){
     pos = that.ball._native.position
     V = [vel.x, vel.y, vel.z]
     let box
-    if(t>100){
+    if(t>500){
        if(!that.wall.length){
         P = {x: pos.x-4*(vel.x/speed), y: pos.y-4*(vel.y/speed), z: pos.z-4*(vel.z/speed)}
         box = new WHS.Box({
@@ -71,14 +71,17 @@ export default function PlayerConstructor(color){
 //    if(t<=101) t++
   };
   that.walls = []
-  that.ball.native.addEventListener('collision', (event) => {
+  setTimeout(that.ball.native.addEventListener('collision', (event) => {
+    console.log("PARTY PARTY YAY and also a collision", this);
+    console.log("EVENT", event);
     world.scene.remove(that.ball.native)
     that.ball.remove(world.camera)
     that.walls.forEach(wall => world.scene.remove(wall.native))
     that.walls = []
     world.scene.remove(that.wall[0]._native)
     clearInterval(that.si)
-  }, true)
+  }, true), 10000);
+
 }
 
 // import world, { q } from './world'

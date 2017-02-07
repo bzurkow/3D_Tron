@@ -13,8 +13,7 @@ class App extends Component {
     console.log("THIS>PROPS", this.props.players);
     return (
       <div>
-        { !this.props.gameState.isPlaying && <Landing /> }
-        { this.props.gameState.isPlaying && <Game players={ this.props.players } /> }
+        { this.props.gameState.isPlaying ? <Game /> : <Landing /> }
       </div>
       );
   }

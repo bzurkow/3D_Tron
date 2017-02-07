@@ -10,18 +10,18 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
     const allUsers = store.getState().users;
+    io.sockets.emit('addUser', allUsers);
     // const newUser = getUsersStore.find(user => user.id === socket.id);
     // const newUserIndex = getUsersStore.indexOf(newUser);
-    io.sockets.emit('addUser', allUsers);
 
     //Player ready in landing page
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
       const checkUsersReady = store.getState().users;
       console.log("CHECK IF PLAYER READY IS SENT TO BACKEND", checkUsersReady);
-      if (checkUsersReady.filter(user => user.id).length > 1 && checkUsersReady.filter(user => user.id).length === checkUsersReady.filter(user => user.readyToPlay).length) {
+      // if (checkUsersReady.filter(user => user.id).length > 1 && checkUsersReady.filter(user => user.id).length === checkUsersReady.filter(user => user.readyToPlay).length) {
          io.sockets.emit('startGame');
-      }
+      // }
     });
 
     socket.on('directionChange', (playerData) => {

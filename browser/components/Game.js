@@ -19,6 +19,11 @@ class Game extends Component {
 		this.state = {timer: 0};
 	}
 
+	componentDidMount() {
+		world.start()
+		world.setControls(new WHS.OrbitControls())
+	}
+
 	render(){
 		console.log("FRONT END GAME", this.props.players);
 		setInterval(() => this.state.timer++, 1);
@@ -55,6 +60,7 @@ class Game extends Component {
 					// 		camz = world.camera.native.up.z*5
 					// 	}
 					// 	if(Math.abs(player.ball.native._physijs.linearVelocity
+
 					// 	.x)===speed){
 					// 		camx = -player.ball.native._physijs.linearVelocity.x
 					// 	}
@@ -99,8 +105,7 @@ class Game extends Component {
 
 			//starting the world
 
-			world.start()
-			world.setControls(new WHS.OrbitControls())
+
 
 		}
 		return null;

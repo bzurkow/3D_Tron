@@ -15,10 +15,6 @@ class Landing extends Component {
     this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
-  componentDidMount() {
-    this.props.players.forEach(player => player.ball.addTo(world));
-  }
-
   readyPlayerEmitter() {
     const socketId = localStorage.getItem('mySocketId');
     socket.emit('readyPlayer', socketId);
