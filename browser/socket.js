@@ -21,7 +21,7 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     console.log("ALL USERS", allUsers);
       store.dispatch(setPlayerId(allUsers));
-      if (store.getState().players.filter(player => player.id).length === 3) {
+      if (store.getState().players.filter(player => player.id).length >= 1) {
         store.dispatch(startGame());
       }
       const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
@@ -84,9 +84,13 @@ export const initializeSocket = () => {
       .z)===speed){
         camz = -targetPlayer.ball.native._physijs.linearVelocity.z
       }
-      console.log("cam vs", camx, camy, camz)
       world.camera.native.position.set(camx||0,camy||0,camz||0)
-      console.log("final camera pos", world.camera.native.position)
+      world.camera.native.up.set(
+      	targetPlayer.ball.native.up.x,
+      	targetPlayer.ball.native.up.y,
+      	targetPlayer.ball.native.up.z
+      )
+
     }
     // // NEED TO ADD UP HERE
     // store.dispatch(updatePlayer(playerData.velocity, playerData.up, targetPlayer));

@@ -74,7 +74,7 @@ export default function PlayerConstructor(color){
   that.ball.native.addEventListener('collision', (event) => {
     world.scene.remove(that.ball.native)
     that.ball.remove(world.camera)
-    that.walls.forEach(wall => world.scene.remove(wall._native))
+    that.walls.forEach(wall => world.scene.remove(wall.native))
     that.walls = []
     world.scene.remove(that.wall[0]._native)
     clearInterval(that.si)
