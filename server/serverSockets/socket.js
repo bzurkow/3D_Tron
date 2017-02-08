@@ -33,6 +33,10 @@ module.exports = io => {
          io.sockets.emit('startGame');
     }
 
+    socket.on('ball-collision', (playerData) => {
+        io.sockets.emit('ball-collision-to-handle', playerData)
+    });
+
     socket.on('directionChange', (playerData) => {
       console.log('the data we send to the back', playerData);
       // store.dispatch(updateUserData(playerData));

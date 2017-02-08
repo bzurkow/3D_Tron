@@ -7,6 +7,7 @@ import { startGame } from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
+import { cameraSet, collisionHandler } from './game/gamePlayFunctions'
 
 export const initializeSocket = () => {
   const allBikes = store.getState().players;
@@ -56,40 +57,15 @@ export const initializeSocket = () => {
     if(playerData.turn === 'down'){
       down(targetPlayer)
     }
-
     if(targetPlayer.id===store.getState().mainPlayer.id){
-      let camx, camy, camz
-      if(Math.abs(world.camera.native.up.x)===1) {
-        camx = world.camera.native.up.x*5
-      }
-      if(Math.abs(world.camera.native.up.y)===1) {
-        camy = world.camera.native.up.y*5
-      }
-      if(Math.abs(world.camera.native.up.z)===1) {
-        camz = world.camera.native.up.z*5
-      }
-      if(Math.abs(targetPlayer.ball.native._physijs.linearVelocity
-      .x)===speed){
-        camx = -targetPlayer.ball.native._physijs.linearVelocity.x
-      }
-      if(Math.abs(targetPlayer.ball.native._physijs.linearVelocity
-      .y)===speed){
-        camy = -targetPlayer.ball.native._physijs.linearVelocity.y
-      }
-      if(Math.abs(targetPlayer.ball.native._physijs.linearVelocity
-      .z)===speed){
-        camz = -targetPlayer.ball.native._physijs.linearVelocity.z
-      }
-      world.camera.native.position.set(camx||0,camy||0,camz||0)
-      world.camera.native.up.set(
-      	targetPlayer.ball.native.up.x,
-      	targetPlayer.ball.native.up.y,
-      	targetPlayer.ball.native.up.z
-      )
-
+      cameraSet(targetPlayer)
     }
-    // // NEED TO ADD UP HERE
-    // store.dispatch(updatePlayer(playerData.velocity, playerData.up, targetPlayer));
+    
+    socket.on('ball-collision-to-handle', playerData => {
+      const playerToRemove = store.getState().players.find(player => player.signature===playerData.signature)
+      collisionHandler(playerToRemove)
+    })
+
   });
 };
 
