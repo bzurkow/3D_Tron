@@ -60,12 +60,15 @@ export const initializeSocket = () => {
     if(targetPlayer.id===store.getState().mainPlayer.id){
       cameraSet(targetPlayer)
     }
-    
+
     socket.on('ball-collision-to-handle', playerData => {
       const playerToRemove = store.getState().players.find(player => player.signature===playerData.signature)
       collisionHandler(playerToRemove)
     })
 
+    socket.on('removeUser', userId => {
+        store.dispatch()
+    })
   });
 };
 

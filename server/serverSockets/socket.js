@@ -37,10 +37,12 @@ module.exports = io => {
             const users = store.getState().users;
             console.log("CHECK IF PLAYER READY IS SENT TO BACKEND", users);
             //THIS NEEDS TO GO BACK IN - RIGHT NOW THERE IS A BUG WITH THE DISCONNECT THAT NEEDS TO BE FIXED
-            // if (allUsers.length > 1 && allUsers.length === allUsers.filter(user => user.readyToPlay===true).length) {
-            if (users.filter(user => user.readyToPlay).length === 2) {
+            if (allUsers.length > 1 && allUsers.length === allUsers.filter(user => user.readyToPlay===true).length) {
+            // if (users.filter(user => user.readyToPlay).length === 3) {
                 io.sockets.emit('startGame');
-            }
+            } else{
+            setTimeout(() => io.sockets.emit('startGame'), 20000)
+          }
         });
 
         socket.on('ball-collision', (playerData) => {
