@@ -13,6 +13,7 @@ const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
+const REMOVE_PLAYER = 'REMOVE_PLAYER';
 
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
@@ -37,6 +38,11 @@ export const updatePlayer = (linearVelocity, up, player) => ({
   up,
   player
 });
+
+export const removePlayer = (userId) => ({
+  type: REMOVE_PLAYER,
+  userId
+})
 
 export const removeAllPlayers = () => ({
   type: REMOVE_ALL_PLAYERS
@@ -82,19 +88,27 @@ export default (players = initialState, action) => {
       //   }
       //   return player;
       // });
-    case UPDATE_PLAYER:
-      return players.map((player, index) => {
-        if (player.id === action.player.id) {
-          console.log("ACTION LINEAR", action.up);
-          player.ball.setLinearVelocity(action.linearVelocity);
-          player.ball.native._physijs.linearVelocity.set(action.linearVelocity.x, action.linearVelocity.y, action.linearVelocity.z);
-          player.ball.native.up.set(action.up.x, action.up.y, action.up.z);
-          let wallToAdd = player.wall[0];
-          player.wall = [];
-          player.walls.push(wallToAdd);
-          rotate(player);
+    // case UPDATE_PLAYER:
+    //   return players.map((player, index) => {
+    //     if (player.id === action.player.id) {
+    //       console.log("ACTION LINEAR", action.up);
+    //       player.ball.setLinearVelocity(action.linearVelocity);
+    //       player.ball.native._physijs.linearVelocity.set(action.linearVelocity.x, action.linearVelocity.y, action.linearVelocity.z);
+    //       player.ball.native.up.set(action.up.x, action.up.y, action.up.z);
+    //       let wallToAdd = player.wall[0];
+    //       player.wall = [];
+    //       player.walls.push(wallToAdd);
+    //       rotate(player);
+    //     }
+    //     return player;
+    //   });
+
+      case REMOVE_PLAYER:
+      return state.filter((bike) => {
+        if (bike.id === action.userId) {
+          bike.id = "";
         }
-        return player;
+        return bike;
       });
 
     default: return players;

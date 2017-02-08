@@ -51,7 +51,7 @@ const removeUserAndEmit = socket => {
   return dispatch => {
     const userId = socket.id;
     dispatch(removeUser(userId));
-    socket.broadcast.emit('removeUser', userId);
+    socket.emit('removeUser', userId);
   };
 };
 
@@ -119,6 +119,7 @@ function userReducer (state = initialState, action) {
       return newUser.map(user => {
         if (user.id === action.userId) {
           user.id = '';
+          user.readyToPlay = false;
         }
         return user;
       });
