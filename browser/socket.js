@@ -18,22 +18,8 @@ export const initializeSocket = () => {
     localStorage.setItem('mySocketId', socket.id);
   });
 
-<<<<<<< HEAD
-  socket.on('addUser', (newUser, newUserIndex) => {
-    console.log("NEW USER", newUser);
-      store.dispatch(setPlayerId(newUser.id, newUserIndex));
-      if (newUser.id === localStorage.getItem('mySocketId')){
-        store.dispatch(setMainPlayer(allBikes[newUserIndex]));
-      }
-  });
 
-  socket.emit('getOthers');
-  socket.on('getOthersCallback', users => {
-    console.log('Checking to see if anyone is here', users);
-    for (let i = 0; i < users.length; i++) {
-      store.dispatch(setPlayerId(users[i].id, i));
-    }
-=======
+
   socket.on('addUser', (allUsers) => {
     console.log("ALL USERS", allUsers);
       store.dispatch(setPlayerId(allUsers));
@@ -48,13 +34,7 @@ export const initializeSocket = () => {
   socket.on('startGame', () => {
     console.log("SHOULD START GAME HERE");
     store.dispatch(startGame());
->>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
   });
-
-  socket.on('startGame', () => {
-    console.log("SHOULD START GAME HERE");
-    store.dispatch(startGame());
-  })
 
   socket.on('sendTurn', playerData => {
     console.log('Player data going to front end', playerData);

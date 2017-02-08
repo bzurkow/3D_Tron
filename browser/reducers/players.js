@@ -13,11 +13,7 @@ const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const UPDATE_PLAYER = 'UPDATE_PLAYER';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
-<<<<<<< HEAD
 
-
-=======
->>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 /*----------  ACTION CREATORS  ----------*/
 export const receivePlayers = (players) => ({
   type: RECEIVE_PLAYERS,
@@ -34,12 +30,6 @@ export const addPlayerName = (playerId, playerName) => ({
   playerId,
   playerName
 });
-
-export const addPlayerName = (playerId, playerName) => ({
-  type: ADD_PLAYER_NAME,
-  playerId,
-  playerName
-})
 
 export const updatePlayer = (linearVelocity, up, player) => ({
   type: UPDATE_PLAYER,
@@ -75,7 +65,7 @@ export default (players = initialState, action) => {
         }
         return user;
       });
-<<<<<<< HEAD
+      return newPlayers;
 
     case ADD_PLAYER_NAME:
       return state.map((bike) => {
@@ -85,15 +75,13 @@ export default (players = initialState, action) => {
         return bike;
       });
 
-=======
-      return newPlayers;
+
       // return players.map((player, index) => {
       //   if (index === action.index) {
       //     player.id = action.playerId;
       //   }
       //   return player;
       // });
->>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
     case UPDATE_PLAYER:
       return players.map((player, index) => {
         if (player.id === action.player.id) {

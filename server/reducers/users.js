@@ -37,10 +37,7 @@ const readyPlayer = (playerId) => ({
   playerId
 });
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
 /* --------------- THUNK ACTION CREATORS --------------- */
 const createAndEmitUser = socket => {
   console.log("Create and emit user");
@@ -58,20 +55,11 @@ const removeUserAndEmit = socket => {
   };
 };
 
-<<<<<<< HEAD
-
 const startReady = (playerId) => {
     return dispatch => {
       dispatch(readyPlayer(playerId))
       }
-=======
-const startReady = (playerId) => {
-  return dispatch => {
-    dispatch(readyPlayer(playerId));
-  };
->>>>>>> b17e175c1402fe11e9dd2ea09aebb8ab288efac0
-};
-
+}
 /* --------------- REDUCER --------------- */
 const initialState = [
   {id: ''},
@@ -149,4 +137,5 @@ module.exports = {
   removeUserAndEmit,
   userReducer,
   startReady
-};
+}
+
