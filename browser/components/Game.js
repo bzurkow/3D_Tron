@@ -25,12 +25,15 @@ class Game extends Component {
 		world.setControls(new WHS.OrbitControls())
 		players.forEach(player => {
 			player.ball.native.addEventListener('collision', (collidedWith) => {
-		    world.scene.remove(player.ball.native)
-		    player.ball.remove(world.camera)
-		    player.walls.forEach(wall => world.scene.remove(wall.native))
-		    player.walls = []
-		    world.scene.remove(player.wall[0]._native)
-		    clearInterval(player.si)
+		    
+		    socket.emit('ball-collision', {signature: player.signature})
+
+		    // world.scene.remove(player.ball.native)
+		    // player.ball.remove(world.camera)
+		    // player.walls.forEach(wall => world.scene.remove(wall.native))
+		    // player.walls = []
+		    // world.scene.remove(player.wall[0]._native)
+		    // clearInterval(player.si)
 		  }, true);
 			player.si = setInterval(player.tail, 10)
 		});

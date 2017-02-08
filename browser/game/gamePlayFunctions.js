@@ -1,5 +1,5 @@
 import world, { speed } from './world';
-
+import store from '../store';
 //rotate function
 	export const rotate = (user) => {
 		let ups, vs
@@ -101,10 +101,34 @@ import world, { speed } from './world';
 			user.ball.native.up.y*(-3),
 			user.ball.native.up.z*(-3)
 		)
-		// world.camera.native.up.set(
-		// 	user.ball.native.up.x,
-		// 	user.ball.native.up.y,
-		// 	user.ball.native.up.z
-		// )
 		return user
 	};
+
+	export const collisionHandler = player => {
+		clearInterval(player.si)
+		world.scene.remove(player.ball.native)
+		world.scene.remove(player.bike.native)
+		player.walls.forEach(wall => world.scene.remove(wall.native))
+		world.scene.remove(player.wall[0].native)
+		if(player.signature===store.getState().mainPlayer.signature){
+			player.ball.remove(world.camera)
+		}
+	}
+
+	export const cameraSet = (player) => {
+		let velocityVector = player.ball.native._physijs.linearVelocity
+		let upVector = player.ball.native.up
+		let camx, camy, camz
+		if(Math.abs(upVector.x)===1) {camx = upVector.x*5}
+		if(Math.abs(upVector.y)===1) {camy = upVector.y*5}
+		if(Math.abs(upVector.z)===1) {camz = upVector.z*5}
+		if(Math.abs(velocityVector.x)===speed){camx = -velocityVector.x}
+		if(Math.abs(velocityVector.y)===speed){camy = -velocityVector.y}
+		if(Math.abs(velocityVector.z)===speed){camz = -velocityVector.z}
+		world.camera.native.position.set(camx||0,camy||0,camz||0)
+		world.camera.native.up.set(
+			upVector.x,
+			upVector.y,
+			upVector.z
+		)
+	}

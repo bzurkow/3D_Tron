@@ -17,6 +17,7 @@ export default function PlayerConstructor(color){
   let that = this
   that.t=0
   that.bike;
+  that.signature;
   that.si;
   that.wall = []
   that.ball = sphereBase.clone();
@@ -62,11 +63,7 @@ export default function PlayerConstructor(color){
     h = newGeo.height
     w = newGeo.width
     d = newGeo.depth
-    // if(t){
-    //   if(w!==0) (that.wall[0].g_height=w)
-    //   if(h!==0)(that.wall[0].g_width=h)
-    //   if(d!==0)(that.wall[0].g_depth=d)
-    // }
+
       that.wall[0].position.set(
         (that.wallStart.x+that.wallEnd.x)/2,
         (that.wallStart.y+that.wallEnd.y)/2,
@@ -75,54 +72,6 @@ export default function PlayerConstructor(color){
     that.wall[0].scale.set(newGeo.height||1, newGeo.width||1, newGeo.depth||1)
     }
     that.t++
-//    if(t<=101) t++
   };
   that.walls = []
-  that.ball.native.addEventListener('collision', (event) => {
-    world.scene.remove(that.ball.native)
-    that.ball.remove(world.camera)
-    that.walls.forEach(wall => world.scene.remove(wall._native))
-    that.walls = []
-    world.scene.remove(that.wall[0]._native)
-    clearInterval(that.si)
-  }, true)
 }
-
-// import world, { q } from './world'
-//
-// const sphereBase = new WHS.Sphere({
-//     geometry: [ 1, 32, 32],
-//     mass: 10, // Mass of physics object.
-//     material: {
-//       color: 0xF2F2F2,
-//       kind: 'lambert'
-//     }
-//   })
-//
-// export default function PlayerConstructor(color){
-//   let that = this
-//   let t=0
-//   that.ball = sphereBase.clone();
-//   that.tail = function() {
-//     let vel, pos, V, P
-//     vel = that.ball._native._physijs.linearVelocity
-//     pos = that.ball._native.position
-//     V = [vel.x, vel.y, vel.z]
-//     P = [pos.x, pos.y, pos.z]
-//     if(t>100&&t%15===0){
-//       new WHS.Box({
-//         // mask: n,
-//         geometry: [1.5, 1.5, 1.5],
-//         mass: 0,
-//         material: { color: color || 0xFFDADA, kind: 'phong'},
-//         position: [pos.x-4*(vel.x/speed), pos.y-4*(vel.y/speed), pos.z-4*(vel.z/speed)]
-//       }).addTo(world)
-//     }
-//     t++
-//   };
-  // that.ball.native.addEventListener('collision', (event) => {
-  //   //console.log(world.scene)
-  //   world.scene.remove(that.ball.native)
-  //   that.ball.remove(world.camera)
-  // }, true)
-// }
