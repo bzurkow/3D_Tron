@@ -3,7 +3,7 @@ import world, { speed } from './world';
 /* eslint semi: 0 */
 /* eslint space-infix-ops: 0 */
 const sphereBase = new WHS.Sphere({
-    geometry: [ 2, 1, 1],
+    geometry: [ .1, 1, 1],
     mass: 10, // Mass of physics object.
     material: {
       color: 0xF2F2F2,
@@ -15,7 +15,7 @@ const sphereBase = new WHS.Sphere({
 
 export default function PlayerConstructor(color){
   let that = this
-  let t=0
+  that.t=0
   that.bike;
   that.si;
   that.wall = []
@@ -28,21 +28,27 @@ export default function PlayerConstructor(color){
     pos = that.ball._native.position
     V = [vel.x, vel.y, vel.z]
     let box
-    if(t>200){
+    if(that.t>100){
        if(!that.wall.length){
-        P = {x: pos.x-4*(vel.x/speed), y: pos.y-4*(vel.y/speed), z: pos.z-4*(vel.z/speed)}
         let upForWall = that.ball.native.up
+        P = {x: pos.x-2*(vel.x/speed), y: pos.y-2*(vel.y/speed), z: pos.z-2*(vel.z/speed)}
         box = new WHS.Box({
-          geometry: [upForWall.x*3||1, upForWall.y*3||1, upForWall.z*3||1],
+          geometry: [
+                      upForWall.x * 1.89 || 1 ,
+                      upForWall.y * 1.89 || 1 , 
+                      upForWall.z * 1.89 || 1
+                      ],
           mass: 0,
           material: { color: color || 0xFFDADA, kind: 'phong'},
-          position: [pos.x-4*(vel.x/speed), pos.y-4*(vel.y/speed), pos.z-4*(vel.z/speed)]
+          position: [pos.x-2*(vel.x/speed), pos.y-2*(vel.y/speed), pos.z-2*(vel.z/speed)]
        })
-        that.wallStart = Object.create(P)
+        if(!that.wallStart) {
+            that.wallStart = Object.create(P)
+        }
         that.wall.push(box)
         that.wall[0].addTo(world)
       }
-      that.wallEnd = {x: pos.x-4*(vel.x/speed), y: pos.y-4*(vel.y/speed), z: pos.z-4*(vel.z/speed)}
+      that.wallEnd = {x: pos.x-2*(vel.x/speed), y: pos.y-2*(vel.y/speed), z: pos.z-2*(vel.z/speed)}
     newPos = {
       x: ((that.wallStart.x+that.wallEnd.x)/2),
       y: ((that.wallStart.y+that.wallEnd.y)/2),
@@ -68,19 +74,55 @@ export default function PlayerConstructor(color){
       )
     that.wall[0].scale.set(newGeo.height||1, newGeo.width||1, newGeo.depth||1)
     }
-    t++
+    that.t++
 //    if(t<=101) t++
   };
   that.walls = []
-  // setTimeout(that.ball.native.addEventListener('collision', (event) => {
-  //   console.log("PARTY PARTY YAY and also a collision", this);
-  //   console.log("EVENT", event);
+  that.ball.native.addEventListener('collision', (event) => {
+    world.scene.remove(that.ball.native)
+    that.ball.remove(world.camera)
+    that.walls.forEach(wall => world.scene.remove(wall._native))
+    that.walls = []
+    world.scene.remove(that.wall[0]._native)
+    clearInterval(that.si)
+  }, true)
+}
+
+// import world, { q } from './world'
+//
+// const sphereBase = new WHS.Sphere({
+//     geometry: [ 1, 32, 32],
+//     mass: 10, // Mass of physics object.
+//     material: {
+//       color: 0xF2F2F2,
+//       kind: 'lambert'
+//     }
+//   })
+//
+// export default function PlayerConstructor(color){
+//   let that = this
+//   let t=0
+//   that.ball = sphereBase.clone();
+//   that.tail = function() {
+//     let vel, pos, V, P
+//     vel = that.ball._native._physijs.linearVelocity
+//     pos = that.ball._native.position
+//     V = [vel.x, vel.y, vel.z]
+//     P = [pos.x, pos.y, pos.z]
+//     if(t>100&&t%15===0){
+//       new WHS.Box({
+//         // mask: n,
+//         geometry: [1.5, 1.5, 1.5],
+//         mass: 0,
+//         material: { color: color || 0xFFDADA, kind: 'phong'},
+//         position: [pos.x-4*(vel.x/speed), pos.y-4*(vel.y/speed), pos.z-4*(vel.z/speed)]
+//       }).addTo(world)
+//     }
+//     t++
+//   };
+  // that.ball.native.addEventListener('collision', (event) => {
+  //   //console.log(world.scene)
   //   world.scene.remove(that.ball.native)
   //   that.ball.remove(world.camera)
-  //   that.walls.forEach(wall => world.scene.remove(wall.native))
-  //   that.walls = []
-  //   world.scene.remove(that.wall[0]._native)
-  //   clearInterval(that.si)
-  // }, true), 10000);
-
-}
+  // }, true)
+// }

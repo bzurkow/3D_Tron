@@ -39,8 +39,8 @@ export const initializeSocket = () => {
     const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
     console.log("TARGET PLAYER", targetPlayer);
     console.log("Turn Type", playerData.turn)
-    targetPlayer.walls.push(targetPlayer.wall[0])
-    targetPlayer.wall=[]
+    // targetPlayer.walls.push(targetPlayer.wall[0])
+    // targetPlayer.wall=[]
 
     if(playerData.turn === 'left'){
       left(targetPlayer)
