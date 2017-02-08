@@ -40,8 +40,9 @@ module.exports = io => {
             if (allUsers.length > 1 && allUsers.length === allUsers.filter(user => user.readyToPlay===true).length) {
             // if (users.filter(user => user.readyToPlay).length === 3) {
                 io.sockets.emit('startGame');
-            } else{
-            setTimeout(() => io.sockets.emit('startGame'), 20000)
+            } 
+            else{
+            setTimeout(() => io.sockets.emit('startGame'), 3000)
           }
         });
 
