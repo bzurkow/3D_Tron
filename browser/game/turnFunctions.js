@@ -1,11 +1,13 @@
 import world, { speed } from './world';
 import { rotate } from './gamePlayFunctions'
 import math from 'mathjs';
+import { wallToSolid } from './wallToSolid';
 
 let v, vArr, upArr, camx, camy, camz, cross, vx, vy, vz, newUpx, newUpy, newUpz, newVel, rx, ry, rz, Vcross, Rcross, R, orthogPI, wallToAdd, u, velocity, up2
 
 
 export const left = (player) => {
+  wallToSolid(player)
   v = player.ball.native._physijs.linearVelocity
   up2 = player.ball.native.up
   Vcross = math.cross([up2.x,up2.y,up2.z],[v.x,v.y,v.z])
@@ -17,6 +19,7 @@ export const left = (player) => {
 };
 
 export const right = (player) => {
+  wallToSolid(player)
   v = player.ball.native._physijs.linearVelocity
   up2 = player.ball.native.up
   Vcross = math.cross([up2.x,up2.y,up2.z],[v.x,v.y,v.z])
@@ -28,6 +31,7 @@ export const right = (player) => {
 };
 
 export const up = (player) => {
+  wallToSolid(player)
   v = player.ball.native._physijs.linearVelocity
   up2 = player.ball.native.up
   vx = speed*up2.x
@@ -44,6 +48,7 @@ export const up = (player) => {
 };
 
 export const down = (player) => {
+  wallToSolid(player)
   v = player.ball.native._physijs.linearVelocity
   up2 = player.ball.native.up
   vx = -speed*up2.x
