@@ -1,6 +1,6 @@
 import store from './store';
 import { setPlayerId, updatePlayer } from './reducers/players';
-import { startGame } from './reducers/gameState';
+import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
@@ -57,6 +57,11 @@ export const initializeSocket = () => {
 
   socket.on('removeUser', userId => {
       store.dispatch()
+  })
+
+  socket.on('endGame', () => {
+    // store.dispatch(stopGame())
+    window.location.reload(true)
   })
   
 };

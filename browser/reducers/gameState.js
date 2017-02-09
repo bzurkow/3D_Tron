@@ -2,7 +2,7 @@
 
 //const IS_DISPLAYED = 'IS_DISPLAYED';
 const START_GAME = 'START_GAME';
-// const STOP_GAME = 'STOP_GAME';
+const STOP_GAME = 'STOP_GAME';
 
 /*=------ACTION CREATORS-------*/
 
@@ -26,9 +26,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case START_GAME:
       return Object.assign({}, state, { isPlaying: true });
+
 //Not using Stop game right now but we will probably use something similiar for game reset
-    // case STOP_GAME:
-    //   return Object.assign({}, state, { isPlaying: false });
+    case STOP_GAME:
+      return Object.assign({}, state, { isPlaying: false });
+
     default:
       return state;
   }

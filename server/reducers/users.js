@@ -5,6 +5,7 @@
 const ADD_USER = 'ADD_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const READY_PLAYER = 'READY_PLAYER';
+const PLAYER_COLLISION = 'PLAYER_COLLISION'
 
 /* --------------- ACTION CREATORS --------------- */
 
@@ -27,6 +28,11 @@ const readyPlayer = (playerId) => ({
   type: READY_PLAYER,
   playerId
 });
+
+const playerCollision = (playerId) => ({
+  type: PLAYER_COLLISION,
+  playerId
+})
 
 
 /* --------------- THUNK ACTION CREATORS --------------- */
@@ -81,6 +87,7 @@ function userReducer (state = initialState, action) {
     return state.map((user) => {
       if (user.id === action.playerId) {
         user.readyToPlay = true;
+        user.active = true;
       }
       return user;
     });
@@ -94,6 +101,15 @@ function userReducer (state = initialState, action) {
         return user;
       });
 
+    case PLAYER_COLLISION:
+      return state.map((user) => {
+      if (user.id === action.playerId) {
+        user.readyToPlay = false;
+        user.active = false;
+      }
+      return user;
+    });
+
     default:
       return state;
   }
@@ -105,6 +121,7 @@ module.exports = {
   createAndEmitUser,
   removeUserAndEmit,
   userReducer,
-  startReady
+  startReady,
+  playerCollision
 }
 
