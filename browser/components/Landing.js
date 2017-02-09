@@ -42,6 +42,7 @@ class Landing extends Component {
             id="play-box">Join
           </button>
         </div>
+        <div id="general"> Use arrow keys to turn </div>
       </div>
     );
   }
