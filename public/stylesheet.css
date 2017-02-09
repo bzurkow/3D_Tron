@@ -21,6 +21,18 @@ body, html {
   transform: translate(-50%, -50%);
 }
 
+#general {
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 4vh;
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 #name-box{
     font-weight: bold;
     color: white;
