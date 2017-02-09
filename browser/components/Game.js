@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import math from 'mathjs';
 import world, { speed } from '../game/world';
-import { rotate } from '../game/gamePlayFunctions';
-// import { player } from '../game/player';
-/* eslint semi: 0 */
-/* eslint space-infix-ops: 0 */
-/* eslint comma-spacing: 0 */
-import { updatePlayer } from '../reducers/players';
 import { turnPlayer } from '../reducers/mainPlayer';
 import store from '../store';
 import socket from '../socket';
@@ -25,31 +19,15 @@ class Game extends Component {
 		world.setControls(new WHS.OrbitControls())
 		players.forEach(player => {
 			player.ball.native.addEventListener('collision', (collidedWith) => {
-		    
-		    socket.emit('ball-collision', {signature: player.signature})
-
-		    // world.scene.remove(player.ball.native)
-		    // player.ball.remove(world.camera)
-		    // player.walls.forEach(wall => world.scene.remove(wall.native))
-		    // player.walls = []
-		    // world.scene.remove(player.wall[0]._native)
-		    // clearInterval(player.si)
-		  }, true);
+		    	socket.emit('ball-collision', {signature: player.signature})
+		 	}, true);
 			player.si = setInterval(player.tail, 10)
 		});
 	}
 
 	render(){
-		console.log("FRONT END GAME", this.props.players);
-		// setInterval(() => this.state.timer++, 1);
-		// const myPlayer = this.props.players.filter(player => {
-		// 	return player.id === localStorage.getItem('mySocketId');
-		// });
-		// console.log("MY PLAYER", this.props.mainPlayer);
-		// let player = myPlayer[0];
 		if (this.props.mainPlayer) {
 			const player = this.props.mainPlayer;
-			console.log("PLAYER DSJHKLSF KLSDHF", player);
 			player.ball.add(world.camera);
 
 			document.addEventListener('keydown', (event) => {
@@ -57,13 +35,6 @@ class Game extends Component {
 				if (validKeys.includes(event.keyCode)) {
 					store.dispatch(turnPlayer(event.keyCode));
 				}
-
-				// world.camera.native.up.set(
-				// 	player.ball.native.up.x,
-				// 	player.ball.native.up.y,
-				// 	player.ball.native.up.z
-				// )
-
 			})
 
 			//Below we are setting the camera for each player based on starting position. Need to set both the position of the camera (which is relative to the player and pointing towards the player) and the 'up' vector which determines where the "sky" is and enables are controls to work.
@@ -88,11 +59,5 @@ class Game extends Component {
 	import { connect } from 'react-redux';
 
 	const mapStateToProps = ({ mainPlayer, players }) => ({ mainPlayer, players });
-
-	// const mapDispatchToProps = (dispatch) => {
-	// 	return {
-	// 		updatePlayer: (linearVelocity, player) => dispatch(updatePlayer(linearVelocity, player))
-	// 	}
-	// }
 
 	export default connect( mapStateToProps )(Game);

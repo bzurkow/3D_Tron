@@ -9,7 +9,6 @@ body, html {
     background-size: cover;
 }
 
-
 #title {
     color: white;
   font-family: "Quicksand", sans-serif;
@@ -58,8 +57,6 @@ body, html {
 .glyphicon {
   color: white;
 }
-
-
 
 ul {
   list-style: none;

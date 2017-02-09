@@ -1,11 +1,9 @@
 'use strict';
-var path = require('path');
-var http = require('http');
-var server = http.createServer();
-
+const path = require('path');
+const http = require('http');
+const server = http.createServer();
 const express = require('express');
 const volleyball = require('volleyball');
-// const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
 var socketio = require('socket.io');

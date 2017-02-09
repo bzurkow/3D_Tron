@@ -1,11 +1,8 @@
-//const { Map } = require('immutable');
 
-const { createUser } = require('../utils.js');
 
 /* --------------- ACTIONS --------------- */
 
 const ADD_USER = 'ADD_USER';
-const UPDATE_USER_DATA = 'UPDATE_USER_DATA';
 const REMOVE_USER = 'REMOVE_USER';
 const READY_PLAYER = 'READY_PLAYER';
 
@@ -18,12 +15,6 @@ const addUser = userId => {
   };
 };
 
-const updateUserData = userData => {
-  return {
-    type: UPDATE_USER_DATA,
-    userData
-  };
-};
 
 const removeUser = userId => {
   return {
@@ -72,9 +63,7 @@ const initialState = [
 
 function userReducer (state = initialState, action) {
 
-  // const newUser = Object.assign({}, state);
   const newUser = [...state];
-
 
   switch (action.type) {
 
@@ -87,25 +76,6 @@ function userReducer (state = initialState, action) {
         }
       }
       return newUser;
-      // for (let user in state) {
-      //   if (!state[user]) {
-      //     newUser[user] = action.userId
-      //     break;
-      //   }
-      // }
-      // return newUser;
-      // return [...state, action.user];
-
-
-    case UPDATE_USER_DATA:
-    return state.map((user, index) => {
-      console.log("IN UPDATE_USER_DATA");
-      if (user.id === action.userData.id) {
-        user.velocity = action.userData.velocity;
-        // user.up = action.userData.up;
-      }
-      return user;
-    });
 
     case READY_PLAYER:
     return state.map((user) => {
@@ -131,10 +101,8 @@ function userReducer (state = initialState, action) {
 
 module.exports = {
   ADD_USER,
-  UPDATE_USER_DATA,
   REMOVE_USER,
   createAndEmitUser,
-  updateUserData,
   removeUserAndEmit,
   userReducer,
   startReady
