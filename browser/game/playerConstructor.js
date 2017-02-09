@@ -32,11 +32,7 @@ export default function PlayerConstructor(color){
         let upForWall = that.ball.native.up
         P = {x: pos.x-2*(vel.x/speed), y: pos.y-2*(vel.y/speed), z: pos.z-2*(vel.z/speed)}
         box = new WHS.Box({
-          geometry: [
-            upForWall.x * 1.89 || 1,
-            upForWall.y * 1.89 || 1,
-            upForWall.z * 1.89 || 1
-          ],
+          geometry: [1,1,1],
           mass: 0,
           material: { color: color || 0xFFDADA, kind: 'phong'},
           position: [pos.x-2*(vel.x/speed), pos.y-2*(vel.y/speed), pos.z-2*(vel.z/speed)]
