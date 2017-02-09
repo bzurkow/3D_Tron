@@ -57,4 +57,4 @@ class Game extends Component {
 
 ////////////////// CONNECTOR ////////////////////
 const mapStateToProps = ({ mainPlayer, players }) => ({ mainPlayer, players });
-export default connect( mapStateToProps )(Game);
+export default connect(mapStateToProps)(Game);
