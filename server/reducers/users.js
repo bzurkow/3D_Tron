@@ -1,28 +1,21 @@
-
-
 /* --------------- ACTIONS --------------- */
 
 const ADD_USER = 'ADD_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const READY_PLAYER = 'READY_PLAYER';
-const PLAYER_COLLISION = 'PLAYER_COLLISION'
+const PLAYER_COLLISION = 'PLAYER_COLLISION';
 
 /* --------------- ACTION CREATORS --------------- */
 
-const addUser = userId => {
-  return {
-    type: ADD_USER,
-    userId
-  };
-};
+const addUser = (userId) => ({
+  type: ADD_USER,
+  userId
+});
 
-
-const removeUser = userId => {
-  return {
-    type: REMOVE_USER,
-    userId
-  };
-};
+const removeUser = (userId) => ({
+  type: REMOVE_USER,
+  userId
+});
 
 const readyPlayer = (playerId) => ({
   type: READY_PLAYER,
@@ -32,12 +25,11 @@ const readyPlayer = (playerId) => ({
 const playerCollision = (playerId) => ({
   type: PLAYER_COLLISION,
   playerId
-})
+});
 
 
 /* --------------- THUNK ACTION CREATORS --------------- */
 const createAndEmitUser = socket => {
-  console.log("Create and emit user");
   return dispatch => {
     const userId = socket.id;
     dispatch(addUser(userId));
@@ -52,11 +44,11 @@ const removeUserAndEmit = socket => {
   };
 };
 
-const startReady = (playerId) => {
-    return dispatch => {
-      dispatch(readyPlayer(playerId))
-      }
-}
+const startReady = playerId => {
+  return dispatch => {
+    dispatch(readyPlayer(playerId));
+  };
+};
 /* --------------- REDUCER --------------- */
 const initialState = [
   {id: ''},
@@ -110,8 +102,7 @@ function userReducer (state = initialState, action) {
       return user;
     });
 
-    default:
-      return state;
+    default: return state;
   }
 }
 
@@ -123,5 +114,4 @@ module.exports = {
   userReducer,
   startReady,
   playerCollision
-}
-
+};

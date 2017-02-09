@@ -4,7 +4,7 @@ import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
-import { cameraSet, collisionHandler } from './game/gamePlayFunctions'
+import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
 
 const socket = io('/');
 
@@ -32,38 +32,40 @@ export const initializeSocket = () => {
   socket.on('sendTurn', playerData => {
     const targetPlayer = store.getState().players.find(player => player.id === playerData.id);
 
-    if(playerData.turn === 'left'){
-      left(targetPlayer)
-    }
-    if(playerData.turn === 'right'){
-      right(targetPlayer)
-    }
-    if(playerData.turn === 'up'){
-      up(targetPlayer)
-    }
-    if(playerData.turn === 'down'){
-      down(targetPlayer)
+    switch (playerData.turn) {
+      case 'left':
+        left(targetPlayer);
+        break;
+      case 'right':
+        right(targetPlayer);
+        break;
+      case 'up':
+        up(targetPlayer);
+        break;
+      case 'down':
+        down(targetPlayer);
+        break;
+      default: return null;
     }
 
-    if(targetPlayer.id===store.getState().mainPlayer.id){
-      cameraSet(targetPlayer)
+    if (targetPlayer.id === store.getState().mainPlayer.id) {
+      cameraSet(targetPlayer);
     }
   });
 
   socket.on('ball-collision-to-handle', playerData => {
-    const playerToRemove = store.getState().players.find(player => player.signature===playerData.signature)
-    collisionHandler(playerToRemove)
-  })
+    const playerToRemove = store.getState().players.find(player => player.signature === playerData.signature);
+    collisionHandler(playerToRemove);
+  });
 
   socket.on('removeUser', userId => {
-      store.dispatch()
-  })
+    store.dispatch();
+  });
 
   socket.on('endGame', () => {
-    // store.dispatch(stopGame())
-    window.location.reload(true)
-  })
-  
+    // store.dispatch(stopGame());
+    window.location.reload(true);
+  });
 };
 
 export default socket;

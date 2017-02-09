@@ -33,4 +33,4 @@ const turnDown = (player) => {
   return player;
 };
 
-export { turnLeft, turnRight, turnUp, turnDown }
+export { turnLeft, turnRight, turnUp, turnDown };
