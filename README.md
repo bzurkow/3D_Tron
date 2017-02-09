@@ -1,5 +1,5 @@
 # 3D Tron
-This is 3D multiplayer version of the classic Tron game where players compete to be the last rider standing in a 3D arena.
+This is 3D multiplayer version of the classic Tron game where players compete to be the last rider standing.
 
 ## Live Game
 To play a live version of this game please click here.
