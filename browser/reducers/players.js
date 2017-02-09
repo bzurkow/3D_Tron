@@ -11,7 +11,6 @@ const initialState = allPlayers;
 const RECEIVE_PLAYERS = 'RECEIVE_PLAYERS';
 const REMOVE_ALL_PLAYERS = 'REMOVE_ALL_PLAYERS';
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
-const UPDATE_PLAYER = 'UPDATE_PLAYER';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 const REMOVE_PLAYER = 'REMOVE_PLAYER';
 
@@ -32,13 +31,6 @@ export const addPlayerName = (playerId, playerName) => ({
   playerName
 });
 
-export const updatePlayer = (linearVelocity, up, player) => ({
-  type: UPDATE_PLAYER,
-  linearVelocity,
-  up,
-  player
-});
-
 export const removePlayer = (userId) => ({
   type: REMOVE_PLAYER,
   userId
@@ -53,7 +45,6 @@ export const removeAllPlayers = () => ({
 /*----------  REDUCER  ----------*/
 export default (players = initialState, action) => {
 
-  // const newPlayers = Object.assign({}, players);
   const newPlayers = [...players];
 
   switch (action.type) {
@@ -74,37 +65,15 @@ export default (players = initialState, action) => {
       return newPlayers;
 
     case ADD_PLAYER_NAME:
-      return state.map((bike) => {
+      return players.map((bike) => {
         if (bike.id === action.playerId) {
           bike.playerName = action.playerName;
         }
         return bike;
       });
 
-
-      // return players.map((player, index) => {
-      //   if (index === action.index) {
-      //     player.id = action.playerId;
-      //   }
-      //   return player;
-      // });
-    // case UPDATE_PLAYER:
-    //   return players.map((player, index) => {
-    //     if (player.id === action.player.id) {
-    //       console.log("ACTION LINEAR", action.up);
-    //       player.ball.setLinearVelocity(action.linearVelocity);
-    //       player.ball.native._physijs.linearVelocity.set(action.linearVelocity.x, action.linearVelocity.y, action.linearVelocity.z);
-    //       player.ball.native.up.set(action.up.x, action.up.y, action.up.z);
-    //       let wallToAdd = player.wall[0];
-    //       player.wall = [];
-    //       player.walls.push(wallToAdd);
-    //       rotate(player);
-    //     }
-    //     return player;
-    //   });
-
-      case REMOVE_PLAYER:
-      return state.filter((bike) => {
+    case REMOVE_PLAYER:
+      return players.filter((bike) => {
         if (bike.id === action.userId) {
           bike.id = "";
         }

@@ -12,7 +12,6 @@ player1.ball.native.rotation.set(0,Math.PI/2,0)
 player1.ball.addTo(world)
 player1.ball.setLinearVelocity({x: speed, y: 0, z: 0 })
 player1.signature = 1
-// player1.si = setInterval(player1.tail,10)
 
 const player2 = new PlayerConstructor(0xC0C0C0)
 player2.ball.position.set(495, 0, 0)
@@ -21,7 +20,6 @@ player2.ball.native.rotation.set(0,-Math.PI/2,0)
 player2.ball.addTo(world)
 player2.ball.setLinearVelocity({x: -speed, y: 0, z: 0 })
 player2.signature = 2
-// player2.si = setInterval(player2.tail,10)
 
 const player3 = new PlayerConstructor(0x00ff00)
 player3.ball.position.set(0, -495, 0)
@@ -30,7 +28,6 @@ player3.ball.native.rotation.set(-Math.PI/2,0,-Math.PI/2)
 player3.ball.addTo(world)
 player3.ball.setLinearVelocity({x: 0, y: speed, z: 0 })
 player3.signature = 3
-// player3.si = setInterval(player3.tail,10)
 
 const player4 = new PlayerConstructor(0x00FFFF)
 player4.ball.position.set(0, 495, 0)
@@ -39,7 +36,6 @@ player4.ball.native.rotation.set(Math.PI/2,0,-Math.PI/2)
 player4.ball.addTo(world)
 player4.ball.setLinearVelocity({x: 0, y: -speed, z: 0 })
 player4.signature = 4
-// player4.si = setInterval(player4.tail,10)
 
 const player5 = new PlayerConstructor(0xFF1493)
 player5.ball.position.set(0, 0, -495)
@@ -47,7 +43,6 @@ player5.ball.native.up.set(0,1,0)
 player5.ball.addTo(world)
 player5.ball.setLinearVelocity({x: 0, y: 0, z: speed })
 player5.signature = 5
-// player5.si = setInterval(player5.tail,10)
 
 const player6 = new PlayerConstructor(0xFF0000)
 player6.ball.position.set(0, 0, 495)
@@ -56,8 +51,6 @@ player6.ball.native.rotation.set(0,Math.PI,0)
 player6.ball.addTo(world)
 player6.ball.setLinearVelocity({x: 0, y: 0, z: -speed })
 player6.signature = 6
-// player6.si = setInterval(player6.tail,10)
-
 
 loader.load('bikes/gold-tron.json', bike => {
 	player1.bike = new WHS.Element(bike, [WHS.MeshComponent])
