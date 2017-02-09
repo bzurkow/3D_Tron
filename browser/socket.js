@@ -26,11 +26,11 @@ export const initializeSocket = () => {
   });
 
   socket.on('startGame', () => {
-    allBikes.forEach(player => {
-      if(!player.id){
-        collisionHandler(player)
-      }
-    })
+    // allBikes.forEach(player => {
+    //   if (!player.id){
+    //     collisionHandler(player);
+    //   }
+    // });
     store.dispatch(startGame());
   });
 
@@ -69,7 +69,7 @@ export const initializeSocket = () => {
 
   socket.on('endGame', () => {
     // store.dispatch(stopGame());
-    window.location.reload(true);
+    // window.location.reload(true);
   });
 };
 
