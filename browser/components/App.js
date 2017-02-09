@@ -4,25 +4,14 @@ import { connect } from 'react-redux';
 import Game from './Game';
 import Landing from './Landing';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    console.log("THIS>PROPS", this.props.players);
-    return (
-      <div>
-        { this.props.gameState.isPlaying ? <Game /> : <Landing /> }
-      </div>
-      );
-  }
-}
+const App = ({ gameState }) => {
+  return gameState.isPlaying ? <Game /> : <Landing />;
+};
 // if(this.props.gameState === 'landing') render Landing
 // if asdfasd = playing || dead render game
 
-const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
-const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = ({ gameState }) => ({ gameState });
+const mapDispatchToProps = null;
 
 export default connect(
   mapStateToProps,
