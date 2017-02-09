@@ -14,7 +14,6 @@ class LobbyRoom extends Component {
     super(props);
   }
 
-
   render() {
 
     function readyPlayerEmitter(){

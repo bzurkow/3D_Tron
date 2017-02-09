@@ -8,7 +8,6 @@ import world from '../game/world';
 // import ControlPanel from './ControlPanel';
 // import BugReportForm from './BugReportForm';
 
-
 class Landing extends Component {
   constructor(props) {
     super(props);
@@ -46,31 +45,27 @@ class Landing extends Component {
     );
   }
 }
-// players={ this.props.players }
-//things we probably need...
+
 const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({
-  setPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.value))
+  setPlayerName: event => dispatch(addPlayerName(localStorage.getItem('mySocketId'), event.target.value))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Landing);
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
 
 
 // <div className="input-field">
-//             <input value={nickname}
-//                    onChange={updateNickname}
-//                    onKeyPress={enterChatRoom}
-//                    maxLength={15}
-//                    type="text"
-//                    id="name-box"
-//                    placeholder="nickname"
-//                    autoFocus/>
-//             <button className="Buttons"
-//                     type="submit"
-//                     style={nickname.trim() ? { color: 'white' } : { color: 'grey' }}
-//                     onClick={enterChatRoom}
-//                     id="play-box">Join a game</button>
-//           </div>
+//   <input value={nickname}
+//     onChange={updateNickname}
+//     onKeyPress={enterChatRoom}
+//     maxLength={15}
+//     type="text"
+//     id="name-box"
+//     placeholder="nickname"
+//     autoFocus/>
+//   <button className="Buttons"
+//     type="submit"
+//     style={nickname.trim() ? { color: 'white' } : { color: 'grey' }}
+//     onClick={enterChatRoom}
+//     id="play-box">Join a game</button>
+// </div>
