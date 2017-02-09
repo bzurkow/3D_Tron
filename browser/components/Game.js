@@ -31,7 +31,7 @@ class Game extends Component {
 			player.ball.add(world.camera);
 
 			document.addEventListener('keydown', (event) => {
-				const validKeys = [37, 39, 38, 40];
+				const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
 				if (validKeys.includes(event.keyCode)) {
 					store.dispatch(turnPlayer(event.keyCode));
 				}

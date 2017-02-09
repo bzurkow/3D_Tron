@@ -14,10 +14,10 @@ export const setMainPlayer = (player) => ({
 
 export const turnPlayer = (direction) => {
   let type;
-  if (direction === 37) type = TURN_PLAYER_LEFT;
-  if (direction === 39) type = TURN_PLAYER_RIGHT;
-  if (direction === 38) type = TURN_PLAYER_UP;
-  if (direction === 40) type = TURN_PLAYER_DOWN;
+  if (direction === 37 || direction === 65) type = TURN_PLAYER_LEFT;
+  if (direction === 39 || direction === 83) type = TURN_PLAYER_RIGHT;
+  if (direction === 38 || direction === 87) type = TURN_PLAYER_UP;
+  if (direction === 40 || direction === 68) type = TURN_PLAYER_DOWN;
   return { type };
 };
 
