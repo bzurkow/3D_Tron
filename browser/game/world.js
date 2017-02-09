@@ -1,8 +1,6 @@
-import { field } from './field'
+import { field } from './field';
 
-
-let speed = 100;
-let q = speed;
+const speed = 100;
 
 const world = new WHS.World({
   stats: "fps", // fps, ms, mb or false if not need.
@@ -14,14 +12,14 @@ const world = new WHS.World({
   container: document.body
 });
 
-field.forEach(plane => plane.addTo(world))
+field.forEach(plane => plane.addTo(world));
 
 new WHS.AmbientLight({
   light: {
-    intensity: .9
+    intensity: 0.9
   }
 }).addTo(world);
 
 
-export default world
-export { q, speed }
+export default world;
+export { speed };

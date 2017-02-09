@@ -34,7 +34,7 @@ export const addPlayerName = (playerId, playerName) => ({
 export const removePlayer = (userId) => ({
   type: REMOVE_PLAYER,
   userId
-})
+});
 
 export const removeAllPlayers = () => ({
   type: REMOVE_ALL_PLAYERS
@@ -73,7 +73,7 @@ export default (players = initialState, action) => {
       });
 
     case REMOVE_PLAYER:
-      return players.filter((bike) => {
+      return players.map((bike) => {
         if (bike.id === action.userId) {
           bike.id = "";
         }
