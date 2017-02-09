@@ -19,7 +19,7 @@ class Game extends Component {
 		world.setControls(new WHS.OrbitControls())
 		players.forEach(player => {
 			player.ball.native.addEventListener('collision', (collidedWith) => {
-		    	socket.emit('ball-collision', {signature: player.signature})
+		    	socket.emit('ball-collision', {signature: player.signature, id: player.id})
 		 	}, true);
 			player.si = setInterval(player.tail, 10)
 		});
@@ -50,6 +50,7 @@ class Game extends Component {
 				player.ball.native.up.y,
 				player.ball.native.up.z
 			)
+
 		}
 		return null;
 	}

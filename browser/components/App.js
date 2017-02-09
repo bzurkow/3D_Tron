@@ -18,6 +18,8 @@ class App extends Component {
       );
   }
 }
+// if(this.props.gameState === 'landing') render Landing
+// if asdfasd = playing || dead render game
 
 const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({});
