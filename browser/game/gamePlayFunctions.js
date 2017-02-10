@@ -1,6 +1,6 @@
 import world, { speed } from './world';
 import store from '../store';
-
+import { scalarInitialPosition } from './players'
 //rotate function
 export const rotate = (user) => {
 	let ups, vs
@@ -137,7 +137,6 @@ export const cameraSet = (player) => {
 		upVector.y,
 		upVector.z
 	)
-	console.log("looking ahead", upVector.x*6+velocityVector.x*3 )
 	 world.camera.lookAt(new THREE.Vector3(
 	 	upVector.x*6+velocityVector.x*3,
 	 	upVector.y*6+velocityVector.y*3,
@@ -149,14 +148,12 @@ export const cameraSetOnStart = (player) => {
 	let upVector = player.ball.native.up
 	let camx, camy, camz
 	world.camera.native.position.set(
-	  (player.ball.position.x / 495) * (20) + upVector.x * 8,
-	  (player.ball.position.y / 495) * (20) + upVector.y * 8,
-	  (player.ball.position.z / 495) * (20) + upVector.z * 8
+	  (player.ball.position.x / scalarInitialPosition) * (20) + upVector.x * 8,
+	  (player.ball.position.y / scalarInitialPosition) * (20) + upVector.y * 8,
+	  (player.ball.position.z / scalarInitialPosition) * (20) + upVector.z * 8
 	);
-	console.log("lookingahead at start", upVector.x*6-(player.ball.position.x/495)*3)
 	 world.camera.lookAt(new THREE.Vector3(
-	 	upVector.x*6-(player.ball.position.x/495)*300,
-	 	upVector.y*6-(player.ball.position.y/495)*300,
-	 	upVector.z*6-(player.ball.position.z/495)*300))
-	 console.log(player.bike.position)
+	 	upVector.x*6-(player.ball.position.x/scalarInitialPosition)*speed*3,
+	 	upVector.y*6-(player.ball.position.y/scalarInitialPosition)*speed*3,
+	 	upVector.z*6-(player.ball.position.z/scalarInitialPosition)*speed*3))
 }
