@@ -5,6 +5,8 @@ import socket from '../socket';
 import { addPlayerName } from '../reducers/players';
 import { enterLobby } from '../reducers/gameState';
 import world from '../game/world';
+import store from '../store';
+
 //not needed yet
 // import ControlPanel from './ControlPanel';
 // import BugReportForm from './BugReportForm';
@@ -15,12 +17,18 @@ class Landing extends Component {
     // this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
-  // readyPlayerEmitter() {
-  //   const socketId = localStorage.getItem('mySocketId');
-  //   socket.emit('readyPlayer', socketId);
-  // }
 
   render() {
+
+  function playerNameEmitter(event) {
+    event.preventDefault();
+    console.log("GETTING HERE?");
+    const socketId = localStorage.getItem('mySocketId');
+    const playerName = event.target.nickName.value;
+    socket.emit('playerName', socketId, playerName);
+    store.dispatch(addPlayerName(socketId, event.target.nickName.value));
+    store.dispatch(enterLobby());
+  }
 
     //let { isPlaying } = this.props.gameState;
     // let { bugReportOpen } = this.props.controlPanel;
@@ -28,8 +36,9 @@ class Landing extends Component {
       <div className="input-field">
         <div id="title">3D TRON</div>
         <div className="input-field">
+        <form onSubmit = {playerNameEmitter} >
           <input
-            onChange = { this.props.setPlayerName }
+            name="nickName"
             maxLength={15}
             type="text"
             id="name-box"
@@ -38,9 +47,10 @@ class Landing extends Component {
           <button
             className="btn waves-effect"
             type="submit"
-            onClick = { this.props.enterLobby }
+            // onClick = { this.props.enterLobby }
             id="play-box">Enter
           </button>
+        </form>
         </div>
         <div id="general"> Use "wasd" or arrow keys to turn </div>
       </div>
@@ -51,11 +61,12 @@ class Landing extends Component {
 const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({
   enterLobby: () => dispatch(enterLobby()),
-  addPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.value))
+  setPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.nickName.value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
 
+// onClick = { this.props.enterLobby }
 
 // <div className="input-field">
 //   <input value={nickname}

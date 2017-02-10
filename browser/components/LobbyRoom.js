@@ -25,6 +25,11 @@ class LobbyRoom extends Component {
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div id="lobbyRoom">
+        <sidebar>
+          <ul>
+            <li></li>
+          </ul>
+        </sidebar>
         <div>
         <div id="lobby-title">STAGING AREA</div>
           <div className="input-field">
@@ -39,7 +44,7 @@ class LobbyRoom extends Component {
             <button className="btn waves-effect"
                     type="submit"
                     onClick = {readyPlayerEmitter}
-                    id="play-box-join">Join</button>
+                    id="play-box">Join</button>
           </div>
           </div>
         </div>

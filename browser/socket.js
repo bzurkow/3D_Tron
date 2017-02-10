@@ -1,5 +1,5 @@
 import store from './store';
-import { setPlayerId, updatePlayer } from './reducers/players';
+import { setPlayerId, updatePlayer, addPlayerName, removePlayer } from './reducers/players';
 import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
@@ -24,6 +24,11 @@ export const initializeSocket = () => {
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
   });
+
+  socket.on('addPlayerName', (socketId, playerName) =>{
+    console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
+    store.dispatch(addPlayerName(socketId, playerName));
+  })
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
@@ -63,8 +68,9 @@ export const initializeSocket = () => {
     collisionHandler(playerToRemove);
   });
 
-  socket.on('removeUser', userId => {
-    store.dispatch();
+  socket.on('removePlayer', userId => {
+    console.log("ARE WE REMOVING PLAYER ON THE FRONT END?")
+    store.dispatch(removePlayer(userId));
   });
 
   socket.on('endGame', () => {
