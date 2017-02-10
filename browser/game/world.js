@@ -1,3 +1,4 @@
+// const WHS = require('whitestormjs');
 import { field } from './field';
 
 const speed = 100;
