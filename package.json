@@ -7,8 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w & nodemon server/index.js",
+    "test": "mocha ./tests/**/*.js --watch --compilers js:babel-register",
+    "start": "nodemon server/index.js",
     "build": "webpack",
     "build-watch": "webpack -w",
     "seed": "node server/db/seed.js"
@@ -44,6 +44,7 @@
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.0",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
@@ -62,9 +63,13 @@
     "whs": "^1.2.6"
   },
   "devDependencies": {
+    "babel-register": "^6.18.0",
     "chai": "3.4.1",
+    "enzyme": "^2.7.1",
     "mocha": "^2.3.3",
+    "react-addons-test-utils": "^15.4.0",
     "redux-devtools-extension": "^1.0.0",
+    "sinon": "^1.17.7",
     "supertest": "^1.1.0",
     "supertest-as-promised": "^3.1.0"
   }

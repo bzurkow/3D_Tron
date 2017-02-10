@@ -102,7 +102,6 @@ function userReducer (state = initialState, action) {
 
     case ADD_USER_NAME:
       return state.map((user) => {
-      console.log('%&^$^%$')
       if (user.id === action.userId) {
         console.log("%%%% setting playerName backend", action.playerName);
         user.playerName = action.playerName;
@@ -125,7 +124,10 @@ function userReducer (state = initialState, action) {
 
 module.exports = {
   ADD_USER,
+  addUser,
   REMOVE_USER,
+  removeUser,
+  readyPlayer,
   createAndEmitUser,
   removeUserAndEmit,
   userReducer,
