@@ -122,7 +122,11 @@ sidebar {
   border-right: 2px solid #555; }
 }
 
+
 sidebar .listName {
 
+color: #c8c8c8;
+font-family: "Quicksand", sans-serif;
 
 }
+
