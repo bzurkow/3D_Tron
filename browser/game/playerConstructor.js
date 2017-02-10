@@ -1,7 +1,7 @@
 import world, { speed } from './world';
 
 const sphereBase = new WHS.Sphere({
-  geometry: [ 0.1, 1, 1],
+  geometry: [ 0.5, 1, 1],
   mass: 10, // Mass of physics object.
   material: {
     color: 0xF2F2F2,
@@ -11,14 +11,17 @@ const sphereBase = new WHS.Sphere({
   }
 });
 
+
+
 export default function PlayerConstructor(color){
   let that = this
+  that.ball = sphereBase.clone();
+  that.cameraTarget;
   that.t=0
   that.bike;
   that.signature;
   that.si;
   that.wall = []
-  that.ball = sphereBase.clone();
   that.wallStart
   that.wallEnd
   that.tail = function() {

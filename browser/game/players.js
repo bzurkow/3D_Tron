@@ -1,4 +1,4 @@
- import PlayerConstructor from './playerConstructor'
+import PlayerConstructor from './playerConstructor'
 import world, { speed } from './world'
 
 const loader = new THREE.ObjectLoader();
@@ -14,7 +14,7 @@ player1.ball.setLinearVelocity({x: speed, y: 0, z: 0 })
 player1.signature = 1
 
 const player2 = new PlayerConstructor(0xC0C0C0)
-player2.ball.position.set(495, 0, 0)
+player2.ball.native.position.set(495, 0, 0)
 player2.ball.native.up.set(0,1,0)
 player2.ball.native.rotation.set(0,-Math.PI/2,0)
 player2.ball.addTo(world)
