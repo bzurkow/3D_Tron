@@ -21,27 +21,36 @@ class LobbyRoom extends Component {
       socket.emit('readyPlayer', socketId)
     }
 
+    let exisitingPlayers = this.props.players.filter(player => {
+      console.log("PLAYER UAUA", player);
+      console.log("playerID", player.id)
+      return player.playerName;
+    })
+
+    console.log('exisitingPlayer', exisitingPlayers)
     //let { isPlaying } = this.props.gameState;
     // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div id="lobbyRoom">
-        <div>
-        <div id="lobby-title">STAGING AREA</div>
-          <div className="input-field">
-            <div id="stage-box">
-              <ul>
-                <li>YO</li>
-                <li>YO</li>
-              </ul>
-
-            </div>
+      <div id="lobby-title">STAGING AREA</div>
+        <sidebar>
+          <ul>
+            { exisitingPlayers.map((player,index) => {
+              console.log("PLAYER IN MAP", player);
+              return (
+                <li className='listName' key={index}>
+                {player.playerName}
+                </li>
+              )
+            })
+            }
+          </ul>
+        </sidebar>
 
             <button className="btn waves-effect"
                     type="submit"
                     onClick = {readyPlayerEmitter}
-                    id="play-box-join">Join</button>
-          </div>
-          </div>
+                    id="join-box">Join</button>
         </div>
       );
   }

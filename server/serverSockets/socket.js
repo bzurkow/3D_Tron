@@ -20,6 +20,11 @@ module.exports = io => {
     //Player ready in landing page
     //We need to update this so that game starting works smoothly
 
+    socket.on('playerName', (socketId, playerName) => {
+      console.log("SENDING THE PLAYER NAME TO THE BACKEND", socketId, playerName)
+      socket.broadcast.emit('addPlayerName', socketId, playerName);
+    })
+
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
       const checkReadyUsers = store.getState().users;
@@ -52,6 +57,7 @@ module.exports = io => {
 
     socket.on('disconnect', () => {
       store.dispatch(removeUserAndEmit(socket));
+      io.sockets.emit('removePlayer', socket.id)
       console.log(chalk.magenta(`${socket.id} has disconnected`));
     });
   });
