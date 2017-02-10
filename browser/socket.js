@@ -69,7 +69,7 @@ export const initializeSocket = () => {
 
   socket.on('endGame', () => {
     // store.dispatch(stopGame());
-    //window.location.reload(true);
+    window.location.reload(true);
   });
 };
 

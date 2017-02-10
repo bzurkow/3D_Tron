@@ -137,6 +137,7 @@ export const cameraSet = (player) => {
 		upVector.y,
 		upVector.z
 	)
+	console.log("looking ahead", upVector.x*6+velocityVector.x*3 )
 	 world.camera.lookAt(new THREE.Vector3(
 	 	upVector.x*6+velocityVector.x*3,
 	 	upVector.y*6+velocityVector.y*3,
@@ -152,8 +153,10 @@ export const cameraSetOnStart = (player) => {
 	  (player.ball.position.y / 495) * (20) + upVector.y * 8,
 	  (player.ball.position.z / 495) * (20) + upVector.z * 8
 	);
+	console.log("lookingahead at start", upVector.x*6-(player.ball.position.x/495)*3)
 	 world.camera.lookAt(new THREE.Vector3(
-	 	upVector.x*6+velocityVector.x*3,
-	 	upVector.y*6+velocityVector.y*3,
-	 	upVector.z*6+velocityVector.z*3))
+	 	upVector.x*6-(player.ball.position.x/495)*300,
+	 	upVector.y*6-(player.ball.position.y/495)*300,
+	 	upVector.z*6-(player.ball.position.z/495)*300))
+	 console.log(player.bike.position)
 }

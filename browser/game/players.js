@@ -1,4 +1,4 @@
- import PlayerConstructor from './playerConstructor'
+import PlayerConstructor from './playerConstructor'
 import world, { speed } from './world'
 
 const loader = new THREE.ObjectLoader();
