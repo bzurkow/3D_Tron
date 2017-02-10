@@ -4,7 +4,7 @@ import { field } from './field';
 const speed = 100;
 
 const world = new WHS.World({
-  stats: "fps", // fps, ms, mb or false if not need.
+  // stats: "fps", // fps, ms, mb or false if not need.
   autoresize: { delay: 1 },
   rendering: {
     background: { color: 0x162129 },
