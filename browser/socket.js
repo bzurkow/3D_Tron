@@ -28,7 +28,7 @@ export const initializeSocket = () => {
   socket.on('addPlayerName', (socketId, playerName) =>{
     console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
     store.dispatch(addPlayerName(socketId, playerName));
-  })
+  });
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
