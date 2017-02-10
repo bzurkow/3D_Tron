@@ -66,12 +66,15 @@ export default (players = initialState, action) => {
       return newPlayers;
 
     case ADD_PLAYER_NAME:
-      return players.map((bike) => {
-        if (bike.id === action.playerId) {
-          bike.playerName = action.playerName;
+      console.log('PLAYER WITH NEW NAME 1', players)
+      let playerWithNewName = players.map((player) => {
+        if (player.id === action.playerId) {
+          player.playerName = action.playerName;
         }
-        return bike;
+        return player;
       });
+      console.log('PLAYER WITH NEW NAME2', playerWithNewName)
+      return playerWithNewName
 
     case REMOVE_PLAYER:
       return players.map((bike) => {

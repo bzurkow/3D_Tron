@@ -4,6 +4,7 @@ const ADD_USER = 'ADD_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const READY_PLAYER = 'READY_PLAYER';
 const PLAYER_COLLISION = 'PLAYER_COLLISION';
+const ADD_USER_NAME = 'ADD_USER_NAME';
 
 /* --------------- ACTION CREATORS --------------- */
 
@@ -26,6 +27,12 @@ const playerCollision = (playerId) => ({
   type: PLAYER_COLLISION,
   playerId
 });
+
+const addUserName = (userId, playerName) => ({
+  type: ADD_USER_NAME,
+  userId,
+  playerName
+})
 
 
 /* --------------- THUNK ACTION CREATORS --------------- */
@@ -93,6 +100,16 @@ function userReducer (state = initialState, action) {
         return user;
       });
 
+    case ADD_USER_NAME:
+      return state.map((user) => {
+      console.log('%&^$^%$')
+      if (user.id === action.userId) {
+        console.log("%%%% setting playerName backend", action.playerName);
+        user.playerName = action.playerName;
+      }
+      return user;
+    });
+
     case PLAYER_COLLISION:
       return state.map((user) => {
       if (user.id === action.playerId) {
@@ -113,5 +130,6 @@ module.exports = {
   removeUserAndEmit,
   userReducer,
   startReady,
-  playerCollision
+  playerCollision,
+  addUserName
 };
