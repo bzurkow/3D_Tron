@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import socket from '../socket';
 
 import { addPlayerName } from '../reducers/players';
+import { enterLobby } from '../reducers/gameState';
 import world from '../game/world';
 //not needed yet
 // import ControlPanel from './ControlPanel';
@@ -11,13 +12,13 @@ import world from '../game/world';
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
+    // this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
-  readyPlayerEmitter() {
-    const socketId = localStorage.getItem('mySocketId');
-    socket.emit('readyPlayer', socketId);
-  }
+  // readyPlayerEmitter() {
+  //   const socketId = localStorage.getItem('mySocketId');
+  //   socket.emit('readyPlayer', socketId);
+  // }
 
   render() {
 
@@ -37,8 +38,8 @@ class Landing extends Component {
           <button
             className="btn waves-effect"
             type="submit"
-            onClick = { this.readyPlayerEmitter }
-            id="play-box">Join
+            onClick = { this.props.enterLobby }
+            id="play-box">Enter
           </button>
         </div>
         <div id="general"> Use "wasd" or arrow keys to turn </div>
@@ -49,7 +50,8 @@ class Landing extends Component {
 
 const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({
-  setPlayerName: event => dispatch(addPlayerName(localStorage.getItem('mySocketId'), event.target.value))
+  enterLobby: () => dispatch(enterLobby()),
+  addPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
