@@ -4,7 +4,8 @@ const {
     createAndEmitUser,
     removeUserAndEmit,
     startReady,
-    playerCollision
+    playerCollision,
+    addUserName
 } = require('../reducers/users');
 
 
@@ -15,25 +16,33 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
     const allUsers = store.getState().users;
+    console.log(allUsers)
     io.sockets.emit('addUser', allUsers);
 
     //Player ready in landing page
     //We need to update this so that game starting works smoothly
 
     socket.on('playerName', (socketId, playerName) => {
-      console.log("SENDING THE PLAYER NAME TO THE BACKEND", socketId, playerName)
+      console.log("SENDING THE PLAYER NAME TO THE BACKEND", socketId, playerName);
+      store.dispatch(addUserName(socketId, playerName));
       socket.broadcast.emit('addPlayerName', socketId, playerName);
-    })
+    });
 
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
-      const checkReadyUsers = store.getState().users;
-      if (checkReadyUsers.length > 1 && checkReadyUsers.length === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
+      let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
+
+
+      console.log('CHECK READY USER', checkReadyUsers)
+
+      if (checkReadyUsers.length > 1 &&
+          checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
-      } else {
-        setTimeout(() => io.sockets.emit('startGame'), 3000);
       }
+      // } else {
+      //   setTimeout(() => io.sockets.emit('startGame'), 3000);
+      // }
     });
 
     //Here the back end recognizes that a ball collided and sends out a syncronized message to all users to handle the collision.
