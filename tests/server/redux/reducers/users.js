@@ -5,6 +5,7 @@ import { userReducer } from '../../../../server/reducers/users';
 
 describe("User Reducer", () => {
   const testUserId = '12345';
+  const anotherTestId = '34567';
   let testStore;
 
   beforeEach('Create test store', () => {
@@ -28,10 +29,10 @@ describe("User Reducer", () => {
 
     testStore.dispatch({
       type: 'ADD_USER',
-      userId: '34567'
+      userId: anotherTestId
     });
     expect(newState[0].id).to.be.equal(testUserId);
-    expect(newState[1].id).to.be.equal('34567');
+    expect(newState[1].id).to.be.equal(anotherTestId);
   });
 
   it('Removes user', () => {
@@ -41,11 +42,11 @@ describe("User Reducer", () => {
     });
     testStore.dispatch({
       type: 'ADD_USER',
-      userId: '34567'
+      userId: anotherTestId
     });
     testStore.dispatch({
       type: 'REMOVE_USER',
-      userId: '34567'
+      userId: anotherTestId
     });
     const newState = testStore.getState();
     expect(newState[0].id).to.be.equal(testUserId);
