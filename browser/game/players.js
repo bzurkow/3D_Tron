@@ -2,11 +2,12 @@ import PlayerConstructor from './playerConstructor'
 import world, { speed } from './world'
 
 const loader = new THREE.ObjectLoader();
+export const scalarInitialPosition = 400
 
 //creating our 6 players. Any player playing will be one of these 6
 
 const player1 = new PlayerConstructor(0xFFF000)
-player1.ball.position.set(-495, 0, 0)
+player1.ball.position.set(-scalarInitialPosition, 0, 0)
 player1.ball.native.up.set(0,1,0)
 player1.ball.native.rotation.set(0,Math.PI/2,0)
 player1.ball.addTo(world)
@@ -14,7 +15,7 @@ player1.ball.setLinearVelocity({x: speed, y: 0, z: 0 })
 player1.signature = 1
 
 const player2 = new PlayerConstructor(0xC0C0C0)
-player2.ball.native.position.set(495, 0, 0)
+player2.ball.native.position.set(scalarInitialPosition, 0, 0)
 player2.ball.native.up.set(0,1,0)
 player2.ball.native.rotation.set(0,-Math.PI/2,0)
 player2.ball.addTo(world)
@@ -22,7 +23,7 @@ player2.ball.setLinearVelocity({x: -speed, y: 0, z: 0 })
 player2.signature = 2
 
 const player3 = new PlayerConstructor(0x00ff00)
-player3.ball.position.set(0, -495, 0)
+player3.ball.position.set(0, -scalarInitialPosition, 0)
 player3.ball.native.up.set(1,0,0)
 player3.ball.native.rotation.set(-Math.PI/2,0,-Math.PI/2)
 player3.ball.addTo(world)
@@ -30,7 +31,7 @@ player3.ball.setLinearVelocity({x: 0, y: speed, z: 0 })
 player3.signature = 3
 
 const player4 = new PlayerConstructor(0x00FFFF)
-player4.ball.position.set(0, 495, 0)
+player4.ball.position.set(0, scalarInitialPosition, 0)
 player4.ball.native.up.set(1,0,0)
 player4.ball.native.rotation.set(Math.PI/2,0,-Math.PI/2)
 player4.ball.addTo(world)
@@ -38,14 +39,14 @@ player4.ball.setLinearVelocity({x: 0, y: -speed, z: 0 })
 player4.signature = 4
 
 const player5 = new PlayerConstructor(0xFF1493)
-player5.ball.position.set(0, 0, -495)
+player5.ball.position.set(0, 0, -scalarInitialPosition)
 player5.ball.native.up.set(0,1,0)
 player5.ball.addTo(world)
 player5.ball.setLinearVelocity({x: 0, y: 0, z: speed })
 player5.signature = 5
 
 const player6 = new PlayerConstructor(0xFF0000)
-player6.ball.position.set(0, 0, 495)
+player6.ball.position.set(0, 0, scalarInitialPosition)
 player6.ball.native.up.set(0,1,0)
 player6.ball.native.rotation.set(0,Math.PI,0)
 player6.ball.addTo(world)
