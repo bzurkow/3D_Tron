@@ -117,6 +117,7 @@ export const collisionHandler = player => {
 	}
 	if(player.signature===store.getState().mainPlayer.signature){
 		player.ball.remove(world.camera)
+		world.setControls(new WHS.OrbitControls());
 	}
 }
 
@@ -124,16 +125,35 @@ export const cameraSet = (player) => {
 	let velocityVector = player.ball.native._physijs.linearVelocity
 	let upVector = player.ball.native.up
 	let camx, camy, camz
-	if(Math.abs(upVector.x)===1) {camx = upVector.x*5}
-	if(Math.abs(upVector.y)===1) {camy = upVector.y*5}
-	if(Math.abs(upVector.z)===1) {camz = upVector.z*5}
-	if(Math.abs(velocityVector.x)===speed){camx = -velocityVector.x}
-	if(Math.abs(velocityVector.y)===speed){camy = -velocityVector.y}
-	if(Math.abs(velocityVector.z)===speed){camz = -velocityVector.z}
+	if(Math.abs(upVector.x)===1) {camx = upVector.x*8}
+	if(Math.abs(upVector.y)===1) {camy = upVector.y*8}
+	if(Math.abs(upVector.z)===1) {camz = upVector.z*8}
+	if(Math.abs(velocityVector.x)===speed){camx = -velocityVector.x/Math.abs(velocityVector.x)*20}
+	if(Math.abs(velocityVector.y)===speed){camy = -velocityVector.y/Math.abs(velocityVector.y)*20}
+	if(Math.abs(velocityVector.z)===speed){camz = -velocityVector.z/Math.abs(velocityVector.z)*20}
 	world.camera.native.position.set(camx||0,camy||0,camz||0)
 	world.camera.native.up.set(
 		upVector.x,
 		upVector.y,
 		upVector.z
 	)
+	 world.camera.lookAt(new THREE.Vector3(
+	 	upVector.x*6+velocityVector.x*3,
+	 	upVector.y*6+velocityVector.y*3,
+	 	upVector.z*6+velocityVector.z*3))
+}
+
+export const cameraSetOnStart = (player) => {
+	let velocityVector = player.ball.native._physijs.linearVelocity
+	let upVector = player.ball.native.up
+	let camx, camy, camz
+	world.camera.native.position.set(
+	  (player.ball.position.x / 495) * (20) + upVector.x * 8,
+	  (player.ball.position.y / 495) * (20) + upVector.y * 8,
+	  (player.ball.position.z / 495) * (20) + upVector.z * 8
+	);
+	 world.camera.lookAt(new THREE.Vector3(
+	 	upVector.x*6+velocityVector.x*3,
+	 	upVector.y*6+velocityVector.y*3,
+	 	upVector.z*6+velocityVector.z*3))
 }
