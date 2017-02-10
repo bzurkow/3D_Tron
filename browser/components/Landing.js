@@ -52,7 +52,7 @@ class Landing extends Component {
           </button>
         </form>
         </div>
-        <div id="general"> Use "wasd" or arrow keys to turn </div>
+        <div id="general"> Use "w a s d" or arrow keys to turn </div>
       </div>
     );
   }
