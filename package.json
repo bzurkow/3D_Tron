@@ -7,8 +7,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w & nodemon server/index.js",
+    "test": "mocha ./tests/**/*.js --watch --compilers js:babel-register",
+    "start": "nodemon server/index.js",
     "build": "webpack",
     "build-watch": "webpack -w",
     "seed": "node server/db/seed.js"

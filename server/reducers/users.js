@@ -108,7 +108,10 @@ function userReducer (state = initialState, action) {
 
 module.exports = {
   ADD_USER,
+  addUser,
   REMOVE_USER,
+  removeUser,
+  readyPlayer,
   createAndEmitUser,
   removeUserAndEmit,
   userReducer,
