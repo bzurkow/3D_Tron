@@ -27,10 +27,10 @@ export const initializeSocket = () => {
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
-      if(!player.id){
-        collisionHandler(player)
+      if (!player.id){
+        collisionHandler(player);
       }
-    })
+    });
     store.dispatch(startGame());
   });
 

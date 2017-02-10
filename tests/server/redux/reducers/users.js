@@ -3,7 +3,7 @@ import {createStore} from 'redux';
 
 import { userReducer } from '../../../../server/reducers/users';
 
-describe("User Reducer", () => {
+describe("|----- BACKEND User Reducer -----|", () => {
   const testUserId = '12345';
   const anotherTestId = '34567';
   let testStore;

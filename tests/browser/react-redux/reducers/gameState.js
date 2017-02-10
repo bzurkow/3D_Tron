@@ -3,7 +3,7 @@ import {createStore} from 'redux';
 
 import gameStateReducer from '../../../../browser/reducers/gameState';
 
-describe("Game State Reducer", () => {
+describe("|----- FRONTEND Game State Reducer -----|", () => {
   let testStore;
 
   beforeEach('Create test store', () => {

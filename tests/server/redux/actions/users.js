@@ -2,7 +2,7 @@ import {expect} from 'chai';
 
 import {addUser, removeUser, readyPlayer, playerCollision} from '../../../../server/reducers/users';
 
-describe("User Actions", () => {
+describe("|----- BACKEND User Actions -----|", () => {
   const testUserId = '12345';
 
   it('Adds user', () => {
