@@ -137,7 +137,6 @@ export const cameraSet = (player) => {
 		upVector.y,
 		upVector.z
 	)
-	console.log("looking ahead", upVector.x*6+velocityVector.x*3 )
 	 world.camera.lookAt(new THREE.Vector3(
 	 	upVector.x*6+velocityVector.x*3,
 	 	upVector.y*6+velocityVector.y*3,

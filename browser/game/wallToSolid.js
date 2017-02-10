@@ -18,20 +18,17 @@ export const wallToSolid = player => {
       if (newGeo[hwd] <= 4 && newGeo[hwd] > 1) newGeo[hwd] = 1;
     }
 
-		const boxToAdd = new WHS.Box({
-			geometry: [ newGeo.height || 1, newGeo.width || 1, newGeo.depth || 1],
-			mass: 0,
-			material: { color: player.wall[0].material.color, kind: 'phong'},
-			position: newPos
-		});
+	const boxToAdd = new WHS.Box({
+		geometry: [ newGeo.height || 1, newGeo.width || 1, newGeo.depth || 1],
+		mass: 0,
+		material: { color: player.wall[0].material.color, kind: 'phong'},
+		position: newPos
+	});
 
-		boxToAdd.addTo(world);
-
-		player.walls.push(boxToAdd);
-
-		world.scene.remove(player.wall[0].native);
-		player.wall = [];
-
-		player.wallStart = Object.create(player.wallEnd);
+	boxToAdd.addTo(world);
+	player.walls.push(boxToAdd);
+	world.scene.remove(player.wall[0].native);
+	player.wall = [];
+	player.wallStart = Object.create(player.wallEnd);
   }
 };
