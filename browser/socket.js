@@ -26,11 +26,11 @@ export const initializeSocket = () => {
   });
 
   socket.on('startGame', () => {
-    // allBikes.forEach(player => {
-    //   if (!player.id){
-    //     collisionHandler(player);
-    //   }
-    // });
+    allBikes.forEach(player => {
+      if (!player.id){
+        collisionHandler(player);
+      }
+    });
     store.dispatch(startGame());
   });
 
@@ -67,10 +67,10 @@ export const initializeSocket = () => {
     store.dispatch();
   });
 
-  socket.on('endGame', () => {
-    // store.dispatch(stopGame());
-    // window.location.reload(true);
-  });
+  // socket.on('endGame', () => {
+  //   store.dispatch(stopGame());
+  //   window.location.reload(true);
+  // });
 };
 
 export default socket;
