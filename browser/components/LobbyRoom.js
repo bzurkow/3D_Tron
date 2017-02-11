@@ -34,10 +34,10 @@ class LobbyRoom extends Component {
       <div id="lobbyRoom">
       <div id="lobby-title">STAGING AREA</div>
         <sidebar>
-          <ul>
+          <ul id="listName">
             { exisitingPlayers.map((player,index) => {
               return (
-                <li className='listName' key={index}>
+                <li className='listName-item' key={index}>
                 {player.playerName}
                 </li>
               )
