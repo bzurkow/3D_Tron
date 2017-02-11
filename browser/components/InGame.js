@@ -32,7 +32,6 @@ class dWW extends Component {
 	}
 	render(){
 		let winner = this.props.players.filter(player => player.winner === true)[0].playerName
-		console.log("winner in dWW", winner)
 		return(
 		 	<div>
 		 		<div className="input-field">
