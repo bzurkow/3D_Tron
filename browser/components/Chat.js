@@ -38,7 +38,7 @@ class Chat extends Component {
               { this.props.messages && this.props.messages.map((message, i) => {
                   return (
                     <li key={i} className="message-item">
-                      {`: ${message.text}`}
+                      {`${message.name}: ${message.text}`}
                     </li>
                   )
               })}
@@ -60,8 +60,6 @@ class Chat extends Component {
 const mapStateToProps = ({ messages, gameState }) => ({ messages, gameState });
 
 const mapDispatchToProps = dispatch => ({
-  start: () => dispatch(startChat()),
-  stop: () => dispatch(stopChat())
 });
 
 export default connect(

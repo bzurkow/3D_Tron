@@ -35,9 +35,9 @@ export const initializeSocket = () => {
     store.dispatch(addPlayerName(socketId, playerName));
   });
 
-  socket.on('addNewMessage', (message, senderName) => {
-    console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", message, senderName);
-    store.dispatch(receiveMessage(message, senderName));
+  socket.on('addNewMessage', (text, senderName) => {
+    console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", text, senderName);
+    store.dispatch(receiveMessage({text:text, name:senderName}));
 
   });
 
