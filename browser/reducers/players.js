@@ -1,8 +1,7 @@
 import allPlayers from '../game/players';
 import world from '../game/world';
-
 import { rotate } from '../game/gamePlayFunctions';
-// import socket from '../socket';
+import store from '../store';
 
 /*----------  INITIAL STATE  ----------*/
 const initialState = allPlayers;
@@ -11,6 +10,8 @@ const initialState = allPlayers;
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 const REMOVE_PLAYER = 'REMOVE_PLAYER';
+const ON_DEATH = 'ON_DEATH'
+const DECLARE_WINNER = 'DECLARE_WINNER'
 
 /*----------  ACTION CREATORS  ----------*/
 export const setPlayerId = (users) => ({
@@ -29,6 +30,16 @@ export const removePlayer = (userId) => ({
   type: REMOVE_PLAYER,
   userId
 });
+
+export const onDeath = (player) => ({
+  type: ON_DEATH,
+  player
+});
+
+export const declareWinner = (player) => ({
+  type: DECLARE_WINNER,
+  player
+})
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -49,14 +60,14 @@ export default (players = initialState, action) => {
       return newPlayers;
 
     case ADD_PLAYER_NAME:
-      console.log('PLAYER WITH NEW NAME 1', players)
+      // console.log('PLAYER WITH NEW NAME 1', players)
       let playerWithNewName = players.map((player) => {
         if (player.id === action.playerId) {
           player.playerName = action.playerName;
         }
         return player;
       });
-      console.log('PLAYER WITH NEW NAME2', playerWithNewName)
+      // console.log('PLAYER WITH NEW NAME2', playerWithNewName)
       return playerWithNewName
 
     case REMOVE_PLAYER:
@@ -66,6 +77,22 @@ export default (players = initialState, action) => {
         }
         return bike;
       });
+
+    case ON_DEATH:
+      return players.map((player) => {
+        if(player.signature === action.player.signature){
+          player.status = 'dead'
+        }
+        return player
+      });
+
+    case DECLARE_WINNER:
+      return players.map((player) => {
+        if(player.signature === action.player.signature){
+          player.winner = true
+        }
+        return player
+      })
 
     default: return players;
   }

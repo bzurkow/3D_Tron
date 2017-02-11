@@ -6,6 +6,7 @@ import { turnPlayer } from '../reducers/mainPlayer';
 import store from '../store';
 import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions'
+import { DeadNoWinner, Winner, DeadWithWinner} from './InGame'
 
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 
@@ -20,6 +21,8 @@ class Game extends Component {
     world.start();
     players.forEach(player => {
       player.ball.native.addEventListener('collision', (collidedWith) => {
+        console.log("player", player)
+        console.log("collidedWith", collidedWith)
         socket.emit('ball-collision', {signature: player.signature, id: player.id});
       }, true);
       player.si = setInterval(player.tail, 10);
@@ -50,9 +53,24 @@ class Game extends Component {
           TURN_AUDIO.stop();
         }
       });
+    return (
+      <div>
+      { 
+        this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
+      }
+      { 
+        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
+      }
+      { 
+        this.props.mainPlayer.winner === true ? <Winner /> : null
+      }
+      </div>
+
+    );
+  } else {
+    return null
   }
 
-    return null;
   }
 }
 

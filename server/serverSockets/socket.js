@@ -35,7 +35,7 @@ module.exports = io => {
 
       console.log('CHECK READY USER', checkReadyUsers)
 
-      if (checkReadyUsers.length > 1 &&
+      if (checkReadyUsers.length >= 1 &&
           checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
@@ -54,7 +54,7 @@ module.exports = io => {
         console.log(chalk.red(store.getState().users.filter(user => user.active === true).length));
       }
 
-      if (store.getState().users.filter(user => user.active === true).length <= 1){
+      if (store.getState().users.filter(user => user.active === true).length === 1){
         io.sockets.emit('endGame');
       }
     });
