@@ -31,6 +31,10 @@ class Game extends Component {
   }
 
   render(){
+    const TURN_AUDIO = document.createElement('audio');
+    TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
+    TURN_AUDIO.load();
+
     if (this.props.mainPlayer) {
       const player = this.props.mainPlayer;
       player.ball.add(world.camera);
@@ -39,6 +43,14 @@ class Game extends Component {
         const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
         if (validKeys.includes(event.keyCode)) {
           store.dispatch(turnPlayer(event.keyCode));
+          TURN_AUDIO.play();
+        }
+      });
+
+       document.addEventListener('keyup', (event) => {
+        const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+        if (validKeys.includes(event.keyCode)) {
+          TURN_AUDIO.stop();
         }
       });
     return (
