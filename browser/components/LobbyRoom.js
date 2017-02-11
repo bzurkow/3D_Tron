@@ -34,6 +34,7 @@ class LobbyRoom extends Component {
       <div id="lobbyRoom">
       <div id="lobby-title">STAGING AREA</div>
         <sidebar>
+          <h4 id='players-online'>PLAYERS ONLINE</h4>
           <ul id="listName">
             { exisitingPlayers.map((player,index) => {
               return (

@@ -42,7 +42,7 @@ class Chat extends Component {
               { this.props.messages && this.props.messages.map((message, i) => {
                   return (
                     <li key={i} className="message-item">
-                      {`${message.name}:     ${message.text}`}
+                      {`${message.name}:   ${message.text}`}
                     </li>
                   )
               })}

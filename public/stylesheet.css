@@ -103,12 +103,7 @@ body, html {
   color: white;
 }
 
-ul {
-  list-style: none;
-  color: white;
-  background-color: black;
-  text-align: center;
-}
+
 
 sidebar {
   position: fixed;
@@ -123,16 +118,33 @@ sidebar {
   text-align: center;
 }
 
+#players-online{
+  margin-top: 20px;
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+}
+
+
+ul {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  list-style: none;
+  color: white;
+  background-color: black;
+}
 
 #listName {
 color: #c8c8c8;
-font-family: "Quicksand", sans-serif;
-font-weight: lighter;
-font-size: 5vh;
+background-color:#303030;
+text-align: left
 }
 
 .listName-item{
-
+  padding: 2px 2px 2px 2px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 3vh;
 }
 
 #chat-box {
@@ -172,7 +184,7 @@ font-size: 5vh;
 }
 
 #message-box {
-  text-align: left;
+  text-align: center;
   height: 200%;
 }
 
