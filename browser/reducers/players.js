@@ -11,7 +11,7 @@ const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 const REMOVE_PLAYER = 'REMOVE_PLAYER';
 const ON_DEATH = 'ON_DEATH'
-
+const DECLARE_WINNER = 'DECLARE_WINNER'
 
 /*----------  ACTION CREATORS  ----------*/
 export const setPlayerId = (users) => ({
@@ -35,6 +35,11 @@ export const onDeath = (player) => ({
   type: ON_DEATH,
   player
 });
+
+export const declareWinner = (player) => ({
+  type: DECLARE_WINNER,
+  player
+})
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -73,13 +78,21 @@ export default (players = initialState, action) => {
         return bike;
       });
 
-      case ON_DEATH:
-        return players.map((player) => {
-          if(player.signature === action.player.signature){
-            player.status = 'dead'
-          }
-          return player
-        })
+    case ON_DEATH:
+      return players.map((player) => {
+        if(player.signature === action.player.signature){
+          player.status = 'dead'
+        }
+        return player
+      });
+
+    case DECLARE_WINNER:
+      return players.map((player) => {
+        if(player.signature === action.player.signature){
+          player.status = 'winner'
+        }
+        return player
+      })
 
     default: return players;
   }

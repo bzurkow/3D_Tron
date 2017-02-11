@@ -6,6 +6,7 @@ import { turnPlayer } from '../reducers/mainPlayer';
 import store from '../store';
 import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions'
+import { DeadNoWinner, Winner, DeadWithWinner} from './InGame'
 
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 
@@ -43,16 +44,13 @@ class Game extends Component {
     return (
       <div>
       { 
-        this.props.mainPlayer.status === 'dead' ?
-        <div>
-          <div className="input-field">
-            <div id="title">You Crashed!</div>
-          </div>
-          <div id="general">
-            Click and drag with your mouse to watch the rest of the game!
-          </div>
-        </div>
-     : null
+        this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.status === 'winner').length === 0 ? <DeadNoWinner /> : null
+      }
+      { 
+        this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.status === 'winner').length === 1 ? <DeadWithWinner /> : null
+      }
+      { 
+        this.props.mainPlayer.status === 'winner' ? <Winner /> : null
       }
       </div>
 

@@ -5,6 +5,7 @@ import { setMainPlayer } from './reducers/mainPlayer';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
+import { declareWinner } from './reducers/players';
 
 const socket = io('/');
 
@@ -78,6 +79,8 @@ export const initializeSocket = () => {
   });
 
   socket.on('endGame', () => {
+    let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0]
+    store.dispatch(declareWinner(lastStanding))
     // store.dispatch(stopGame());
     // window.location.reload(true);
   });
