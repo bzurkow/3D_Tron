@@ -21,7 +21,7 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
     console.log('ALL USERS ****', allUsers)
-    allUsers.forEach(function(user){
+    allUsers.forEach(user => {
       store.dispatch(addPlayerName(user.id, user.playerName))
     })
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
@@ -33,6 +33,13 @@ export const initializeSocket = () => {
     console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
     store.dispatch(addPlayerName(socketId, playerName));
   });
+
+  socket.on('addNewMessage', (message, senderName) => {
+    console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", message, senderName);
+    store.dispatch
+
+  });
+
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
@@ -78,8 +85,8 @@ export const initializeSocket = () => {
   });
 
   socket.on('endGame', () => {
-    // store.dispatch(stopGame());
-    // window.location.reload(true);
+    store.dispatch(stopGame());
+    window.location.reload(true);
   });
 };
 

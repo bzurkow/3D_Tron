@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import socket from '../socket';
-import { Table } from 'react-bootstrap';
+import Chat from './Chat';
 
 
 //not needed yet
@@ -12,18 +12,18 @@ import { Table } from 'react-bootstrap';
 class LobbyRoom extends Component {
   constructor(props) {
     super(props);
+    this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
-  render() {
-
-    function readyPlayerEmitter(){
+  readyPlayerEmitter(){
       const socketId = localStorage.getItem('mySocketId')
       socket.emit('readyPlayer', socketId)
-    }
+  }
+  render() {
+
+
 
     let exisitingPlayers = this.props.players.filter(player => {
-      console.log("PLAYER UAUA", player);
-      console.log("playerID", player.id)
       return player.playerName;
     })
 
@@ -36,7 +36,6 @@ class LobbyRoom extends Component {
         <sidebar>
           <ul>
             { exisitingPlayers.map((player,index) => {
-              console.log("PLAYER IN MAP", player);
               return (
                 <li className='listName' key={index}>
                 {player.playerName}
@@ -46,11 +45,11 @@ class LobbyRoom extends Component {
             }
           </ul>
         </sidebar>
-
-            <button className="btn waves-effect"
-                    type="submit"
-                    onClick = {readyPlayerEmitter}
-                    id="join-box">Join</button>
+        <Chat />
+        <button className="btn waves-effect"
+                type="submit"
+                onClick = {this.readyPlayerEmitter}
+                id="join-box">Join</button>
         </div>
       );
   }

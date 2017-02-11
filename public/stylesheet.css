@@ -29,7 +29,7 @@ body, html {
   letter-spacing: 0.4em;
   position: fixed;
   top: 8%;
-  left: 50%;
+  left: 54%;
   transform: translate(-50%, -50%);
 }
 
@@ -88,9 +88,9 @@ body, html {
     box-sizing: border-box;
     color: white;
     position: fixed;
-    font-size: 3vh;
+    font-size: 2.5vh;
     top: 90%;
-    left: 90%;
+    left: 93%;
     transform: translate(-50%, -50%);
     border: 1px solid;
     border-radius: 6px;
@@ -119,14 +119,51 @@ sidebar {
   height: 150vh;
   width: 150px;
   overflow-y: auto;
-  border-right: 2px solid #555; }
+  border-right: 2px solid #555;
+  text-align: center;
 }
 
 
 sidebar .listName {
-
 color: #c8c8c8;
 font-family: "Quicksand", sans-serif;
-
+font-weight: lighter;
+font-size: 5vh;
 }
 
+#chat-box {
+    transform: scale(1.1,1.1);
+    font-size: 1.1em;
+    bottom: 20%;
+    margin-left: 18%;
+    position: fixed;
+    text-align: left;
+    width: 75%;
+    max-width: 80em;
+    height: 60%;
+    z-index: 1;
+    float: right;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#chat-bar {
+    height: 3rem;
+    position: absolute;
+    bottom: -29%;
+    left: 3.9%;
+    width: 82%;
+    height: 12%;
+    transform: scale(1.1, 1.1);
+    background-color: grey;
+    margin-bottom: 5%;
+    box-sizing: inherit;
+    padding-top: 0.5em;
+    padding-left: 2.5%;
+    border-left: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-radius: 10px;
+    color: black;
+}
