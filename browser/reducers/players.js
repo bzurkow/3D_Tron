@@ -89,7 +89,7 @@ export default (players = initialState, action) => {
     case DECLARE_WINNER:
       return players.map((player) => {
         if(player.signature === action.player.signature){
-          player.status = 'winner'
+          player.winner = true
         }
         return player
       })

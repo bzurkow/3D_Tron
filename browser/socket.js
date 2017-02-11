@@ -80,6 +80,7 @@ export const initializeSocket = () => {
 
   socket.on('endGame', () => {
     let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0]
+    console.log("lastStanding", lastStanding)
     store.dispatch(declareWinner(lastStanding))
     // store.dispatch(stopGame());
     // window.location.reload(true);

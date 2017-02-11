@@ -110,7 +110,7 @@ export const collisionHandler = player => {
 	clearInterval(player.si)
 	world.scene.remove(player.ball.native)
 	world.scene.remove(player.bike.native)
-	store.dispatch(onDeath(player))
+	if(player.id) store.dispatch(onDeath(player))
 	if(player.walls.length !== 0) {
 		player.walls.forEach(wall => world.scene.remove(wall.native))
 	}

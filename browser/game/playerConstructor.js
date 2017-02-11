@@ -18,6 +18,7 @@ export default function PlayerConstructor(color){
   that.ball = sphereBase.clone();
   that.cameraTarget;
   that.status = "alive"
+  that.winner = false
   that.t=0
   that.bike;
   that.signature;

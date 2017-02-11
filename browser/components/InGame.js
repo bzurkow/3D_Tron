@@ -20,16 +20,33 @@ export const Winner = () => {
  		  <div id="title">You Win!</div>
  		</div>
  		<div id="general">
- 		  Game will reset shortly
+ 		  Game will reload home page soon
  		</div>
  	</div>
  )
 }
 
-export const DeadWithWinner = () => {
- return(
- 	<div>
- 	
- 	</div>
- )
+class dWW extends Component {
+	constructor(props){
+		super(props)
+	}
+	render(){
+		let winner = this.props.players.filter(player => player.winner === true)[0].playerName
+		console.log("winner in dWW", winner)
+		return(
+		 	<div>
+		 		<div className="input-field">
+		 		  <div id="title">{winner} Wins!</div>
+		 		</div>
+		 		<div id="general">
+		 		  Game will reload home page soon
+		 		</div>		
+		 	</div>
+ 		)
+
+	}
 }
+
+import { connect } from 'react-redux'
+
+export const DeadWithWinner = connect(({ players }) => ({ players }))(dWW)
