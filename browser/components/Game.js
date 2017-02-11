@@ -40,7 +40,23 @@ class Game extends Component {
       });
   }
 
-    return null;
+    return (
+      <div>
+      { 
+        this.props.mainPlayer.status === 'dead' ?
+        <div>
+          <div className="input-field">
+            <div id="title">You Crashed!</div>
+          </div>
+          <div id="general">
+            Click and drag with your mouse to watch the rest of the game!
+          </div>
+        </div>
+     : null
+      }
+      </div>
+
+    );
   }
 }
 

@@ -1,6 +1,7 @@
 import world, { speed } from './world';
 import store from '../store';
-import { scalarInitialPosition } from './players'
+import { scalarInitialPosition } from './players';
+import { onDeath } from '../reducers/players'
 //rotate function
 export const rotate = (user) => {
 	let ups, vs
@@ -109,6 +110,7 @@ export const collisionHandler = player => {
 	clearInterval(player.si)
 	world.scene.remove(player.ball.native)
 	world.scene.remove(player.bike.native)
+	store.dispatch(onDeath(player))
 	if(player.walls.length !== 0) {
 		player.walls.forEach(wall => world.scene.remove(wall.native))
 	}
