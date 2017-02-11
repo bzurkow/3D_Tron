@@ -97,6 +97,23 @@ body, html {
     background-color: transparent;
     text-align: center;
     padding: 2vh 2vw;
+    z-index: 3;
+}
+
+#music-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    color: white;
+    position: fixed;font-size: 2vh;
+    top: 90%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    border: 1px solid;
+    border-radius: 14px;
+    background-color: transparent;
+    text-align: center;
+    padding: 1vh 1vw;
 }
 
 .glyphicon {

@@ -39,7 +39,12 @@ module.exports = io => {
       store.dispatch(startReady(playerId));
       let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
 
-      if (checkReadyUsers.length > 1 &&
+// gamePlay
+//       if (checkReadyUsers.length > 1 &&
+
+
+// test for debug
+      if (checkReadyUsers.length >= 1 &&
           checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
@@ -58,7 +63,7 @@ module.exports = io => {
         console.log(chalk.red(store.getState().users.filter(user => user.active === true).length));
       }
 
-      if (store.getState().users.filter(user => user.active === true).length <= 1){
+      if (store.getState().users.filter(user => user.active === true).length === 1){
         io.sockets.emit('endGame');
       }
     });

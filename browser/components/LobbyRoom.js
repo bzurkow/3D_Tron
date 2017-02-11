@@ -12,16 +12,16 @@ import Chat from './Chat';
 class LobbyRoom extends Component {
   constructor(props) {
     super(props);
-    this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
-  readyPlayerEmitter(){
+
+  render() {
+
+    function readyPlayerEmitter(){
+      console.log("CLICK????****")
       const socketId = localStorage.getItem('mySocketId')
       socket.emit('readyPlayer', socketId)
   }
-  render() {
-
-
 
     let exisitingPlayers = this.props.players.filter(player => {
       return player.playerName;
@@ -47,10 +47,12 @@ class LobbyRoom extends Component {
           </ul>
         </sidebar>
         <Chat />
+
         <button className="btn waves-effect"
                 type="submit"
-                onClick = {this.readyPlayerEmitter}
+                onClick = {readyPlayerEmitter}
                 id="join-box">Join</button>
+
         </div>
       );
   }
