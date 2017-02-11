@@ -83,7 +83,8 @@ export const initializeSocket = () => {
     console.log("lastStanding", lastStanding)
     store.dispatch(declareWinner(lastStanding))
     // store.dispatch(stopGame());
-    // window.location.reload(true);
+    setTimeout(()=> window.location.reload(true), 10000)
+
   });
 };
 
