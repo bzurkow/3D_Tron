@@ -124,11 +124,15 @@ sidebar {
 }
 
 
-sidebar .listName {
+#listName {
 color: #c8c8c8;
 font-family: "Quicksand", sans-serif;
 font-weight: lighter;
 font-size: 5vh;
+}
+
+.listName-item{
+
 }
 
 #chat-box {
