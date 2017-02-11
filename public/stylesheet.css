@@ -29,7 +29,7 @@ body, html {
   letter-spacing: 0.4em;
   position: fixed;
   top: 8%;
-  left: 54%;
+  left: 57%;
   transform: translate(-50%, -50%);
 }
 
@@ -137,7 +137,6 @@ font-size: 5vh;
     bottom: 20%;
     margin-left: 18%;
     position: fixed;
-    text-align: left;
     width: 75%;
     max-width: 80em;
     height: 60%;
@@ -166,4 +165,18 @@ font-size: 5vh;
     border-right: 1px solid #aaa;
     border-radius: 10px;
     color: black;
+}
+
+#message-box {
+  text-align: left;
+  height: 200%;
+}
+
+#message-list {
+  overflow-y: auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 2.5vh;
+  margin: 1em 1em 1em 1em;
+  height: 22em;
 }

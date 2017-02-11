@@ -31,7 +31,7 @@ module.exports = io => {
       let getSender = store.getState().users.find(user => {
         return user.id === socketId
       });
-      console.log("getSENDER BACKEND***", getSender.playerName);
+
       io.sockets.emit('addNewMessage', message, getSender.playerName);
     })
 

@@ -15,15 +15,19 @@ class Chat extends Component {
     this.sendMessage = this.sendMessage.bind(this);
   }
 
+  componentWillUpdate(){
+      this.refs.messageBox.scrollTop = this.refs.messageBox.scrollHeight;
+  }
+
+
   updateMessage(evt) {
     this.setState({ message: evt.target.value });
   }
 
   sendMessage() {
-    let { message } = this.state;
     let socketId = localStorage.getItem('mySocketId');
-    if (message) {
-      socket.emit('newMessage', message, socketId);
+    if (this.state.message) {
+      socket.emit('newMessage', this.state.message, socketId);
       this.setState({ message: '' });
     }
   }
@@ -38,14 +42,14 @@ class Chat extends Component {
               { this.props.messages && this.props.messages.map((message, i) => {
                   return (
                     <li key={i} className="message-item">
-                      {`${message.name}: ${message.text}`}
+                      {`${message.name}:     ${message.text}`}
                     </li>
                   )
               })}
             </ul>
           </div>
           <input ref="chatInput"
-                   value={this.statemessage}
+                   value={this.state.message}
                    onChange={this.updateMessage}
                    onKeyPress={evt => { if (evt.key === 'Enter') this.sendMessage(); }}
                    maxLength={70}
