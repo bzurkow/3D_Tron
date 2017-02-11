@@ -2,6 +2,7 @@ import store from './store';
 import { setPlayerId, updatePlayer, addPlayerName, removePlayer } from './reducers/players';
 import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
+import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
@@ -22,7 +23,7 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
     console.log('ALL USERS ****', allUsers)
-    allUsers.forEach(function(user){
+    allUsers.forEach(user => {
       store.dispatch(addPlayerName(user.id, user.playerName))
     })
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
@@ -34,6 +35,13 @@ export const initializeSocket = () => {
     console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
     store.dispatch(addPlayerName(socketId, playerName));
   });
+
+  socket.on('addNewMessage', (text, senderName) => {
+    console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", text, senderName);
+    store.dispatch(receiveMessage({text:text, name:senderName}));
+
+  });
+
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
@@ -79,6 +87,7 @@ export const initializeSocket = () => {
   });
 
   socket.on('endGame', () => {
+    // store.dispatch(stopGame());
     let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0]
     console.log("lastStanding", lastStanding)
     store.dispatch(declareWinner(lastStanding))

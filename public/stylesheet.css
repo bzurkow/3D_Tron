@@ -29,7 +29,7 @@ body, html {
   letter-spacing: 0.4em;
   position: fixed;
   top: 8%;
-  left: 50%;
+  left: 57%;
   transform: translate(-50%, -50%);
 }
 
@@ -88,15 +88,16 @@ body, html {
     box-sizing: border-box;
     color: white;
     position: fixed;
-    font-size: 3vh;
+    font-size: 2.5vh;
     top: 90%;
-    left: 90%;
+    left: 93%;
     transform: translate(-50%, -50%);
     border: 1px solid;
     border-radius: 6px;
     background-color: transparent;
     text-align: center;
     padding: 2vh 2vw;
+    z-index: 3;
 }
 
 #music-box {
@@ -119,12 +120,7 @@ body, html {
   color: white;
 }
 
-ul {
-  list-style: none;
-  color: white;
-  background-color: black;
-  text-align: center;
-}
+
 
 sidebar {
   position: fixed;
@@ -135,14 +131,85 @@ sidebar {
   height: 150vh;
   width: 150px;
   overflow-y: auto;
-  border-right: 2px solid #555; }
+  border-right: 2px solid #555;
+  text-align: center;
+}
+
+#players-online{
+  margin-top: 20px;
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
 }
 
 
-sidebar .listName {
+ul {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  list-style: none;
+  color: white;
+  background-color: black;
+}
 
+#listName {
 color: #c8c8c8;
-font-family: "Quicksand", sans-serif;
-
+background-color:#303030;
+text-align: left
 }
 
+.listName-item{
+  padding: 2px 2px 2px 2px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 3vh;
+}
+
+#chat-box {
+    transform: scale(1.1,1.1);
+    font-size: 1.1em;
+    bottom: 20%;
+    margin-left: 18%;
+    position: fixed;
+    width: 75%;
+    max-width: 80em;
+    height: 60%;
+    z-index: 1;
+    float: right;
+    background: black;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+#chat-bar {
+    height: 3rem;
+    position: absolute;
+    bottom: -29%;
+    left: 3.9%;
+    width: 82%;
+    height: 12%;
+    transform: scale(1.1, 1.1);
+    background-color: grey;
+    margin-bottom: 5%;
+    box-sizing: inherit;
+    padding-top: 0.5em;
+    padding-left: 2.5%;
+    border-left: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+    border-radius: 10px;
+    color: black;
+}
+
+#message-box {
+  text-align: center;
+  height: 200%;
+}
+
+#message-list {
+  overflow-y: auto;
+  font-family: "Quicksand", sans-serif;
+  font-weight: lighter;
+  font-size: 2.5vh;
+  margin: 1em 1em 1em 1em;
+  height: 22em;
+}

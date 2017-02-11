@@ -23,18 +23,27 @@ module.exports = io => {
     //We need to update this so that game starting works smoothly
 
     socket.on('playerName', (socketId, playerName) => {
-      console.log("SENDING THE PLAYER NAME TO THE BACKEND", socketId, playerName);
       store.dispatch(addUserName(socketId, playerName));
       socket.broadcast.emit('addPlayerName', socketId, playerName);
     });
+
+    socket.on('newMessage', (message, socketId)=>{
+      let getSender = store.getState().users.find(user => {
+        return user.id === socketId
+      });
+
+      io.sockets.emit('addNewMessage', message, getSender.playerName);
+    })
 
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
       let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
 
+// gamePlay
+//       if (checkReadyUsers.length > 1 &&
 
-      console.log('CHECK READY USER', checkReadyUsers)
 
+// test for debug
       if (checkReadyUsers.length >= 1 &&
           checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
