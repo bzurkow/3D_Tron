@@ -4,6 +4,7 @@ import socket from '../socket';
 
 import { addPlayerName } from '../reducers/players';
 import { enterLobby } from '../reducers/gameState';
+import { toggleSong } from '../reducers/musicPlayer';
 import world from '../game/world';
 import store from '../store';
 
@@ -44,6 +45,7 @@ class Landing extends Component {
             id="name-box"
             placeholder="nickname"
             autoFocus />
+
           <button
             className="btn waves-effect"
             type="submit"
@@ -51,6 +53,13 @@ class Landing extends Component {
             id="play-box">Enter
           </button>
         </form>
+         <button
+          className="btn waves-effect"
+          onClick={() => this.props.toggleSong()}
+          id="music-box"
+          >
+          <span className={this.props.musicPlayer.songPlaying ? 'glyphicon glyphicon-volume-off' : 'glyphicon glyphicon-volume-up'}></span>
+          </button>
         </div>
         <div id="general"> Use "w a s d" or arrow keys to turn </div>
       </div>
@@ -58,10 +67,11 @@ class Landing extends Component {
   }
 }
 
-const mapStateToProps = ({ gameState, players }) => ({ gameState, players });
+const mapStateToProps = ({ gameState, players, musicPlayer }) => ({ gameState, players, musicPlayer });
 const mapDispatchToProps = dispatch => ({
   enterLobby: () => dispatch(enterLobby()),
-  setPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.nickName.value))
+  setPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.nickName.value)),
+  toggleSong: event => dispatch(toggleSong())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
