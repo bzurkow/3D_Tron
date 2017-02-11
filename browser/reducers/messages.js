@@ -14,9 +14,10 @@ export const receiveMessages = messages => ({
   messages
 });
 
-export const receiveMessage = message => ({
+export const receiveMessage = (message, senderName) => ({
   type: RECEIVE_MESSAGE,
-  message
+  message,
+  senderName
 });
 
 export const removeMessage = idx => ({

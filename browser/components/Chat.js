@@ -35,7 +35,7 @@ class Chat extends Component {
             <ul ref="messageBox"
                 id="message-list"
                 className="collection">
-              { this.propsmessages && this.props.messages.map((message, i) => {
+              { this.props.messages && this.props.messages.map((message, i) => {
                   return (
                     <li key={i} className="message-item">
                       {`: ${message.text}`}

@@ -2,6 +2,7 @@ import store from './store';
 import { setPlayerId, updatePlayer, addPlayerName, removePlayer } from './reducers/players';
 import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
+import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
@@ -36,7 +37,7 @@ export const initializeSocket = () => {
 
   socket.on('addNewMessage', (message, senderName) => {
     console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", message, senderName);
-    store.dispatch
+    store.dispatch(receiveMessage(message, senderName));
 
   });
 
