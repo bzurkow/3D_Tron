@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import math from 'mathjs';
 import world, { speed } from '../game/world';
-import { turnPlayer } from '../reducers/mainPlayer';
+import { turnPlayer } from '../game/directionsFunctions';
 import store from '../store';
 import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions'
@@ -18,16 +18,26 @@ class Game extends Component {
   componentDidMount() {
     console.log("CDM PROPS", this.props)
     const players = this.props.players;
+    const me = this.props.mainPlayer;
     world.start();
+    // players.forEach(player => {
+    //   player.ball.native.addEventListener('collision', (collidedWith) => {
+    //     console.log("player", player)
+    //     console.log("collidedWith", collidedWith)
+    //     socket.emit('ball-collision', {signature: player.signature, id: player.id});
+    //   }, true);
+    //   player.si = setInterval(player.tail, 10);
+    // });
+    // cameraSetOnStart(this.props.mainPlayer)
     players.forEach(player => {
-      player.ball.native.addEventListener('collision', (collidedWith) => {
-        console.log("player", player)
-        console.log("collidedWith", collidedWith)
-        socket.emit('ball-collision', {signature: player.signature, id: player.id});
-      }, true);
       player.si = setInterval(player.tail, 10);
     });
-    cameraSetOnStart(this.props.mainPlayer)
+    me.ball.native.addEventListener('collision', (collidedWith) => {
+      console.log("ME", me);
+      console.log("collidedWith", collidedWith);
+      socket.emit('ball-collision', {signature: me.signature, id: me.id});
+    });
+    cameraSetOnStart(me);
   }
 
   render(){
@@ -42,7 +52,7 @@ class Game extends Component {
       document.addEventListener('keydown', (event) => {
         const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
         if (validKeys.includes(event.keyCode)) {
-          store.dispatch(turnPlayer(event.keyCode));
+          turnPlayer(event.keyCode, this.props.mainPlayer);
           TURN_AUDIO.play();
         }
       });
@@ -55,13 +65,13 @@ class Game extends Component {
       });
     return (
       <div>
-      { 
+      {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
-      { 
+      {
         this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
       }
-      { 
+      {
         this.props.mainPlayer.winner === true ? <Winner /> : null
       }
       </div>

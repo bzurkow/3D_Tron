@@ -1,7 +1,8 @@
 import world, { speed } from './world';
 import store from '../store';
 import { scalarInitialPosition } from './players';
-import { onDeath } from '../reducers/players'
+import { onDeath } from '../reducers/players';
+import { setMainPlayer } from '../reducers/mainPlayer';
 //rotate function
 export const rotate = (user) => {
 	let ups, vs
@@ -110,7 +111,8 @@ export const collisionHandler = player => {
 	clearInterval(player.si)
 	world.scene.remove(player.ball.native)
 	world.scene.remove(player.bike.native)
-	if(player.id) store.dispatch(onDeath(player))
+	console.log("HEHREHREHRHERHERHERHERHE");
+	if(player.id !== store.getState().mainPlayer.id) store.dispatch(onDeath(player))
 	if(player.walls.length !== 0) {
 		player.walls.forEach(wall => world.scene.remove(wall.native))
 	}
@@ -119,6 +121,7 @@ export const collisionHandler = player => {
 	}
 	if(player.signature===store.getState().mainPlayer.signature){
 		player.ball.remove(world.camera)
+		// store.dispatch(setMainPlayer(player));
 		world.setControls(new WHS.OrbitControls());
 	}
 }

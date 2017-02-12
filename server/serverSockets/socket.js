@@ -56,6 +56,7 @@ module.exports = io => {
 
     //Here the back end recognizes that a ball collided and sends out a syncronized message to all users to handle the collision.
     socket.on('ball-collision', (playerData) => {
+      console.log("COLLISON");
       io.sockets.emit('ball-collision-to-handle', playerData);
       if (playerData.id) {
         console.log(chalk.red(playerData.id));
@@ -63,9 +64,9 @@ module.exports = io => {
         console.log(chalk.red(store.getState().users.filter(user => user.active === true).length));
       }
 
-      if (store.getState().users.filter(user => user.active === true).length === 1){
-        io.sockets.emit('endGame');
-      }
+      // if (store.getState().users.filter(user => user.active === true).length === 1){
+      //   io.sockets.emit('endGame');
+      // }
     });
 
     //Here the back end recognizes a request to change direction emits to the front end that a given player is turning.

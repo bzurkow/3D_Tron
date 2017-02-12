@@ -1,25 +1,11 @@
-import { turnLeft, turnRight, turnUp, turnDown } from '../game/directionsFunctions';
 /*----------  ACTION TYPES  ----------*/
 const SET_MAIN_PLAYER = 'SET_MAIN_PLAYER';
-const TURN_PLAYER_LEFT = 'TURN_PLAYER_LEFT';
-const TURN_PLAYER_RIGHT = 'TURN_PLAYER_RIGHT';
-const TURN_PLAYER_UP = 'TURN_PLAYER_UP';
-const TURN_PLAYER_DOWN = 'TURN_PLAYER_DOWN';
 
 /*----------  ACTION CREATORS  ----------*/
 export const setMainPlayer = (player) => ({
   type: SET_MAIN_PLAYER,
   player
 });
-
-export const turnPlayer = (direction) => {
-  let type;
-  if (direction === 37 || direction === 65) type = TURN_PLAYER_LEFT;
-  if (direction === 39 || direction === 68) type = TURN_PLAYER_RIGHT;
-  if (direction === 38 || direction === 87) type = TURN_PLAYER_UP;
-  if (direction === 40 || direction === 83) type = TURN_PLAYER_DOWN;
-  return { type };
-};
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -31,14 +17,6 @@ export default (mainPlayer = {}, action) => {
   switch (action.type) {
     case SET_MAIN_PLAYER:
       return action.player;
-    case TURN_PLAYER_LEFT:
-      return turnLeft(mainPlayer);
-    case TURN_PLAYER_RIGHT:
-      return turnRight(mainPlayer);
-    case TURN_PLAYER_UP:
-      return turnUp(mainPlayer);
-    case TURN_PLAYER_DOWN:
-      return turnDown(mainPlayer);
 
     default: return mainPlayer;
   }

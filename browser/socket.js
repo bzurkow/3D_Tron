@@ -46,7 +46,9 @@ export const initializeSocket = () => {
   socket.on('startGame', () => {
     allBikes.forEach(player => {
       if (!player.id){
-        collisionHandler(player);
+        // collisionHandler(player);
+        world.scene.remove(player.ball.native);
+        world.scene.remove(player.bike.native);
       }
     });
     store.dispatch(startGame());

@@ -15,7 +15,7 @@ export const left = (player) => {
   player.ball.setLinearVelocity(newVel);
   player.ball.native._physijs.linearVelocity.set(newVel.x, newVel.y, newVel.z);
   player.ball.native.up.set(up2.x, up2.y, up2.z);
-  return rotate(player)
+  rotate(player)
 };
 
 export const right = (player) => {
@@ -27,7 +27,7 @@ export const right = (player) => {
   player.ball.setLinearVelocity(newVel);
   player.ball.native._physijs.linearVelocity.set(newVel.x, newVel.y, newVel.z);
   player.ball.native.up.set(up2.x, up2.y, up2.z);
-  return rotate(player)
+  rotate(player)
 };
 
 export const up = (player) => {
@@ -44,7 +44,7 @@ export const up = (player) => {
   player.ball.setLinearVelocity({x: vx, y: vy, z: vz});
   player.ball.native._physijs.linearVelocity.set(vx, vy, vz);
   player.ball.native.up.set(up2.x, up2.y, up2.z);
-  return rotate(player);
+  rotate(player);
 };
 
 export const down = (player) => {
@@ -61,5 +61,5 @@ export const down = (player) => {
   player.ball.setLinearVelocity({x: vx, y: vy, z: vz});
   player.ball.native._physijs.linearVelocity.set(vx, vy, vz);
   player.ball.native.up.set(up2.x, up2.y, up2.z);
-  return rotate(player);
+  rotate(player);
 };
