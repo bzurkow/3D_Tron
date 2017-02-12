@@ -6,7 +6,7 @@ import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
-import { declareWinner } from './reducers/players';
+import { declareWinner, onDeath } from './reducers/players';
 
 const socket = io('/');
 
@@ -46,7 +46,9 @@ export const initializeSocket = () => {
   socket.on('startGame', () => {
     allBikes.forEach(player => {
       if (!player.id){
+        // NOT NEEDED
         // collisionHandler(player);
+        // THIS INSTEAD
         world.scene.remove(player.ball.native);
         world.scene.remove(player.bike.native);
       }
@@ -79,8 +81,9 @@ export const initializeSocket = () => {
   });
 
   socket.on('ball-collision-to-handle', playerData => {
-    const playerToRemove = store.getState().players.find(player => player.signature === playerData.signature);
+    const playerToRemove = store.getState().players.find(player => player.id === playerData.id);
     collisionHandler(playerToRemove);
+    // store.dispatch(onDeath(playerToRemove));
   });
 
   socket.on('removePlayer', userId => {

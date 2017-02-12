@@ -80,7 +80,8 @@ export default (players = initialState, action) => {
 
     case ON_DEATH:
       return players.map((player) => {
-        if(player.signature === action.player.signature){
+        if (player.signature === action.player.signature){
+          clearInterval(player.si);
           player.status = 'dead'
         }
         return player

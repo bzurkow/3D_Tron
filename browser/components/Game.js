@@ -60,7 +60,7 @@ class Game extends Component {
        document.addEventListener('keyup', (event) => {
         const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
         if (validKeys.includes(event.keyCode)) {
-          TURN_AUDIO.stop();
+          TURN_AUDIO.pause();
         }
       });
     return (
