@@ -39,7 +39,7 @@ export const onDeath = (player) => ({
 export const declareWinner = (player) => ({
   type: DECLARE_WINNER,
   player
-})
+});
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -54,21 +54,19 @@ export default (players = initialState, action) => {
       action.users.map((user, index) => {
         if (user.id) {
           newPlayers[index].id = user.id;
+          newPlayers[index].status = 'alive';
         }
         return user;
       });
       return newPlayers;
 
     case ADD_PLAYER_NAME:
-      // console.log('PLAYER WITH NEW NAME 1', players)
-      let playerWithNewName = players.map((player) => {
+      return players.map((player) => {
         if (player.id === action.playerId) {
           player.playerName = action.playerName;
         }
         return player;
       });
-      // console.log('PLAYER WITH NEW NAME2', playerWithNewName)
-      return playerWithNewName
 
     case REMOVE_PLAYER:
       return players.map((bike) => {

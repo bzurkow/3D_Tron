@@ -25,7 +25,7 @@ export default (mainPlayer = {}, action) => {
       return action.player;
     case MAIN_PLAYER_DEATH:
       // newPlayer.si = 0;
-      // newPlayer.status = 'dead';
+      newPlayer.status = 'dead';
       return newPlayer;
 
     default: return mainPlayer;

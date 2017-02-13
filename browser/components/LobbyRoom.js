@@ -24,7 +24,7 @@ class LobbyRoom extends Component {
   }
 
     let exisitingPlayers = this.props.players.filter(player => {
-      return player.playerName;
+      return player.id;
     })
 
     console.log('exisitingPlayer', exisitingPlayers)

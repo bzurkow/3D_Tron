@@ -17,7 +17,7 @@ export default function PlayerConstructor(color){
   let that = this
   that.ball = sphereBase.clone();
   that.cameraTarget;
-  that.status = "alive"
+  // that.status = "alive"
   that.winner = false
   that.t=0
   that.bike;

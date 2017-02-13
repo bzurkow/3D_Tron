@@ -22,10 +22,10 @@ export const initializeSocket = () => {
 
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
-    console.log('ALL USERS ****', allUsers)
-    allUsers.forEach(user => {
-      store.dispatch(addPlayerName(user.id, user.playerName))
-    })
+    console.log('ALL USERS ****', allUsers);
+    // allUsers.forEach(user => {
+    //   if (user.id) store.dispatch(addPlayerName(user.id, user.playerName));
+    // });
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
@@ -45,6 +45,7 @@ export const initializeSocket = () => {
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
+      console.log(player);
       if (!player.id){
         // NOT NEEDED
         // collisionHandler(player);

@@ -40,30 +40,30 @@ class Game extends Component {
     cameraSetOnStart(me);
   }
 
-  render(){
+  render() {
     const TURN_AUDIO = document.createElement('audio');
     TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
     TURN_AUDIO.load();
 
-    if (this.props.mainPlayer) {
-      const player = this.props.mainPlayer;
-      player.ball.add(world.camera);
+    const player = this.props.mainPlayer;
+    player.ball.add(world.camera);
 
-      document.addEventListener('keydown', (event) => {
-        const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-        if (validKeys.includes(event.keyCode)) {
-          turnPlayer(event.keyCode, this.props.mainPlayer);
-          TURN_AUDIO.play();
-        }
-      });
+    document.addEventListener('keydown', (event) => {
+      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+      if (validKeys.includes(event.keyCode)) {
+        turnPlayer(event.keyCode, this.props.mainPlayer);
+        TURN_AUDIO.play();
+      }
+    });
 
-       document.addEventListener('keyup', (event) => {
-        const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-        if (validKeys.includes(event.keyCode)) {
-          TURN_AUDIO.pause();
-        }
-      });
-    return (
+     document.addEventListener('keyup', (event) => {
+      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+      if (validKeys.includes(event.keyCode)) {
+        TURN_AUDIO.pause();
+      }
+    });
+
+  return (
       <div>
       {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
@@ -75,12 +75,7 @@ class Game extends Component {
         this.props.mainPlayer.winner === true ? <Winner /> : null
       }
       </div>
-
     );
-  } else {
-    return null
-  }
-
   }
 }
 

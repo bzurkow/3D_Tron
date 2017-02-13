@@ -116,6 +116,8 @@ export const collisionHandler = player => {
 		world.setControls(new WHS.OrbitControls());
     store.dispatch(onDeathMainPlayer(me));
   }
+
+	// WHEN THIS IS USED WE GET OUR PROBLEM
   // store.dispatch(onDeath(player));
 };
 // export const collisionHandler = player => {
