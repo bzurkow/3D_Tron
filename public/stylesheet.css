@@ -9,6 +9,10 @@ body, html {
     background-size: cover;
 }
 
+button:focus {
+  outline:0 !important;
+}
+
 #title {
     color: white;
   font-family: "Quicksand", sans-serif;
