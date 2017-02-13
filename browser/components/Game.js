@@ -59,7 +59,7 @@ class Game extends Component {
     return (
       <div>
         <div id="timer">
-          <Timer start={Date.now()} />
+          {this.props.mainPlayer.status === 'alive' && <Timer start={Date.now()} />}
         </div>
       {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
