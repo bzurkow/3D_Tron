@@ -9,6 +9,19 @@ body, html {
     background-size: cover;
 }
 
+#timer {
+  color: rgba(255,255,255,0.8);
+  transform: skewX(2deg) skewY(4deg);
+  position: fixed;
+  text-align: right;
+  width: 93%;
+  font-size: 1.8em;
+  z-index: 1;
+  top: 3%;
+  float: right;
+  margin-left: auto;
+}
+
 #title {
     color: white;
   font-family: "Quicksand", sans-serif;

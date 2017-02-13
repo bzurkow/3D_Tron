@@ -8,6 +8,9 @@ import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions'
 import { DeadNoWinner, Winner, DeadWithWinner} from './InGame'
 
+import Timer from './Timer';
+console.log(Timer);
+
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 
 class Game extends Component {
@@ -55,13 +58,16 @@ class Game extends Component {
       });
     return (
       <div>
-      { 
+        <div id="timer">
+          <Timer start={Date.now()} />
+        </div>
+      {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
-      { 
+      {
         this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
       }
-      { 
+      {
         this.props.mainPlayer.winner === true ? <Winner /> : null
       }
       </div>
