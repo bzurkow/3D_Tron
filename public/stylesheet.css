@@ -33,7 +33,7 @@ button:focus {
   letter-spacing: 0.4em;
   position: fixed;
   top: 8%;
-  left: 54.5%;
+  left: 56.5%;
   transform: translate(-50%, -50%);
 }
 
@@ -162,7 +162,7 @@ sidebar span {
     transform: scale(1.1,1.1);
     font-size: 1.1em;
     bottom: 20%;
-    margin-left: 22%;
+    margin-left: 25%;
     position: fixed;
     width: 75%;
     max-width: 80em;
@@ -182,7 +182,7 @@ sidebar span {
     position: fixed;
     font-size: 2.5vh;
     top: 91%;
-    left: 86.5%;
+    left: 89.5%;
     transform: translate(-50%, -50%);
     border: 1px solid;
     border-radius: 6px;
@@ -196,7 +196,7 @@ sidebar span {
     height: 3rem;
     position: absolute;
     bottom: -29%;
-    left: 4.2%;
+    left: 4.4%;
     width: 82.5%;
     height: 11.5%;
     transform: scale(1.1, 1.1);
