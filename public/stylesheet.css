@@ -9,8 +9,20 @@ body, html {
     background-size: cover;
 }
 
+#countdown {
+  color: rgba(255,255,255,0.8);
+  /*transform: skewX(2deg) skewY(4deg);*/
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  font-size: 10em;
+  z-index: 1;
+  top: 20%;
+  float: center;
+}
+
 #title {
-    color: white;
+  color: white;
   font-family: "Quicksand", sans-serif;
   font-weight: lighter;
   font-size: 7vw;

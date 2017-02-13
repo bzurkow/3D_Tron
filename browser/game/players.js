@@ -10,8 +10,8 @@ const player1 = new PlayerConstructor(0xFFF000)
 player1.ball.position.set(-scalarInitialPosition, 0, 0)
 player1.ball.native.up.set(0,1,0)
 player1.ball.native.rotation.set(0,Math.PI/2,0)
-player1.ball.addTo(world)
-player1.ball.setLinearVelocity({x: speed, y: 0, z: 0 })
+// player1.ball.addTo(world)
+// player1.ball.setLinearVelocity({x: speed, y: 0, z: 0 })
 player1.signature = 1
 
 const player2 = new PlayerConstructor(0xC0C0C0)

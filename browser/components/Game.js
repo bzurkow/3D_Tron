@@ -12,16 +12,39 @@ console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('
 class Game extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      countdown: 3
+    };
+    this.tick = this.tick.bind(this);
+  }
+
+  tick() {
+    this.setState({countdown: this.state.countdown - 1});
+    if (this.state.countdown <= 0) {
+      clearInterval(this.state.interval);
+    }
+  }
+
+  componentWillMount() {
+    this.interval = setInterval(this.tick, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
   }
 
   componentDidMount() {
     console.log("CDM PROPS", this.props)
     const players = this.props.players;
     const myPlayer = this.props.mainPlayer;
+    myPlayer.ball.addTo(world);
     world.start();
-    players.forEach(player => {
-      player.si = setInterval(player.tail, 10);
-    });
+    setTimeout(() => {
+      myPlayer.ball.setLinearVelocity({x: 100, y: 0, z: 0 });
+      players.forEach(player => {
+        player.si = setInterval(player.tail, 10);
+      });
+    }, 3000);
     myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
       console.log("ME", myPlayer);
       console.log("collidedWith", collidedWith);
@@ -41,7 +64,7 @@ class Game extends Component {
 
     document.addEventListener('keydown', (event) => {
       if (validKeys.includes(event.keyCode)) {
-        turnPlayer(event.keyCode, this.props.mainPlayer);
+        turnPlayer(event.keyCode, player);
         TURN_AUDIO.play();
       }
     });
@@ -54,6 +77,11 @@ class Game extends Component {
 
   return (
       <div>
+        <div id="countdown">
+          {
+            this.state.countdown > 0 ? this.state.countdown : "GO!"
+          }
+        </div>
       {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
