@@ -23,10 +23,21 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
     console.log('ALL USERS ****', allUsers)
+
     allUsers.forEach(user => {
       store.dispatch(addPlayerName(user.id, user.playerName))
     })
+
+    const readyPlayer = allUsers.filter(user => {
+      return user.readyToPlay;
+    });
+
+    readyPlayer.forEach(user =>{
+      store.dispatch(makeReady(user.id));
+    })
+
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
+
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
   });
