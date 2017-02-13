@@ -24,10 +24,6 @@ export const enterLobby = () => ({
   type: ENTER_LOBBY
 });
 
-
-
-
-
 /*-------REDUCER------------*/
 
 export default (state = initialState, action) => {

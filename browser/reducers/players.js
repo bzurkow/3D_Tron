@@ -1,6 +1,5 @@
 import allPlayers from '../game/players';
 import world from '../game/world';
-import { rotate } from '../game/gamePlayFunctions';
 import store from '../store';
 
 /*----------  INITIAL STATE  ----------*/
@@ -10,8 +9,8 @@ const initialState = allPlayers;
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 const REMOVE_PLAYER = 'REMOVE_PLAYER';
-const ON_DEATH = 'ON_DEATH'
-const DECLARE_WINNER = 'DECLARE_WINNER'
+const ON_DEATH = 'ON_DEATH';
+const DECLARE_WINNER = 'DECLARE_WINNER';
 
 /*----------  ACTION CREATORS  ----------*/
 export const setPlayerId = (users) => ({
@@ -24,7 +23,6 @@ export const addPlayerName = (playerId, playerName) => ({
   playerId,
   playerName
 });
-
 
 export const removePlayer = (userId) => ({
   type: REMOVE_PLAYER,
@@ -54,7 +52,6 @@ export default (players = initialState, action) => {
       action.users.map((user, index) => {
         if (user.id) {
           newPlayers[index].id = user.id;
-          newPlayers[index].status = 'alive';
         }
         return user;
       });
@@ -80,18 +77,18 @@ export default (players = initialState, action) => {
       return players.map((player) => {
         if (player.signature === action.player.signature){
           clearInterval(player.si);
-          player.status = 'dead'
+          player.status = 'dead';
         }
-        return player
+        return player;
       });
 
     case DECLARE_WINNER:
       return players.map((player) => {
-        if(player.signature === action.player.signature){
-          player.winner = true
+        if (player.signature === action.player.signature){
+          player.winner = true;
         }
-        return player
-      })
+        return player;
+      });
 
     default: return players;
   }

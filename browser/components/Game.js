@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import math from 'mathjs';
-import world, { speed } from '../game/world';
+import world from '../game/world';
 import { turnPlayer } from '../game/directionsFunctions';
 import store from '../store';
 import socket from '../socket';
-import { cameraSetOnStart } from '../game/gamePlayFunctions'
-import { DeadNoWinner, Winner, DeadWithWinner} from './InGame'
+import { cameraSetOnStart } from '../game/gamePlayFunctions';
+import { DeadNoWinner, Winner, DeadWithWinner} from './InGame';
 
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 
@@ -18,26 +17,17 @@ class Game extends Component {
   componentDidMount() {
     console.log("CDM PROPS", this.props)
     const players = this.props.players;
-    const me = this.props.mainPlayer;
+    const myPlayer = this.props.mainPlayer;
     world.start();
-    // players.forEach(player => {
-    //   player.ball.native.addEventListener('collision', (collidedWith) => {
-    //     console.log("player", player)
-    //     console.log("collidedWith", collidedWith)
-    //     socket.emit('ball-collision', {signature: player.signature, id: player.id});
-    //   }, true);
-    //   player.si = setInterval(player.tail, 10);
-    // });
-    // cameraSetOnStart(this.props.mainPlayer)
     players.forEach(player => {
       player.si = setInterval(player.tail, 10);
     });
-    me.ball.native.addEventListener('collision', (collidedWith) => {
-      console.log("ME", me);
+    myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
+      console.log("ME", myPlayer);
       console.log("collidedWith", collidedWith);
-      socket.emit('ball-collision', {signature: me.signature, id: me.id});
+      socket.emit('ball-collision', {signature: myPlayer.signature, id: myPlayer.id});
     });
-    cameraSetOnStart(me);
+    cameraSetOnStart(myPlayer);
   }
 
   render() {
@@ -47,17 +37,16 @@ class Game extends Component {
 
     const player = this.props.mainPlayer;
     player.ball.add(world.camera);
+    const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
 
     document.addEventListener('keydown', (event) => {
-      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
       if (validKeys.includes(event.keyCode)) {
         turnPlayer(event.keyCode, this.props.mainPlayer);
         TURN_AUDIO.play();
       }
     });
 
-     document.addEventListener('keyup', (event) => {
-      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+    document.addEventListener('keyup', (event) => {
       if (validKeys.includes(event.keyCode)) {
         TURN_AUDIO.pause();
       }

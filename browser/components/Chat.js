@@ -48,14 +48,15 @@ class Chat extends Component {
               })}
             </ul>
           </div>
-          <input ref="chatInput"
-                   value={this.state.message}
-                   onChange={this.updateMessage}
-                   onKeyPress={evt => { if (evt.key === 'Enter') this.sendMessage(); }}
-                   maxLength={70}
-                   type="text"
-                   id="chat-bar"
-                   placeholder="press 'enter' to send"/>
+          <input
+            ref="chatInput"
+            value={this.state.message}
+            onChange={this.updateMessage}
+            onKeyPress={evt => { if (evt.key === 'Enter') this.sendMessage(); }}
+            maxLength={70}
+            type="text"
+            id="chat-bar"
+            placeholder="press 'enter' to send" />
       </div>
       );
   }

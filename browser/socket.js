@@ -4,7 +4,7 @@ import { startGame, stopGame} from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
-import world, { speed } from './game/world';
+import world from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
 import { declareWinner, onDeath } from './reducers/players';
 
@@ -23,33 +23,27 @@ export const initializeSocket = () => {
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
     console.log('ALL USERS ****', allUsers);
-    // allUsers.forEach(user => {
-    //   if (user.id) store.dispatch(addPlayerName(user.id, user.playerName));
-    // });
+
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
   });
 
-  socket.on('addPlayerName', (socketId, playerName) =>{
+  socket.on('addPlayerName', (socketId, playerName) => {
     console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
     store.dispatch(addPlayerName(socketId, playerName));
   });
 
   socket.on('addNewMessage', (text, senderName) => {
     console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", text, senderName);
-    store.dispatch(receiveMessage({text:text, name:senderName}));
+    store.dispatch(receiveMessage({text: text, name: senderName}));
 
   });
-
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
       console.log(player);
-      if (!player.id){
-        // NOT NEEDED
-        // collisionHandler(player);
-        // THIS INSTEAD
+      if (!player.id) {
         world.scene.remove(player.ball.native);
         world.scene.remove(player.bike.native);
       }
@@ -84,21 +78,20 @@ export const initializeSocket = () => {
   socket.on('ball-collision-to-handle', playerData => {
     const playerToRemove = store.getState().players.find(player => player.id === playerData.id);
     collisionHandler(playerToRemove);
-    // store.dispatch(onDeath(playerToRemove));
   });
 
   socket.on('removePlayer', userId => {
-    console.log("ARE WE REMOVING PLAYER ON THE FRONT END?")
+    console.log("ARE WE REMOVING PLAYER ON THE FRONT END?");
     store.dispatch(removePlayer(userId));
   });
 
   socket.on('endGame', () => {
     // store.dispatch(stopGame());
-    let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0]
-    console.log("lastStanding", lastStanding)
-    store.dispatch(declareWinner(lastStanding))
+    let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0];
+    console.log("lastStanding", lastStanding);
+    store.dispatch(declareWinner(lastStanding));
     // store.dispatch(stopGame());
-    setTimeout(()=> window.location.reload(true), 10000)
+    setTimeout(() => window.location.reload(true), 10000);
 
   });
 };
