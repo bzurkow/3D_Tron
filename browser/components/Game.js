@@ -13,7 +13,8 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      countdown: 3
+      countdown: 3,
+      displayCountdown: true
     };
     this.tick = this.tick.bind(this);
   }
@@ -79,7 +80,7 @@ class Game extends Component {
       <div>
         <div id="countdown">
           {
-            this.state.countdown > 0 ? this.state.countdown : "GO!"
+            this.state.displayCountdown && (this.state.countdown > 0 ? this.state.countdown : "GO!")
           }
         </div>
       {
