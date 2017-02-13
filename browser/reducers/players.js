@@ -10,8 +10,9 @@ const initialState = allPlayers;
 const SET_PLAYER_ID = 'SET_PLAYER_ID';
 const ADD_PLAYER_NAME = 'ADD_PLAYER_NAME';
 const REMOVE_PLAYER = 'REMOVE_PLAYER';
-const ON_DEATH = 'ON_DEATH'
-const DECLARE_WINNER = 'DECLARE_WINNER'
+const ON_DEATH = 'ON_DEATH';
+const DECLARE_WINNER = 'DECLARE_WINNER';
+const MAKE_READY = 'MAKE_READY';
 
 /*----------  ACTION CREATORS  ----------*/
 export const setPlayerId = (users) => ({
@@ -39,6 +40,11 @@ export const onDeath = (player) => ({
 export const declareWinner = (player) => ({
   type: DECLARE_WINNER,
   player
+})
+
+export const makeReady = (playerId) => ({
+  type: MAKE_READY,
+  playerId
 })
 
 /*----------  THUNK CREATORS  ----------*/
@@ -93,6 +99,15 @@ export default (players = initialState, action) => {
         }
         return player
       })
+
+    case MAKE_READY:
+    let playerReady = players.map((player) => {
+        if (player.id === action.playerId) {
+          player.ready = true;
+        }
+        return player;
+      });
+      return playerReady
 
     default: return players;
   }

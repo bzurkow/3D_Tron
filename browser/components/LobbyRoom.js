@@ -7,21 +7,27 @@ import Chat from './Chat';
 //not needed yet
 // import ControlPanel from './ControlPanel';
 // import BugReportForm from './BugReportForm';
+import { makeReady } from '../reducers/players';
+import store from '../store';
 
 
 class LobbyRoom extends Component {
   constructor(props) {
     super(props);
+
+    this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
   }
 
+ readyPlayerEmitter(){
+      console.log("CLICK????****")
+      const socketId = localStorage.getItem('mySocketId')
+      store.dispatch(makeReady(socketId));
+      socket.emit('readyPlayer', socketId)
+  }
 
   render() {
 
-    function readyPlayerEmitter(){
-      console.log("CLICK????****")
-      const socketId = localStorage.getItem('mySocketId')
-      socket.emit('readyPlayer', socketId)
-  }
+
 
     let exisitingPlayers = this.props.players.filter(player => {
       return player.playerName;
@@ -40,6 +46,7 @@ class LobbyRoom extends Component {
               return (
                 <li className='listName-item' key={index}>
                 {player.playerName}
+                {player.ready ? <span className="glyphicon glyphicon-ok"></span> : null}
                 </li>
               )
             })
@@ -50,7 +57,7 @@ class LobbyRoom extends Component {
 
         <button className="btn waves-effect"
                 type="submit"
-                onClick = {readyPlayerEmitter}
+                onClick = {this.readyPlayerEmitter}
                 id="join-box">Join</button>
 
         </div>
@@ -61,7 +68,6 @@ class LobbyRoom extends Component {
 //things we probably need...
 const mapStateToProps = ({ gameState, players}) => ({ gameState, players });
 const mapDispatchToProps = dispatch => ({
-    addPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.value))
 });
 
 export default connect(

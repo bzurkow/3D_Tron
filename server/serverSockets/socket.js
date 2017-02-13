@@ -40,11 +40,11 @@ module.exports = io => {
       let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
 
 // gamePlay
-//       if (checkReadyUsers.length > 1 &&
+      if (checkReadyUsers.length > 1 &&
 
 
 // test for debug
-      if (checkReadyUsers.length >= 1 &&
+      // if (checkReadyUsers.length >= 1 &&
           checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
