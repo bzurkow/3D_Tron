@@ -37,6 +37,7 @@ module.exports = io => {
 
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
+      socket.broadcast.emit('putCheckReady', playerId);
       let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
 
 // gamePlay

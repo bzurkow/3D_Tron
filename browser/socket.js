@@ -6,7 +6,7 @@ import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
 import world, { speed } from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
-import { declareWinner } from './reducers/players';
+import { declareWinner, makeReady } from './reducers/players';
 
 const socket = io('/');
 
@@ -42,6 +42,9 @@ export const initializeSocket = () => {
 
   });
 
+  socket.on('putCheckReady', (playerId) =>{
+    store.dispatch(makeReady(playerId));
+  })
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
