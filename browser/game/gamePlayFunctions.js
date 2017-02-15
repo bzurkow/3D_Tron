@@ -119,6 +119,17 @@ export const collisionHandler = player => {
 
 	// WHEN THIS IS USED WE GET OUR PROBLEM
   // store.dispatch(onDeath(player));
+	if (player.walls.length !== 0) {
+		player.walls.forEach(wall => world.scene.remove(wall.native));
+	}
+	if (player.wall[0]) {
+		world.scene.remove(player.wall[0].native);
+	}
+	if (player.signature === store.getState().mainPlayer.signature){
+		player.ball.remove(world.camera);
+		// store.dispatch(setMainPlayer(player));
+		world.setControls(new WHS.OrbitControls());
+	}
 };
 // export const collisionHandler = player => {
 // 	clearInterval(player.si)
@@ -126,17 +137,6 @@ export const collisionHandler = player => {
 // 	world.scene.remove(player.bike.native)
 // 	console.log("HEHREHREHRHERHERHERHERHE");
 // 	if(player.id !== store.getState().mainPlayer.id) store.dispatch(onDeath(player))
-// 	if(player.walls.length !== 0) {
-// 		player.walls.forEach(wall => world.scene.remove(wall.native))
-// 	}
-// 	if(!!player.wall[0]) {
-// 		world.scene.remove(player.wall[0].native)
-// 	}
-// 	if(player.signature===store.getState().mainPlayer.signature){
-// 		player.ball.remove(world.camera)
-// 		// store.dispatch(setMainPlayer(player));
-// 		world.setControls(new WHS.OrbitControls());
-// 	}
 // }
 
 export const cameraSet = (player) => {

@@ -15,7 +15,6 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    console.log("CDM PROPS", this.props)
     const players = this.props.players;
     const myPlayer = this.props.mainPlayer;
     world.start();
@@ -23,8 +22,7 @@ class Game extends Component {
       player.si = setInterval(player.tail, 10);
     });
     myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
-      console.log("ME", myPlayer);
-      console.log("collidedWith", collidedWith);
+      // console.log("collidedWith", collidedWith);
       socket.emit('ball-collision', {signature: myPlayer.signature, id: myPlayer.id});
     });
     cameraSetOnStart(myPlayer);
@@ -43,12 +41,6 @@ class Game extends Component {
       if (validKeys.includes(event.keyCode)) {
         turnPlayer(event.keyCode, this.props.mainPlayer);
         TURN_AUDIO.play();
-      }
-    });
-
-    document.addEventListener('keyup', (event) => {
-      if (validKeys.includes(event.keyCode)) {
-        TURN_AUDIO.pause();
       }
     });
 

@@ -86,13 +86,10 @@ export const initializeSocket = () => {
   });
 
   socket.on('endGame', () => {
-    // store.dispatch(stopGame());
     let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0];
     console.log("lastStanding", lastStanding);
     store.dispatch(declareWinner(lastStanding));
-    // store.dispatch(stopGame());
     setTimeout(() => window.location.reload(true), 10000);
-
   });
 };
 
