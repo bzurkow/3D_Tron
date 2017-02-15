@@ -1,10 +1,6 @@
-import { turnLeft, turnRight, turnUp, turnDown } from '../game/directionsFunctions';
 /*----------  ACTION TYPES  ----------*/
 const SET_MAIN_PLAYER = 'SET_MAIN_PLAYER';
-const TURN_PLAYER_LEFT = 'TURN_PLAYER_LEFT';
-const TURN_PLAYER_RIGHT = 'TURN_PLAYER_RIGHT';
-const TURN_PLAYER_UP = 'TURN_PLAYER_UP';
-const TURN_PLAYER_DOWN = 'TURN_PLAYER_DOWN';
+const MAIN_PLAYER_DEATH = 'MAIN_PLAYER_DEATH';
 
 /*----------  ACTION CREATORS  ----------*/
 export const setMainPlayer = (player) => ({
@@ -12,14 +8,10 @@ export const setMainPlayer = (player) => ({
   player
 });
 
-export const turnPlayer = (direction) => {
-  let type;
-  if (direction === 37 || direction === 65) type = TURN_PLAYER_LEFT;
-  if (direction === 39 || direction === 68) type = TURN_PLAYER_RIGHT;
-  if (direction === 38 || direction === 87) type = TURN_PLAYER_UP;
-  if (direction === 40 || direction === 83) type = TURN_PLAYER_DOWN;
-  return { type };
-};
+export const onDeathMainPlayer = (me) => ({
+  type: MAIN_PLAYER_DEATH,
+  me
+});
 
 /*----------  THUNK CREATORS  ----------*/
 
@@ -31,14 +23,10 @@ export default (mainPlayer = {}, action) => {
   switch (action.type) {
     case SET_MAIN_PLAYER:
       return action.player;
-    case TURN_PLAYER_LEFT:
-      return turnLeft(mainPlayer);
-    case TURN_PLAYER_RIGHT:
-      return turnRight(mainPlayer);
-    case TURN_PLAYER_UP:
-      return turnUp(mainPlayer);
-    case TURN_PLAYER_DOWN:
-      return turnDown(mainPlayer);
+    case MAIN_PLAYER_DEATH:
+      // newPlayer.si = 0;
+      newPlayer.status = 'dead';
+      return newPlayer;
 
     default: return mainPlayer;
   }

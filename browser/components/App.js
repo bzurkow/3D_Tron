@@ -6,15 +6,13 @@ import Landing from './Landing';
 import LobbyRoom from './LobbyRoom';
 
 const App = ({ gameState }) => {
-
-return (
+  return (
     <div>
       {gameState.isEnter && !gameState.isPlaying && <Landing /> }
       {!gameState.isEnter && !gameState.isPlaying && <LobbyRoom /> }
       {gameState.isPlaying  && <Game />}
     </div>
-);
-
+  );
 };
 // if(this.props.gameState === 'landing') render Landing
 // if asdfasd = playing || dead render game

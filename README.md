@@ -15,3 +15,8 @@ Avoid the walls and trails of light left behind by all Light Cycles
 3D Tron is built on Node.js using Socket.IO for client-server interaction, Three.js and Whitestorm.js for 3D graphics rendering, Physi.js for the physics engine, React for HTML rendering, and Redux for both client and server app state and game state management.
 
 Handling of the game logic is distributed between the client and the server. Clients run their own physics calculations to compute their next position and orientation, while the server manages and modifies the master game state according to game logic and client events such as collisions with objects or other players.
+
+## Set up on local machine
+- Clone the repository
+- npm install
+- npm run build (server will run on port 3000)

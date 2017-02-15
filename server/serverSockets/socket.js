@@ -16,7 +16,7 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
     const allUsers = store.getState().users;
-    console.log(allUsers)
+    console.log("ALL USERS", allUsers);
     io.sockets.emit('addUser', allUsers);
 
     //Player ready in landing page
@@ -27,17 +27,15 @@ module.exports = io => {
       socket.broadcast.emit('addPlayerName', socketId, playerName);
     });
 
-    socket.on('newMessage', (message, socketId)=>{
-      let getSender = store.getState().users.find(user => {
-        return user.id === socketId
-      });
+    socket.on('newMessage', (message, socketId) => {
+      let getSender = store.getState().users.find(user => user.id === socketId);
 
       io.sockets.emit('addNewMessage', message, getSender.playerName);
-    })
+    });
 
     socket.on('readyPlayer', (playerId) => {
       store.dispatch(startReady(playerId));
-      let checkReadyUsers = store.getState().users.filter(user => user.id !== '' );
+      let checkReadyUsers = store.getState().users.filter(user => user.id);
 
 // gamePlay
 //       if (checkReadyUsers.length > 1 &&
@@ -56,6 +54,7 @@ module.exports = io => {
 
     //Here the back end recognizes that a ball collided and sends out a syncronized message to all users to handle the collision.
     socket.on('ball-collision', (playerData) => {
+      console.log("COLLISON");
       io.sockets.emit('ball-collision-to-handle', playerData);
       if (playerData.id) {
         console.log(chalk.red(playerData.id));
@@ -75,7 +74,7 @@ module.exports = io => {
 
     socket.on('disconnect', () => {
       store.dispatch(removeUserAndEmit(socket));
-      io.sockets.emit('removePlayer', socket.id)
+      io.sockets.emit('removePlayer', socket.id);
       console.log(chalk.magenta(`${socket.id} has disconnected`));
     });
   });

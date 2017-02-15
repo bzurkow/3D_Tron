@@ -1,7 +1,8 @@
 import world, { speed } from './world';
 import store from '../store';
 import { scalarInitialPosition } from './players';
-import { onDeath } from '../reducers/players'
+import { onDeath } from '../reducers/players';
+import { setMainPlayer, onDeathMainPlayer } from '../reducers/mainPlayer';
 //rotate function
 export const rotate = (user) => {
 	let ups, vs
@@ -107,21 +108,36 @@ export const rotate = (user) => {
 };
 
 export const collisionHandler = player => {
-	clearInterval(player.si)
-	world.scene.remove(player.ball.native)
-	world.scene.remove(player.bike.native)
-	if(player.id) store.dispatch(onDeath(player))
-	if(player.walls.length !== 0) {
-		player.walls.forEach(wall => world.scene.remove(wall.native))
+  const me = store.getState().mainPlayer;
+  world.scene.remove(player.ball.native);
+  world.scene.remove(player.bike.native);
+  if (player.id === me.id) {
+		player.ball.remove(world.camera);
+		world.setControls(new WHS.OrbitControls());
+    store.dispatch(onDeathMainPlayer(me));
+  }
+
+	// WHEN THIS IS USED WE GET OUR PROBLEM
+  // store.dispatch(onDeath(player));
+	if (player.walls.length !== 0) {
+		player.walls.forEach(wall => world.scene.remove(wall.native));
 	}
-	if(!!player.wall[0]) {
-		world.scene.remove(player.wall[0].native)
+	if (player.wall[0]) {
+		world.scene.remove(player.wall[0].native);
 	}
-	if(player.signature===store.getState().mainPlayer.signature){
-		player.ball.remove(world.camera)
+	if (player.signature === store.getState().mainPlayer.signature){
+		player.ball.remove(world.camera);
+		// store.dispatch(setMainPlayer(player));
 		world.setControls(new WHS.OrbitControls());
 	}
-}
+};
+// export const collisionHandler = player => {
+// 	clearInterval(player.si)
+// 	world.scene.remove(player.ball.native)
+// 	world.scene.remove(player.bike.native)
+// 	console.log("HEHREHREHRHERHERHERHERHE");
+// 	if(player.id !== store.getState().mainPlayer.id) store.dispatch(onDeath(player))
+// }
 
 export const cameraSet = (player) => {
 	let velocityVector = player.ball.native._physijs.linearVelocity
