@@ -12,7 +12,8 @@ describe("|----- FRONTEND Game State Reducer -----|", () => {
 
   it('has proper initial state', () => {
     expect(testStore.getState()).to.be.deep.equal({
-      isPlaying: false
+      isPlaying: false,
+      isEnter: true
     });
   });
 
