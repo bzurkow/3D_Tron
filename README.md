@@ -19,5 +19,4 @@ Handling of the game logic is distributed between the client and the server. Cli
 ## Set up on local machine
 - Clone the repository
 - npm install
-- npm run build
-- Server will run on port 3000
+- npm run build (server will run on port 3000)
