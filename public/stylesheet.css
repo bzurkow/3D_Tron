@@ -9,8 +9,12 @@ body, html {
     background-size: cover;
 }
 
+button:focus {
+  outline:0 !important;
+}
+
 #title {
-    color: white;
+  color: white;
   font-family: "Quicksand", sans-serif;
   font-weight: lighter;
   font-size: 7vw;
@@ -89,8 +93,8 @@ body, html {
     color: white;
     position: fixed;
     font-size: 2.5vh;
-    top: 90%;
-    left: 93%;
+    top: 91%;
+    left: 82.5%;
     transform: translate(-50%, -50%);
     border: 1px solid;
     border-radius: 6px;
