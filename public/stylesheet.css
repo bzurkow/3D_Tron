@@ -1,12 +1,12 @@
 body, html {
-    height: 100%;
-    color: #ffffff;
-    font-size: 1em;
-    font-family: "Quicksand", sans-serif;
-    overflow: hidden;
+  height: 100%;
+  color: #ffffff;
+  font-size: 1em;
+  font-family: "Quicksand", sans-serif;
+  overflow: hidden;
 
-    background: url('./images/bluebike.jpg') no-repeat top center fixed;
-    background-size: cover;
+  background: url('./images/bluebike.jpg') no-repeat top center fixed;
+  background-size: cover;
 }
 
 button:focus {
@@ -54,70 +54,70 @@ button:focus {
 }
 
 #name-box{
-    font-weight: bold;
-    color: white;
-    position: fixed;
-    font-size: 4vh;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 25vw;
-    height: 7vh;
-    border: 1px solid;
-    border-radius: 8px;
-    background-color: transparent;
-    text-align: center;
+  font-weight: bold;
+  color: white;
+  position: fixed;
+  font-size: 4vh;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25vw;
+  height: 7vh;
+  border: 1px solid;
+  border-radius: 8px;
+  background-color: transparent;
+  text-align: center;
 }
 
 #play-box {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    color: white;
-    position: fixed;
-    font-size: 3.5vh;
-    top: 65%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 1px solid;
-    border-radius: 14px;
-    background-color: transparent;
-    text-align: center;
-    padding: 1vh 1vw;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  position: fixed;
+  font-size: 3.5vh;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid;
+  border-radius: 14px;
+  background-color: transparent;
+  text-align: center;
+  padding: 1vh 1vw;
 }
 
 #join-box {
   -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    color: white;
-    position: fixed;
-    font-size: 2.5vh;
-    top: 91%;
-    left: 82.5%;
-    transform: translate(-50%, -50%);
-    border: 1px solid;
-    border-radius: 6px;
-    background-color: transparent;
-    text-align: center;
-    padding: 2vh 2vw;
-    z-index: 3;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  position: fixed;
+  font-size: 2.5vh;
+  top: 91%;
+  left: 82.5%;
+  transform: translate(-50%, -50%);
+  border: 1px solid;
+  border-radius: 6px;
+  background-color: transparent;
+  text-align: center;
+  padding: 2vh 2vw;
+  z-index: 3;
 }
 
 #music-box {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    color: white;
-    position: fixed;font-size: 2vh;
-    top: 90%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-    border: 1px solid;
-    border-radius: 14px;
-    background-color: transparent;
-    text-align: center;
-    padding: 1vh 1vw;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: white;
+  position: fixed;font-size: 2vh;
+  top: 90%;
+  left: 10%;
+  transform: translate(-50%, -50%);
+  border: 1px solid;
+  border-radius: 14px;
+  background-color: transparent;
+  text-align: center;
+  padding: 1vh 1vw;
 }
 
 .glyphicon {
@@ -156,9 +156,9 @@ ul {
 }
 
 #listName {
-color: #c8c8c8;
-background-color:#303030;
-text-align: left
+  color: #c8c8c8;
+  background-color:#303030;
+  text-align: left
 }
 
 .listName-item{
@@ -169,39 +169,39 @@ text-align: left
 }
 
 #chat-box {
-    transform: scale(1.1,1.1);
-    font-size: 1.1em;
-    bottom: 20%;
-    margin-left: 18%;
-    position: fixed;
-    width: 75%;
-    max-width: 80em;
-    height: 60%;
-    z-index: 1;
-    float: right;
-    background: black;
-    border: 2px solid white;
-    border-radius: 10px;
+  transform: scale(1.1,1.1);
+  font-size: 1.1em;
+  bottom: 20%;
+  margin-left: 18%;
+  position: fixed;
+  width: 75%;
+  max-width: 80em;
+  height: 60%;
+  z-index: 1;
+  float: right;
+  background: black;
+  border: 2px solid white;
+  border-radius: 10px;
 }
 
 #chat-bar {
-    height: 3rem;
-    position: absolute;
-    bottom: -29%;
-    left: 3.9%;
-    width: 82%;
-    height: 12%;
-    transform: scale(1.1, 1.1);
-    background-color: grey;
-    margin-bottom: 5%;
-    box-sizing: inherit;
-    padding-top: 0.5em;
-    padding-left: 2.5%;
-    border-left: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    border-right: 1px solid #aaa;
-    border-radius: 10px;
-    color: black;
+  height: 3rem;
+  position: absolute;
+  bottom: -29%;
+  left: 3.9%;
+  width: 82%;
+  height: 12%;
+  transform: scale(1.1, 1.1);
+  background-color: grey;
+  margin-bottom: 5%;
+  box-sizing: inherit;
+  padding-top: 0.5em;
+  padding-left: 2.5%;
+  border-left: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  border-right: 1px solid #aaa;
+  border-radius: 10px;
+  color: black;
 }
 
 #message-box {

@@ -18,7 +18,7 @@ const removeUser = (userId) => ({
   userId
 });
 
-const readyPlayer = (playerId) => ({
+const startReady = (playerId) => ({
   type: READY_PLAYER,
   playerId
 });
@@ -32,7 +32,7 @@ const addUserName = (userId, playerName) => ({
   type: ADD_USER_NAME,
   userId,
   playerName
-})
+});
 
 
 /* --------------- THUNK ACTION CREATORS --------------- */
@@ -51,11 +51,11 @@ const removeUserAndEmit = socket => {
   };
 };
 
-const startReady = playerId => {
-  return dispatch => {
-    dispatch(readyPlayer(playerId));
-  };
-};
+// const startReady = playerId => {
+//   return dispatch => {
+//     dispatch(readyPlayer(playerId));
+//   };
+// };
 /* --------------- REDUCER --------------- */
 const initialState = [
   {id: ''},
@@ -83,13 +83,13 @@ function userReducer (state = initialState, action) {
       return newUser;
 
     case READY_PLAYER:
-    return state.map((user) => {
-      if (user.id === action.playerId) {
-        user.readyToPlay = true;
-        user.active = true;
-      }
-      return user;
-    });
+      return state.map((user) => {
+        if (user.id === action.playerId) {
+          user.readyToPlay = true;
+          user.active = true;
+        }
+        return user;
+      });
 
     case REMOVE_USER:
       return newUser.map(user => {
@@ -127,7 +127,6 @@ module.exports = {
   addUser,
   REMOVE_USER,
   removeUser,
-  readyPlayer,
   createAndEmitUser,
   removeUserAndEmit,
   userReducer,

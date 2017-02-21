@@ -1,12 +1,14 @@
 import world, { speed } from './world';
+import store from '../store';
 import socket from '../socket';
+
+// const me = store.getState().mainPlayer;
 
 const turnLeft = (player) => {
   socket.emit('directionChange', {
     id: player.id,
     turn: 'left'
   });
-  return player;
 };
 
 const turnRight = (player) => {
@@ -14,7 +16,6 @@ const turnRight = (player) => {
     id: player.id,
     turn: 'right'
   });
-  return player;
 };
 
 const turnUp = (player) => {
@@ -22,7 +23,6 @@ const turnUp = (player) => {
     id: player.id,
     turn: 'up'
   });
-  return player;
 };
 
 const turnDown = (player) => {
@@ -30,7 +30,11 @@ const turnDown = (player) => {
     id: player.id,
     turn: 'down'
   });
-  return player;
 };
 
-export { turnLeft, turnRight, turnUp, turnDown };
+export const turnPlayer = (direction, me) => {
+  if (direction === 37 || direction === 65) turnLeft(me);
+  if (direction === 39 || direction === 68) turnRight(me);
+  if (direction === 38 || direction === 87) turnUp(me);
+  if (direction === 40 || direction === 83) turnDown(me);
+};
