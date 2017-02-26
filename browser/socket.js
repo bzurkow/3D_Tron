@@ -92,7 +92,6 @@ export const initializeSocket = () => {
   });
 
   socket.on('endGame', (lastStanding) => {
-    // let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0];
     console.log("lastStanding", lastStanding);
     store.dispatch(declareWinner(lastStanding));
     console.log("END GAME", store.getState().players);

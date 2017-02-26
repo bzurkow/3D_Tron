@@ -10,7 +10,7 @@ const App = ({ gameState }) => {
     <div>
       {gameState.isEnter && !gameState.isPlaying && <Landing /> }
       {!gameState.isEnter && !gameState.isPlaying && <LobbyRoom /> }
-      {gameState.isPlaying  && <Game />}
+      {gameState.isPlaying && <Game />}
     </div>
   );
 };

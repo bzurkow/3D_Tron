@@ -9,17 +9,6 @@ import { DeadNoWinner, Winner, DeadWithWinner} from './InGame';
 
 console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
 
-document.addEventListener('keydown', (event) => {
-  const TURN_AUDIO = document.createElement('audio');
-  TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
-  TURN_AUDIO.load();
-  const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-  const player = store.getState().mainPlayer;
-  if (validKeys.includes(event.keyCode)) {
-    turnPlayer(event.keyCode, player);
-    TURN_AUDIO.play();
-  }
-});
 
 class Game extends Component {
 
@@ -32,23 +21,35 @@ class Game extends Component {
       player.si = setInterval(player.tail, 10);
     });
     myPlayer.ball.add(world.camera);
+
+    document.addEventListener('keydown', (event) => {
+      const TURN_AUDIO = document.createElement('audio');
+      TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
+      TURN_AUDIO.load();
+      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+      const player = store.getState().mainPlayer;
+      if (validKeys.includes(event.keyCode)) {
+        turnPlayer(event.keyCode, player);
+        TURN_AUDIO.play();
+      }
+    });
   }
 
   render() {
-  return (
-    <div>
-    {
-      this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
-    }
-    {
-      this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
-    }
+    return (
+      <div>
+      {
+        this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
+      }
+      {
+        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
+      }
 
-    {
-      this.props.mainPlayer.winner ? <Winner /> : null
-    }
-    </div>
-    );
+      {
+        this.props.mainPlayer.winner ? <Winner /> : null
+      }
+      </div>
+  );
   }
 }
 

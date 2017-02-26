@@ -24,7 +24,7 @@ module.exports = io => {
 
     socket.on('playerName', (socketId, playerName) => {
       store.dispatch(addUserName(socketId, playerName));
-      socket.broadcast.emit('addPlayerName', socketId, playerName);
+      io.sockets.emit('addPlayerName', socketId, playerName);
     });
 
     socket.on('newMessage', (message, socketId) => {
@@ -37,13 +37,8 @@ module.exports = io => {
       store.dispatch(startReady(playerId));
       let checkReadyUsers = store.getState().users.filter(user => user.id);
 
-// gamePlay
-//       if (checkReadyUsers.length > 1 &&
-
-
-// test for debug
       if (checkReadyUsers.length >= 1 &&
-          checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
+          checkReadyUsers.length === checkReadyUsers.filter(user => user.readyToPlay).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
       }
