@@ -16,15 +16,13 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
     const allUsers = store.getState().users;
-    console.log("ALL USERS", allUsers);
     io.sockets.emit('addUser', allUsers);
 
     //Player ready in landing page
     //We need to update this so that game starting works smoothly
-
     socket.on('playerName', (socketId, playerName) => {
       store.dispatch(addUserName(socketId, playerName));
-      socket.broadcast.emit('addPlayerName', socketId, playerName);
+      io.sockets.emit('addPlayerName', socketId, playerName);
     });
 
     socket.on('newMessage', (message, socketId) => {
@@ -37,13 +35,8 @@ module.exports = io => {
       store.dispatch(startReady(playerId));
       let checkReadyUsers = store.getState().users.filter(user => user.id);
 
-// gamePlay
-//       if (checkReadyUsers.length > 1 &&
-
-
-// test for debug
       if (checkReadyUsers.length >= 1 &&
-          checkReadyUsers.length  === checkReadyUsers.filter(user => user.readyToPlay === true).length) {
+          checkReadyUsers.length === checkReadyUsers.filter(user => user.readyToPlay).length) {
         // if (users.filter(user => user.readyToPlay).length === 3) {
         io.sockets.emit('startGame');
       }
@@ -62,8 +55,9 @@ module.exports = io => {
         console.log(chalk.red(store.getState().users.filter(user => user.active === true).length));
       }
 
-      if (store.getState().users.filter(user => user.active === true).length === 1){
-        io.sockets.emit('endGame');
+      const lastStanding = store.getState().users.filter(user => user.active);
+      if (lastStanding.length === 1){
+        io.sockets.emit('endGame', lastStanding[0].id);
       }
     });
 

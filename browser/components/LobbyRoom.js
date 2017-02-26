@@ -51,9 +51,7 @@ class LobbyRoom extends Component {
 }
 
 const mapStateToProps = ({ gameState, players}) => ({ gameState, players });
-const mapDispatchToProps = dispatch => ({
-    addPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.value))
-});
+const mapDispatchToProps = null;
 
 export default connect(
   mapStateToProps,

@@ -1,6 +1,4 @@
 import allPlayers from '../game/players';
-import world from '../game/world';
-import store from '../store';
 
 /*----------  INITIAL STATE  ----------*/
 const initialState = allPlayers;
@@ -34,9 +32,9 @@ export const onDeath = (player) => ({
   player
 });
 
-export const declareWinner = (player) => ({
+export const declareWinner = (playerId) => ({
   type: DECLARE_WINNER,
-  player
+  playerId
 });
 
 /*----------  THUNK CREATORS  ----------*/
@@ -84,7 +82,7 @@ export default (players = initialState, action) => {
 
     case DECLARE_WINNER:
       return players.map((player) => {
-        if (player.signature === action.player.signature){
+        if (player.id === action.playerId){
           player.winner = true;
         }
         return player;

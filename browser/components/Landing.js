@@ -13,31 +13,13 @@ import store from '../store';
 // import BugReportForm from './BugReportForm';
 
 class Landing extends Component {
-  constructor(props) {
-    super(props);
-    // this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
-  }
-
 
   render() {
-
-  function playerNameEmitter(event) {
-    event.preventDefault();
-    console.log("GETTING HERE?");
-    const socketId = localStorage.getItem('mySocketId');
-    const playerName = event.target.nickName.value;
-    socket.emit('playerName', socketId, playerName);
-    store.dispatch(addPlayerName(socketId, event.target.nickName.value));
-    store.dispatch(enterLobby());
-  }
-
-    //let { isPlaying } = this.props.gameState;
-    // let { bugReportOpen } = this.props.controlPanel;
     return (
       <div className="input-field">
         <div id="title">3D TRON</div>
         <div className="input-field">
-        <form onSubmit = {playerNameEmitter} >
+        <form onSubmit={this.props.playerNameEmitter} >
           <input
             name="nickName"
             maxLength={15}
@@ -49,7 +31,6 @@ class Landing extends Component {
           <button
             className="btn waves-effect"
             type="submit"
-            // onClick = { this.props.enterLobby }
             id="play-box">Enter
           </button>
         </form>
@@ -69,27 +50,14 @@ class Landing extends Component {
 
 const mapStateToProps = ({ gameState, players, musicPlayer }) => ({ gameState, players, musicPlayer });
 const mapDispatchToProps = dispatch => ({
-  enterLobby: () => dispatch(enterLobby()),
-  setPlayerName: e => dispatch(addPlayerName(localStorage.getItem('mySocketId'), e.target.nickName.value)),
-  toggleSong: event => dispatch(toggleSong())
+  playerNameEmitter: (event) => {
+    event.preventDefault();
+    const socketId = localStorage.getItem('mySocketId');
+    const playerName = event.target.nickName.value;
+    socket.emit('playerName', socketId, playerName);
+    dispatch(enterLobby());
+  },
+  toggleSong: () => dispatch(toggleSong())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
-
-// onClick = { this.props.enterLobby }
-
-// <div className="input-field">
-//   <input value={nickname}
-//     onChange={updateNickname}
-//     onKeyPress={enterChatRoom}
-//     maxLength={15}
-//     type="text"
-//     id="name-box"
-//     placeholder="nickname"
-//     autoFocus/>
-//   <button className="Buttons"
-//     type="submit"
-//     style={nickname.trim() ? { color: 'white' } : { color: 'grey' }}
-//     onClick={enterChatRoom}
-//     id="play-box">Join a game</button>
-// </div>
