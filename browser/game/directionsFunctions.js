@@ -2,8 +2,6 @@ import world, { speed } from './world';
 import store from '../store';
 import socket from '../socket';
 
-// const me = store.getState().mainPlayer;
-
 const turnLeft = (player) => {
   socket.emit('directionChange', {
     id: player.id,

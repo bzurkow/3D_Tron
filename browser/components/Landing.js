@@ -1,54 +1,42 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import socket from '../socket';
 
-import { addPlayerName } from '../reducers/players';
 import { enterLobby } from '../reducers/gameState';
 import { toggleSong } from '../reducers/musicPlayer';
-import world from '../game/world';
-import store from '../store';
 
-//not needed yet
-// import ControlPanel from './ControlPanel';
-// import BugReportForm from './BugReportForm';
+const Landing = ({ musicPlayer, playerNameEmitter, toggleSong }) => (
+  <div className="input-field">
+    <div id="title">3D TRON</div>
+    <div className="input-field">
+    <form onSubmit={playerNameEmitter} >
+      <input
+        name="nickName"
+        maxLength={15}
+        type="text"
+        id="name-box"
+        placeholder="nickname"
+        autoFocus
+      />
+      <button
+        className="btn waves-effect"
+        type="submit"
+        id="play-box">Enter
+      </button>
+    </form>
+     <button
+      className="btn waves-effect"
+      onClick={() => toggleSong()}
+      id="music-box"
+      >
+      <span className={musicPlayer.songPlaying ? 'glyphicon glyphicon-volume-off' : 'glyphicon glyphicon-volume-up'} />
+      </button>
+    </div>
+    <div id="general"> Use "w a s d" or arrow keys to turn </div>
+  </div>
+);
 
-class Landing extends Component {
-
-  render() {
-    return (
-      <div className="input-field">
-        <div id="title">3D TRON</div>
-        <div className="input-field">
-        <form onSubmit={this.props.playerNameEmitter} >
-          <input
-            name="nickName"
-            maxLength={15}
-            type="text"
-            id="name-box"
-            placeholder="nickname"
-            autoFocus />
-
-          <button
-            className="btn waves-effect"
-            type="submit"
-            id="play-box">Enter
-          </button>
-        </form>
-         <button
-          className="btn waves-effect"
-          onClick={() => this.props.toggleSong()}
-          id="music-box"
-          >
-          <span className={this.props.musicPlayer.songPlaying ? 'glyphicon glyphicon-volume-off' : 'glyphicon glyphicon-volume-up'}></span>
-          </button>
-        </div>
-        <div id="general"> Use "w a s d" or arrow keys to turn </div>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = ({ gameState, players, musicPlayer }) => ({ gameState, players, musicPlayer });
+const mapStateToProps = ({ musicPlayer }) => ({ musicPlayer });
 const mapDispatchToProps = dispatch => ({
   playerNameEmitter: (event) => {
     event.preventDefault();
