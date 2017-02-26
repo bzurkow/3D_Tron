@@ -62,8 +62,9 @@ module.exports = io => {
         console.log(chalk.red(store.getState().users.filter(user => user.active === true).length));
       }
 
-      if (store.getState().users.filter(user => user.active === true).length === 1){
-        io.sockets.emit('endGame');
+      const lastStanding = store.getState().users.filter(user => user.active);
+      if (lastStanding.length === 1){
+        io.sockets.emit('endGame', lastStanding[0].id);
       }
     });
 

@@ -8,6 +8,8 @@ import world from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
 import { declareWinner, onDeath } from './reducers/players';
 
+import { cameraSetOnStart } from './game/gamePlayFunctions';
+
 const socket = io('/');
 
 export const initializeSocket = () => {
@@ -27,6 +29,11 @@ export const initializeSocket = () => {
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
+    myBike.ball.native.addEventListener('collision', (collidedWith) => {
+      // console.log("collidedWith", collidedWith);
+      socket.emit('ball-collision', {signature: myBike.signature, id: myBike.id});
+    });
+    cameraSetOnStart(myBike);
   });
 
   socket.on('addPlayerName', (socketId, playerName) => {
@@ -85,11 +92,12 @@ export const initializeSocket = () => {
     store.dispatch(removePlayer(userId));
   });
 
-  socket.on('endGame', () => {
-    let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0];
+  socket.on('endGame', (lastStanding) => {
+    // let lastStanding = store.getState().players.filter(player => player.status === 'alive')[0];
     console.log("lastStanding", lastStanding);
     store.dispatch(declareWinner(lastStanding));
-    setTimeout(() => window.location.reload(true), 10000);
+    console.log("END GAME", store.getState().players);
+    // setTimeout(() => window.location.reload(true), 10000);
   });
 };
 

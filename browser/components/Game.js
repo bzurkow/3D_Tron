@@ -21,11 +21,6 @@ class Game extends Component {
     players.forEach(player => {
       player.si = setInterval(player.tail, 10);
     });
-    myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
-      // console.log("collidedWith", collidedWith);
-      socket.emit('ball-collision', {signature: myPlayer.signature, id: myPlayer.id});
-    });
-    cameraSetOnStart(myPlayer);
   }
 
   render() {
@@ -34,8 +29,8 @@ class Game extends Component {
     TURN_AUDIO.load();
 
     const player = this.props.mainPlayer;
-    player.ball.add(world.camera);
     const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+    player.ball.add(world.camera);
 
     document.addEventListener('keydown', (event) => {
       if (validKeys.includes(event.keyCode)) {
@@ -44,19 +39,20 @@ class Game extends Component {
       }
     });
 
-  return (
-      <div>
-      {
-        this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
-      }
-      {
-        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
-      }
-      {
-        this.props.mainPlayer.winner === true ? <Winner /> : null
-      }
-      </div>
-    );
+    // {
+    //   this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
+    // }
+    // {
+    //   this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
+    // }
+  // return (
+  //
+  //
+  //       this.props.mainPlayer.winner ? <div><Winner /></div> : null
+  //
+  //
+  //   );
+  return null;
   }
 }
 
