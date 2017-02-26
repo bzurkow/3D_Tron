@@ -14,7 +14,7 @@ describe("|----- BACKEND User Reducer -----|", () => {
 
   it('has proper initial state', () => {
     expect(testStore.getState()).to.be.deep.equal([
-      {id: ''}, {id: ''}, {id: ''}, {id: ''}, {id: ''}, {id: ''}
+      {id: '', active: false, readyToPlay: false}, {id: '', active: false, readyToPlay: false}, {id: '', active: false, readyToPlay: false}, {id: '', active: false, readyToPlay: false}, {id: '', active: false, readyToPlay: false}, {id: '', active: false, readyToPlay: false}
     ]);
   });
 
