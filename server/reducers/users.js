@@ -58,12 +58,12 @@ const removeUserAndEmit = socket => {
 // };
 /* --------------- REDUCER --------------- */
 const initialState = [
-  {id: ''},
-  {id: ''},
-  {id: ''},
-  {id: ''},
-  {id: ''},
-  {id: ''}
+  {id: '', active: false, readyToPlay: false},
+  {id: '', active: false, readyToPlay: false},
+  {id: '', active: false, readyToPlay: false},
+  {id: '', active: false, readyToPlay: false},
+  {id: '', active: false, readyToPlay: false},
+  {id: '', active: false, readyToPlay: false}
 ];
 
 function userReducer (state = initialState, action) {

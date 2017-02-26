@@ -33,7 +33,6 @@ export const initializeSocket = () => {
       // console.log("collidedWith", collidedWith);
       socket.emit('ball-collision', {signature: myBike.signature, id: myBike.id});
     });
-    cameraSetOnStart(myBike);
   });
 
   socket.on('addPlayerName', (socketId, playerName) => {
@@ -97,7 +96,7 @@ export const initializeSocket = () => {
     console.log("lastStanding", lastStanding);
     store.dispatch(declareWinner(lastStanding));
     console.log("END GAME", store.getState().players);
-    // setTimeout(() => window.location.reload(true), 10000);
+    setTimeout(() => window.location.reload(true), 10000);
   });
 };
 

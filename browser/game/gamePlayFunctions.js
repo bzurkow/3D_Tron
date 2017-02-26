@@ -112,13 +112,13 @@ export const collisionHandler = player => {
   world.scene.remove(player.ball.native);
   world.scene.remove(player.bike.native);
   if (player.id === me.id) {
-		player.ball.remove(world.camera);
+		me.ball.remove(world.camera);
 		world.setControls(new WHS.OrbitControls());
     store.dispatch(onDeathMainPlayer(me));
   }
 
 	// WHEN THIS IS USED WE GET OUR PROBLEM
-  // store.dispatch(onDeath(player));
+  store.dispatch(onDeath(player));
 	if (player.walls.length !== 0) {
 		player.walls.forEach(wall => world.scene.remove(wall.native));
 	}
