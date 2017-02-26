@@ -5,7 +5,7 @@ import { turnPlayer } from '../game/directionsFunctions';
 import store from '../store';
 import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions';
-import { DeadNoWinner, Winner, DeadWithWinner} from './InGame';
+import { DeadNoWinner, Winner, DeadWithWinner } from './InGame';
 
 class Game extends Component {
 
@@ -29,9 +29,8 @@ class Game extends Component {
       TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
       TURN_AUDIO.load();
       const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-      const player = store.getState().mainPlayer;
       if (validKeys.includes(event.keyCode)) {
-        turnPlayer(event.keyCode, player);
+        turnPlayer(event.keyCode, myPlayer);
         TURN_AUDIO.play();
       }
     });
@@ -44,7 +43,7 @@ class Game extends Component {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
       {
-        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
+        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner players={this.props.players} /> : null
       }
 
       {

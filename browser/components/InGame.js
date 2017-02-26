@@ -23,7 +23,7 @@ export const Winner = () => (
   </div>
 );
 
-const DeadWithWinner = ({ players }) => (
+export const DeadWithWinner = ({ players }) => (
   <div>
     <div className="input-field">
       <div id="title">{players.find(player => player.winner).playerName} Wins!</div>
@@ -33,5 +33,3 @@ const DeadWithWinner = ({ players }) => (
     </div>
   </div>
 );
-
-export default connect(({ players }) => ({ players }))(DeadWithWinner);
