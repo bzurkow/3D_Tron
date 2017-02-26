@@ -51,11 +51,6 @@ const removeUserAndEmit = socket => {
   };
 };
 
-// const startReady = playerId => {
-//   return dispatch => {
-//     dispatch(readyPlayer(playerId));
-//   };
-// };
 /* --------------- REDUCER --------------- */
 const initialState = [
   {id: '', active: false, readyToPlay: false},
@@ -66,7 +61,7 @@ const initialState = [
   {id: '', active: false, readyToPlay: false}
 ];
 
-function userReducer (state = initialState, action) {
+function userReducer(state = initialState, action) {
 
   const newUser = [...state];
 

@@ -1,14 +1,11 @@
 import store from './store';
-import { setPlayerId, updatePlayer, addPlayerName, removePlayer } from './reducers/players';
-import { startGame, stopGame} from './reducers/gameState';
+import { setPlayerId, addPlayerName, removePlayer, declareWinner } from './reducers/players';
+import { startGame } from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
 import world from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
-import { declareWinner, onDeath } from './reducers/players';
-
-import { cameraSetOnStart } from './game/gamePlayFunctions';
 
 const socket = io('/');
 
@@ -24,31 +21,21 @@ export const initializeSocket = () => {
 
   socket.on('addUser', (allUsers) => {
     store.dispatch(setPlayerId(allUsers));
-    console.log('ALL USERS ****', allUsers);
-
     const myUser = allUsers.find(user => user.id === localStorage.getItem('mySocketId'));
     const myBike = allBikes.find(bike => bike.id === myUser.id);
     store.dispatch(setMainPlayer(myBike));
-    myBike.ball.native.addEventListener('collision', (collidedWith) => {
-      // console.log("collidedWith", collidedWith);
-      socket.emit('ball-collision', {signature: myBike.signature, id: myBike.id});
-    });
   });
 
   socket.on('addPlayerName', (socketId, playerName) => {
-    console.log("ADD OTHER PLAYERS NAME", socketId, playerName);
     store.dispatch(addPlayerName(socketId, playerName));
   });
 
   socket.on('addNewMessage', (text, senderName) => {
-    console.log("RECEIVE MESSAGE & SENDERNAME FRONTEND ***", text, senderName);
     store.dispatch(receiveMessage({text: text, name: senderName}));
-
   });
 
   socket.on('startGame', () => {
     allBikes.forEach(player => {
-      console.log(player);
       if (!player.id) {
         world.scene.remove(player.ball.native);
         world.scene.remove(player.bike.native);
@@ -87,14 +74,13 @@ export const initializeSocket = () => {
   });
 
   socket.on('removePlayer', userId => {
-    console.log("ARE WE REMOVING PLAYER ON THE FRONT END?");
     store.dispatch(removePlayer(userId));
   });
 
   socket.on('endGame', (lastStanding) => {
-    console.log("lastStanding", lastStanding);
+    // console.log("lastStanding", lastStanding);
     store.dispatch(declareWinner(lastStanding));
-    console.log("END GAME", store.getState().players);
+    // console.log("END GAME", store.getState().players);
     setTimeout(() => window.location.reload(true), 10000);
   });
 };

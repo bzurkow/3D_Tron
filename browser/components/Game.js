@@ -7,20 +7,22 @@ import socket from '../socket';
 import { cameraSetOnStart } from '../game/gamePlayFunctions';
 import { DeadNoWinner, Winner, DeadWithWinner} from './InGame';
 
-console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
-
-
 class Game extends Component {
 
   componentDidMount() {
     const players = this.props.players;
     const myPlayer = this.props.mainPlayer;
     world.start();
+    myPlayer.ball.add(world.camera);
     cameraSetOnStart(myPlayer);
     players.forEach(player => {
       player.si = setInterval(player.tail, 10);
     });
-    myPlayer.ball.add(world.camera);
+
+    myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
+      // console.log("collidedWith", collidedWith);
+      socket.emit('ball-collision', {signature: myPlayer.signature, id: myPlayer.id});
+    });
 
     document.addEventListener('keydown', (event) => {
       const TURN_AUDIO = document.createElement('audio');

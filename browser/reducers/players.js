@@ -1,6 +1,4 @@
 import allPlayers from '../game/players';
-import world from '../game/world';
-import store from '../store';
 
 /*----------  INITIAL STATE  ----------*/
 const initialState = allPlayers;

@@ -16,12 +16,10 @@ module.exports = io => {
     // New user enters; create new user and new user appears for everyone else
     store.dispatch(createAndEmitUser(socket));
     const allUsers = store.getState().users;
-    console.log("ALL USERS", allUsers);
     io.sockets.emit('addUser', allUsers);
 
     //Player ready in landing page
     //We need to update this so that game starting works smoothly
-
     socket.on('playerName', (socketId, playerName) => {
       store.dispatch(addUserName(socketId, playerName));
       io.sockets.emit('addPlayerName', socketId, playerName);

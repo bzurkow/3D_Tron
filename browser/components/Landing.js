@@ -13,23 +13,8 @@ import store from '../store';
 // import BugReportForm from './BugReportForm';
 
 class Landing extends Component {
-  constructor(props) {
-    super(props);
-    // this.playerNameEmitter = this.playerNameEmitter.bind(this);
-  }
-
-  // playerNameEmitter(event) {
-  //   event.preventDefault();
-  //   console.log("GETTING HERE?");
-  //   const socketId = localStorage.getItem('mySocketId');
-  //   const playerName = event.target.nickName.value;
-  //   socket.emit('playerName', socketId, playerName);
-  //   // store.dispatch(addPlayerName(socketId, event.target.nickName.value));
-  //   store.dispatch(enterLobby());
-  // }
 
   render() {
-
     return (
       <div className="input-field">
         <div id="title">3D TRON</div>
@@ -67,32 +52,12 @@ const mapStateToProps = ({ gameState, players, musicPlayer }) => ({ gameState, p
 const mapDispatchToProps = dispatch => ({
   playerNameEmitter: (event) => {
     event.preventDefault();
-    console.log("GETTING HERE?");
     const socketId = localStorage.getItem('mySocketId');
     const playerName = event.target.nickName.value;
     socket.emit('playerName', socketId, playerName);
-    // store.dispatch(addPlayerName(socketId, event.target.nickName.value));
-    store.dispatch(enterLobby());
+    dispatch(enterLobby());
   },
   toggleSong: () => dispatch(toggleSong())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
-
-// onClick = { this.props.enterLobby }
-
-// <div className="input-field">
-//   <input value={nickname}
-//     onChange={updateNickname}
-//     onKeyPress={enterChatRoom}
-//     maxLength={15}
-//     type="text"
-//     id="name-box"
-//     placeholder="nickname"
-//     autoFocus/>
-//   <button className="Buttons"
-//     type="submit"
-//     style={nickname.trim() ? { color: 'white' } : { color: 'grey' }}
-//     onClick={enterChatRoom}
-//     id="play-box">Join a game</button>
-// </div>

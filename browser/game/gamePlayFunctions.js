@@ -117,8 +117,9 @@ export const collisionHandler = player => {
     store.dispatch(onDeathMainPlayer(me));
   }
 
-	// WHEN THIS IS USED WE GET OUR PROBLEM
+	// WHEN THIS IS USED WE (used to) GET OUR PROBLEM
   store.dispatch(onDeath(player));
+
 	if (player.walls.length !== 0) {
 		player.walls.forEach(wall => world.scene.remove(wall.native));
 	}
