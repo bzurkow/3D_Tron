@@ -40,6 +40,7 @@
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
     "redux": "^3.6.0",
+    "redux-devtools-extension": "^1.0.0",
     "redux-logger": "^2.7.4",
     "redux-thunk": "^2.1.0",
     "sequelize": "^3.26.0",
@@ -56,7 +57,6 @@
     "enzyme": "^2.7.1",
     "mocha": "^2.3.3",
     "react-addons-test-utils": "^15.4.0",
-    "redux-devtools-extension": "^1.0.0",
     "sinon": "^1.17.7",
     "supertest": "^1.1.0",
     "supertest-as-promised": "^3.1.0"
