@@ -43,7 +43,7 @@ class Game extends Component {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
       {
-        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner players={this.props.players} /> : null
+        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner).length === 1 ? <DeadWithWinner players={this.props.players} /> : null
       }
 
       {

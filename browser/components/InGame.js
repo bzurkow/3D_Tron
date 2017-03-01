@@ -2,7 +2,7 @@ import React from 'react';
 
 export const DeadNoWinner = () => (
   <div>
-    <div className="input-field">
+    <div className="end-game">
       <div id="title">You Crashed!</div>
     </div>
     <div id="general">
@@ -13,7 +13,7 @@ export const DeadNoWinner = () => (
 
 export const Winner = () => (
   <div>
-    <div className="input-field">
+    <div className="end-game">
       <div id="title">You Win!</div>
     </div>
     <div id="general">
@@ -24,7 +24,7 @@ export const Winner = () => (
 
 export const DeadWithWinner = ({ players }) => (
   <div>
-    <div className="input-field">
+    <div className="end-game">
       <div id="title">{players.find(player => player.winner).playerName} Wins!</div>
     </div>
     <div id="general">

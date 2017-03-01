@@ -6,9 +6,9 @@ import { enterLobby } from '../reducers/gameState';
 import { toggleSong } from '../reducers/musicPlayer';
 
 const Landing = ({ musicPlayer, playerNameEmitter, toggleSong }) => (
-  <div className="input-field">
+  <div className="end-game">
     <div id="title">3D TRON</div>
-    <div className="input-field">
+    <div className="end-game">
     <form onSubmit={playerNameEmitter} >
       <input
         name="nickName"
