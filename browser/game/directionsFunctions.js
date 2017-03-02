@@ -1,5 +1,4 @@
-import world, { speed } from './world';
-import store from '../store';
+'use strict';
 import socket from '../socket';
 
 const turnLeft = (player) => {

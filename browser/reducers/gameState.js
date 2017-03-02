@@ -1,3 +1,4 @@
+'use strict';
 /*-------- ACTION TYPES  ---------*/
 
 //const IS_DISPLAYED = 'IS_DISPLAYED';

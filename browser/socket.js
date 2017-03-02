@@ -1,11 +1,12 @@
+'use strict';
 import store from './store';
 import { setPlayerId, addPlayerName, removePlayer, declareWinner } from './reducers/players';
 import { startGame } from './reducers/gameState';
 import { setMainPlayer } from './reducers/mainPlayer';
 import { receiveMessage } from './reducers/messages';
 import { left, right, up, down } from './game/turnFunctions';
-import world from './game/world';
 import { cameraSet, collisionHandler } from './game/gamePlayFunctions';
+import world from './game/world';
 
 const socket = io('/');
 

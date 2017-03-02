@@ -1,3 +1,4 @@
+'use strict';
 /*----------  INITIAL STATE  ----------*/
 const initialState = [];
 

@@ -1,9 +1,10 @@
+'use strict';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import world from '../game/world';
-import { turnPlayer } from '../game/directionsFunctions';
-import store from '../store';
 import socket from '../socket';
+
+import { turnPlayer } from '../game/directionsFunctions';
 import { cameraSetOnStart } from '../game/gamePlayFunctions';
 import { DeadNoWinner, Winner, DeadWithWinner } from './InGame';
 

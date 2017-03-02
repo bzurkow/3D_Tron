@@ -1,3 +1,4 @@
+'use strict';
 const AUDIO = document.createElement('audio');
 AUDIO.src = 'mp3/SoundTrack.mp3';
 AUDIO.load();

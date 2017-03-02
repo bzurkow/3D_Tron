@@ -1,5 +1,5 @@
+'use strict';
 /* --------------- ACTIONS --------------- */
-
 const ADD_USER = 'ADD_USER';
 const REMOVE_USER = 'REMOVE_USER';
 const READY_PLAYER = 'READY_PLAYER';

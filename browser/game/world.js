@@ -1,3 +1,4 @@
+'use strict';
 // const WHS = require('whitestormjs');
 import { field } from './field';
 

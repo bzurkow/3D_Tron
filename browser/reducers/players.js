@@ -1,3 +1,4 @@
+'use strict';
 import allPlayers from '../game/players';
 
 /*----------  INITIAL STATE  ----------*/

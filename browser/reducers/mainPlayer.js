@@ -1,3 +1,4 @@
+'use strict';
 /*----------  ACTION TYPES  ----------*/
 const SET_MAIN_PLAYER = 'SET_MAIN_PLAYER';
 const MAIN_PLAYER_DEATH = 'MAIN_PLAYER_DEATH';

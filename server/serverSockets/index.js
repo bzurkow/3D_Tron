@@ -1,3 +1,4 @@
+'use strict';
 const socketio = require('socket.io');
 
 let IO = null;

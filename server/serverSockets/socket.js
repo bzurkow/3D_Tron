@@ -1,3 +1,4 @@
+'use strict';
 const chalk = require('chalk');
 const store = require('../store');
 const {
