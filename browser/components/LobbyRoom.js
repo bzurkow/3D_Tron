@@ -1,60 +1,39 @@
 'use strict';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import socket from '../socket';
 import Chat from './Chat';
 
-class LobbyRoom extends Component {
-  constructor(props) {
-    super(props);
+const LobbyRoom = ({ exisitingPlayers, readyPlayerEmitter }) => (
+  <div id="lobbyRoom">
+    <div id="lobby-title">STAGING AREA</div>
+    <sidebar>
+      <h4 id="players-online">PLAYERS ONLINE</h4>
+      <ul id="listName">
+        {
+          exisitingPlayers.map(player =>
+            <li className="listName-item" key={player.id}>
+              {player.playerName}
+            </li>
+          )
+        }
+      </ul>
+    </sidebar>
+    <Chat />
 
-    this.readyPlayerEmitter = this.readyPlayerEmitter.bind(this);
-  }
+    <button
+      className="btn waves-effect"
+      type="submit"
+      onClick = {readyPlayerEmitter}
+      id="join-box">
+      Join
+    </button>
+  </div>
+);
 
-  readyPlayerEmitter() {
-    const socketId = localStorage.getItem('mySocketId');
-    socket.emit('readyPlayer', socketId);
-  }
+const mapStateToProps = ({ gameState, players }) => ({ gameState, exisitingPlayers: players.filter(player => player.id) });
+const mapDispatchToProps = () => ({
+  readyPlayerEmitter: () => socket.emit('readyPlayer', localStorage.getItem('mySocketId'))
+});
 
-  render() {
-    let exisitingPlayers = this.props.players.filter(player => player.id);
-
-    console.log('exisitingPlayer', exisitingPlayers)
-
-    return (
-      <div id="lobbyRoom">
-      <div id="lobby-title">STAGING AREA</div>
-        <sidebar>
-          <h4 id="players-online">PLAYERS ONLINE</h4>
-          <ul id="listName">
-            { exisitingPlayers.map((player, index) => {
-              return (
-                <li className="listName-item" key={index}>
-                {player.playerName}
-                </li>
-              );
-            })
-            }
-          </ul>
-        </sidebar>
-        <Chat />
-
-        <button
-          className="btn waves-effect"
-          type="submit"
-          onClick = {this.readyPlayerEmitter}
-          id="join-box">
-        Join</button>
-
-        </div>
-      );
-  }
-}
-
-const mapStateToProps = ({ gameState, players}) => ({ gameState, players });
-const mapDispatchToProps = null;
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LobbyRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(LobbyRoom);
