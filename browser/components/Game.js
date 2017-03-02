@@ -1,76 +1,57 @@
+'use strict';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import math from 'mathjs';
-import world, { speed } from '../game/world';
-import { turnPlayer } from '../reducers/mainPlayer';
-import store from '../store';
+import world from '../game/world';
 import socket from '../socket';
-import { cameraSetOnStart } from '../game/gamePlayFunctions'
-import { DeadNoWinner, Winner, DeadWithWinner} from './InGame'
 
-console.log("SOCKET ID LOCAL STORAGE (IN THE FRONT END)", localStorage.getItem('mySocketId'));
+import { turnPlayer } from '../game/directionsFunctions';
+import { cameraSetOnStart } from '../game/gamePlayFunctions';
+import { DeadNoWinner, Winner, DeadWithWinner } from './InGame';
 
 class Game extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    console.log("CDM PROPS", this.props)
     const players = this.props.players;
+    const myPlayer = this.props.mainPlayer;
     world.start();
+    myPlayer.ball.add(world.camera);
+    cameraSetOnStart(myPlayer);
     players.forEach(player => {
-      player.ball.native.addEventListener('collision', (collidedWith) => {
-        console.log("player", player)
-        console.log("collidedWith", collidedWith)
-        socket.emit('ball-collision', {signature: player.signature, id: player.id});
-      }, true);
       player.si = setInterval(player.tail, 10);
     });
-    cameraSetOnStart(this.props.mainPlayer)
+
+    myPlayer.ball.native.addEventListener('collision', (collidedWith) => {
+      // console.log("collidedWith", collidedWith);
+      socket.emit('ball-collision', {signature: myPlayer.signature, id: myPlayer.id});
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const TURN_AUDIO = document.createElement('audio');
+      TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
+      TURN_AUDIO.load();
+      const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
+      if (validKeys.includes(event.keyCode)) {
+        turnPlayer(event.keyCode, myPlayer);
+        TURN_AUDIO.play();
+      }
+    });
   }
 
-  render(){
-    const TURN_AUDIO = document.createElement('audio');
-    TURN_AUDIO.src = 'mp3/shortBikeTurn.m4a';
-    TURN_AUDIO.load();
-
-    if (this.props.mainPlayer) {
-      const player = this.props.mainPlayer;
-      player.ball.add(world.camera);
-
-      document.addEventListener('keydown', (event) => {
-        const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-        if (validKeys.includes(event.keyCode)) {
-          store.dispatch(turnPlayer(event.keyCode));
-          TURN_AUDIO.play();
-        }
-      });
-
-       document.addEventListener('keyup', (event) => {
-        const validKeys = [37, 39, 38, 40, 87, 65, 83, 68];
-        if (validKeys.includes(event.keyCode)) {
-          TURN_AUDIO.stop();
-        }
-      });
+  render() {
     return (
       <div>
-      { 
+      {
         this.props.mainPlayer.status === 'dead' && this.props.players.filter(player => player.winner === true).length === 0 ? <DeadNoWinner /> : null
       }
-      { 
-        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner === true).length === 1 ? <DeadWithWinner /> : null
+      {
+        this.props.mainPlayer.status === 'dead' && !this.props.mainPlayer.winner && this.props.players.filter(player => player.winner).length === 1 ? <DeadWithWinner players={this.props.players} /> : null
       }
-      { 
-        this.props.mainPlayer.winner === true ? <Winner /> : null
+
+      {
+        this.props.mainPlayer.winner ? <Winner /> : null
       }
       </div>
-
-    );
-  } else {
-    return null
-  }
-
+  );
   }
 }
 

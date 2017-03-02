@@ -1,3 +1,4 @@
+'use strict';
 const AUDIO = document.createElement('audio');
 AUDIO.src = 'mp3/SoundTrack.mp3';
 AUDIO.load();
@@ -6,7 +7,7 @@ AUDIO.autoplay = true;
 /*----------  INITIAL STATE  ----------*/
 const initialState = {
   songPlaying: true
-  }
+};
 
 /*----------  ACTION TYPES  ----------*/
 const START_PLAYING = 'START_PLAYING';
@@ -27,7 +28,6 @@ export const pause = () => {
   };
 };
 
-
 export const toggleSong = () => {
   return (dispatch, getState) => {
     const currentState = getState().musicPlayer;
@@ -38,9 +38,6 @@ export const toggleSong = () => {
     }
   };
 };
-
-
-
 
 /*----------  THUNK CREATORS  ----------*/
 

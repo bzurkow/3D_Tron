@@ -1,9 +1,7 @@
+'use strict';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import socket from '../socket';
-import { startChat, stopChat } from '../reducers/gameState';
-
-
 
 class Chat extends Component {
   constructor(props){
@@ -16,7 +14,7 @@ class Chat extends Component {
   }
 
   componentWillUpdate(){
-      this.refs.messageBox.scrollTop = this.refs.messageBox.scrollHeight;
+    this.refs.messageBox.scrollTop = this.refs.messageBox.scrollHeight;
   }
 
 
@@ -35,38 +33,34 @@ class Chat extends Component {
   render() {
     return (
       <div id="chat-box">
-          <div id="message-box">
-            <ul ref="messageBox"
-                id="message-list"
-                className="collection">
-              { this.props.messages && this.props.messages.map((message, i) => {
-                  return (
-                    <li key={i} className="message-item">
-                      {`${message.name}:   ${message.text}`}
-                    </li>
-                  )
-              })}
-            </ul>
-          </div>
-          <input ref="chatInput"
-                   value={this.state.message}
-                   onChange={this.updateMessage}
-                   onKeyPress={evt => { if (evt.key === 'Enter') this.sendMessage(); }}
-                   maxLength={70}
-                   type="text"
-                   id="chat-bar"
-                   placeholder="press 'enter' to send"/>
+        <div id="message-box">
+          <ul ref="messageBox"
+            id="message-list"
+            className="collection">
+            { this.props.messages && this.props.messages.map((message, i) => {
+              return (
+                <li key={i} className="message-item">
+                  {`${message.name}:   ${message.text}`}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <input
+          ref="chatInput"
+          value={this.state.message}
+          onChange={this.updateMessage}
+          onKeyPress={evt => { if (evt.key === 'Enter') this.sendMessage(); }}
+          maxLength={70}
+          type="text"
+          id="chat-bar"
+          placeholder="press 'enter' to send" />
       </div>
-      );
+    );
   }
 }
 
 const mapStateToProps = ({ messages, gameState }) => ({ messages, gameState });
+const mapDispatchToProps = null;
 
-const mapDispatchToProps = dispatch => ({
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Chat);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

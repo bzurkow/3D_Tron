@@ -1,3 +1,4 @@
+'use strict';
 const plane1 = new WHS.Box({
   geometry: {width: 1000, height: 1000, depth: 0},
   mass: 0,

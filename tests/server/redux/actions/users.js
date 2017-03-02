@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import {addUser, removeUser, readyPlayer, playerCollision} from '../../../../server/reducers/users';
+import {addUser, removeUser, startReady, playerCollision} from '../../../../server/reducers/users';
 
 describe("|----- BACKEND User Actions -----|", () => {
   const testUserId = '12345';
@@ -20,7 +20,7 @@ describe("|----- BACKEND User Actions -----|", () => {
   });
 
   it('Sets user to ready', () => {
-    expect(readyPlayer(testUserId)).to.be.deep.equal({
+    expect(startReady(testUserId)).to.be.deep.equal({
       type: 'READY_PLAYER',
       playerId: testUserId
     });

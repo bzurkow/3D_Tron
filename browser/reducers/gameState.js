@@ -1,3 +1,4 @@
+'use strict';
 /*-------- ACTION TYPES  ---------*/
 
 //const IS_DISPLAYED = 'IS_DISPLAYED';
@@ -12,7 +13,6 @@ const initialState = {
   isEnter: true
 };
 
-
 export const startGame = () => ({
   type: START_GAME,
 });
@@ -23,11 +23,7 @@ export const stopGame = () => ({
 
 export const enterLobby = () => ({
   type: ENTER_LOBBY
-})
-
-
-
-
+});
 
 /*-------REDUCER------------*/
 

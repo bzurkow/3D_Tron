@@ -1,3 +1,4 @@
+'use strict';
 const { createStore, applyMiddleware, combineReducers } = require('redux');
 const thunkMiddleware = require('redux-thunk').default;
 
